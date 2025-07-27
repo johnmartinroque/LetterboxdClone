@@ -22,6 +22,7 @@ function ActorDetailed() {
 
   return (
     <Container className="mt-4">
+      {/*
       <Row>
         <Col md={4}>
           <Card>
@@ -74,17 +75,19 @@ function ActorDetailed() {
           </Col>
         ))}
       </Row>
+      */}
 
       <Row>
         <Col md={8}>
-          <h5>FILM STARRING</h5>
-          <h6>{info.name}</h6>
+          <h5 style={{ color: "#b3b8b8ff" }}>FILM STARRING</h5>
+          <h3 style={{ color: "#ffffff" }}>{info.name}</h3>
           <Row>
             {movies.map((movie) => (
               <Col key={movie.id} sm={6} md={4} lg={2} className="mb-4">
                 <Card>
                   <Link to={`/film/${movie.id}`}>
                     <Card.Img
+                      className="rounded"
                       variant="top"
                       src={
                         movie.poster_path
@@ -116,15 +119,15 @@ function ActorDetailed() {
               }
             />
           </Card>
-          <h2>{info.name}</h2>
-          <p>
+          <h2 style={{ color: "#b3b8b8ff" }}>{info.name}</h2>
+          <p style={{ color: "#b3b8b8ff" }}>
             <strong>Biography:</strong>{" "}
             {info.biography || "No biography available."}
           </p>
-          <p>
+          <p style={{ color: "#b3b8b8ff" }}>
             <strong>Birthday:</strong> {info.birthday}
           </p>
-          <p>
+          <p style={{ color: "#b3b8b8ff" }}>
             <strong>Place of Birth:</strong> {info.place_of_birth}
           </p>
         </Col>
