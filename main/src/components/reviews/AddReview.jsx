@@ -5,7 +5,7 @@ function AddReview() {
   return (
     <div>
       <Card style={{ height: "40rem" }}>
-        <Card.Title></Card.Title>
+        <Card.Title style={{ color: "black" }}>something</Card.Title>
         <Card.Body></Card.Body>
       </Card>
     </div>

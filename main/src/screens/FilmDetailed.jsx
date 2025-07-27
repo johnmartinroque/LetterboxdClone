@@ -52,6 +52,19 @@ function FilmDetailed() {
               ? `https://image.tmdb.org/t/p/original${detail.backdrop_path}`
               : "https://via.placeholder.com/500x750?text=No+Image"
           }
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "cover",
+            WebkitMaskImage: `
+            linear-gradient(to top,    transparent 0%, black 20%, black 80%, transparent 100%),
+            linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%),
+            linear-gradient(to left,   transparent 0%, black 20%, black 80%, transparent 100%),
+            linear-gradient(to right,  transparent 0%, black 20%, black 80%, transparent 100%)`,
+            WebkitMaskComposite: "intersect",
+            WebkitMaskRepeat: "no-repeat",
+            WebkitMaskSize: "100% 100%",
+          }}
         />
       </Row>
       <Row>
