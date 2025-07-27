@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import CreateAccount from "../components/modals/CreateAccount";
 
 function Home() {
-  return <div>Home</div>;
+  const [showCreateAccount, setShowCreateAccount] = useState(false);
+  return (
+    <div>
+      Home
+      <CreateAccount />
+    </div>
+  );
 }
 
 export default Home;

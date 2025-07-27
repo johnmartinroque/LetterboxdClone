@@ -1,79 +1,64 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  Navbar,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+  Container,
+} from "react-bootstrap";
 function Header() {
   return (
-    <div>
-      <nav
-        className="navbar navbar-expand-lg navbar-light  "
-        style={{
-          backgroundColor: "transparent",
-          boxShadow: "none",
-        }}
-      >
-        <Link class="navbar-brand" to="/" style={{ color: "	#ffffff" }}>
-          Navbar
-        </Link>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <Link class="nav-link" to="/signin" style={{ color: "#ffffff" }}>
+    <Navbar
+      expand="lg"
+      variant="dark"
+      style={{ backgroundColor: "transparent" }}
+    >
+      <Container className="justify-content-center">
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav">
+          <div
+            className="d-flex align-items-center flex-wrap justify-content-center w-100 gap-3"
+            style={{ gap: "1rem" }}
+          >
+            <Nav className="d-flex flex-row align-items-center text-center">
+              <Navbar.Brand as={Link} to="/" style={{ color: "#ffffff" }}>
+                Navbar
+              </Navbar.Brand>
+              <Nav.Link as={Link} to="/signin" style={{ color: "#ffffff" }}>
                 Sign In
-              </Link>
-            </li>
-            <li class="nav-item active">
-              <Link
-                class="nav-link"
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
                 to="/createAccount"
                 style={{ color: "#ffffff" }}
               >
                 Create Account
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/films" style={{ color: "#ffffff" }}>
+              </Nav.Link>
+              <Nav.Link as={Link} to="/films" style={{ color: "#ffffff" }}>
                 Films
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/lists" style={{ color: "#ffffff" }}>
+              </Nav.Link>
+              <Nav.Link as={Link} to="/lists" style={{ color: "#ffffff" }}>
                 Lists
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/journal" style={{ color: "#ffffff" }}>
+              </Nav.Link>
+              <Nav.Link as={Link} to="/journal" style={{ color: "#ffffff" }}>
                 Journal
-              </Link>
-            </li>
-          </ul>
-          <form className="form-inline my-2 my-lg-0 d-flex">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
-        </div>
-      </nav>
-    </div>
+              </Nav.Link>
+            </Nav>
+
+            <Form className="d-flex">
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </div>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

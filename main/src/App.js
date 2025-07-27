@@ -5,10 +5,10 @@ import { Container } from "react-bootstrap";
 import Films from "./screens/Films";
 import FilmDetailed from "./screens/FilmDetailed";
 import ActorDetailed from "./screens/ActorDetailed";
-
+import "./css/App.css";
 function App() {
   return (
-    <div style={{ backgroundColor: "#14171C" }}>
+    <div>
       <Router>
         <Header />
         <Routes>

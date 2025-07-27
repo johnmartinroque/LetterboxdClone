@@ -41,12 +41,14 @@ function Films() {
                     }
                   />
                 </Link>
+                {/* 
                 <Card.Body>
                   <Card.Title className="fs-6">{film.title}</Card.Title>
                   <Card.Text className="text-muted">
                     {film.release_date}
                   </Card.Text>
                 </Card.Body>
+                */}
               </Card>
             </Col>
           ))}
