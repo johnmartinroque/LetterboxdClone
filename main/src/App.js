@@ -6,7 +6,7 @@ import Films from "./screens/Films";
 import FilmDetailed from "./screens/FilmDetailed";
 import ActorDetailed from "./screens/ActorDetailed";
 import "./css/App.css";
-import Footer from "./components/others/Footer";
+
 function App() {
   return (
     <div>
@@ -18,7 +18,6 @@ function App() {
           <Route path="/film/:id" element={<FilmDetailed />} />
           <Route path="/actor/:id" element={<ActorDetailed />} />
         </Routes>
-        <Footer />
       </Router>
     </div>
   );

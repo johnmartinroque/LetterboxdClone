@@ -79,8 +79,8 @@ function ActorDetailed() {
 
       <Row>
         <Col md={8}>
-          <h5 style={{ color: "#b3b8b8ff" }}>FILM STARRING</h5>
-          <h3 style={{ color: "#ffffff" }}>{info.name}</h3>
+          <h5 style={{ color: "#556678" }}>FILM STARRING</h5>
+          <h3 style={{ color: "#ffffffff" }}>{info.name}</h3>
           <Row className="g-2">
             {movies.map((movie) => (
               <Col key={movie.id} sm={6} md={4} lg={2} className="mb-4">
@@ -119,16 +119,9 @@ function ActorDetailed() {
               }
             />
           </Card>
-          <h2 style={{ color: "#b3b8b8ff" }}>{info.name}</h2>
-          <p style={{ color: "#b3b8b8ff" }}>
-            <strong>Biography:</strong>{" "}
+          <h2 style={{ color: "#556678" }}>{info.name}</h2>
+          <p style={{ color: "#556678" }}>
             {info.biography || "No biography available."}
-          </p>
-          <p style={{ color: "#b3b8b8ff" }}>
-            <strong>Birthday:</strong> {info.birthday}
-          </p>
-          <p style={{ color: "#b3b8b8ff" }}>
-            <strong>Place of Birth:</strong> {info.place_of_birth}
           </p>
         </Col>
       </Row>
