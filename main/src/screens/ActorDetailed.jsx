@@ -76,7 +76,7 @@ function ActorDetailed() {
       </Row>
 
       <Row>
-        <Col md={8} style={{ backgroundColor: "black" }}>
+        <Col md={8}>
           <h5>FILM STARRING</h5>
           <h6>{info.name}</h6>
           <Row>
@@ -93,18 +93,20 @@ function ActorDetailed() {
                       }
                     />
                   </Link>
+                  {/* 
                   <Card.Body>
                     <Card.Title className="fs-6">{movie.title}</Card.Title>
                     <Card.Text className="text-muted">
                       {movie.release_date?.slice(0, 4)}
                     </Card.Text>
                   </Card.Body>
+                  */}
                 </Card>
               </Col>
             ))}
           </Row>
         </Col>
-        <Col md={4} style={{ backgroundColor: "blue" }}>
+        <Col md={4}>
           <Card>
             <Card.Img
               src={
