@@ -3,6 +3,8 @@ import Home from "./screens/Home";
 import Header from "./components/others/Header";
 import { Container } from "react-bootstrap";
 import Films from "./screens/Films";
+import FilmDetailed from "./screens/FilmDetailed";
+import ActorDetailed from "./screens/ActorDetailed";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/films" element={<Films />} />
+          <Route path="/film/:id" element={<FilmDetailed />} />
+          <Route path="/actor/:id" element={<ActorDetailed />} />
         </Routes>
       </Router>
     </div>
