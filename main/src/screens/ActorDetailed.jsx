@@ -74,6 +74,59 @@ function ActorDetailed() {
           </Col>
         ))}
       </Row>
+
+      <Row>
+        <Col md={8} style={{ backgroundColor: "black" }}>
+          <h5>FILM STARRING</h5>
+          <h6>{info.name}</h6>
+          <Row>
+            {movies.map((movie) => (
+              <Col key={movie.id} sm={6} md={4} lg={2} className="mb-4">
+                <Card>
+                  <Link to={`/film/${movie.id}`}>
+                    <Card.Img
+                      variant="top"
+                      src={
+                        movie.poster_path
+                          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                          : "https://via.placeholder.com/500x750?text=No+Image"
+                      }
+                    />
+                  </Link>
+                  <Card.Body>
+                    <Card.Title className="fs-6">{movie.title}</Card.Title>
+                    <Card.Text className="text-muted">
+                      {movie.release_date?.slice(0, 4)}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Col>
+        <Col md={4} style={{ backgroundColor: "blue" }}>
+          <Card>
+            <Card.Img
+              src={
+                info.profile_path
+                  ? `https://image.tmdb.org/t/p/w500${info.profile_path}`
+                  : "https://via.placeholder.com/500x750?text=No+Image"
+              }
+            />
+          </Card>
+          <h2>{info.name}</h2>
+          <p>
+            <strong>Biography:</strong>{" "}
+            {info.biography || "No biography available."}
+          </p>
+          <p>
+            <strong>Birthday:</strong> {info.birthday}
+          </p>
+          <p>
+            <strong>Place of Birth:</strong> {info.place_of_birth}
+          </p>
+        </Col>
+      </Row>
     </Container>
   );
 }

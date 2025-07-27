@@ -93,7 +93,6 @@ function FilmDetailed() {
             {cast.map((actor, index) => (
               <span key={actor.id}>
                 <Link to={`/actor/${actor.id}`}>
-                  {" "}
                   <div
                     style={{
                       backgroundColor: "#7c8ba3",
