@@ -28,19 +28,33 @@ function Header() {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <Link class="nav-link" to="/" style={{ color: "	#ffffff" }}>
-                Home
+              <Link class="nav-link" to="/signin" style={{ color: "#ffffff" }}>
+                Sign In
+              </Link>
+            </li>
+            <li class="nav-item active">
+              <Link
+                class="nav-link"
+                to="/createAccount"
+                style={{ color: "#ffffff" }}
+              >
+                Create Account
               </Link>
             </li>
             <li class="nav-item">
-              <Link class="nav-link" to="/films" style={{ color: "	#ffffff" }}>
+              <Link class="nav-link" to="/films" style={{ color: "#ffffff" }}>
                 Films
               </Link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" style={{ color: "	#ffffff" }}>
-                Something
-              </a>
+              <Link class="nav-link" to="/lists" style={{ color: "#ffffff" }}>
+                Lists
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link class="nav-link" to="/journal" style={{ color: "#ffffff" }}>
+                Journal
+              </Link>
             </li>
           </ul>
           <form className="form-inline my-2 my-lg-0 d-flex">

@@ -7,6 +7,7 @@ import { fetchFilmDetail } from "../actions/filmActions";
 import PopularReviews from "../components/reviews/PopularReviews";
 import RecentReviews from "../components/reviews/RecentReviews";
 import PosterModal from "../components/modals/PosterModal";
+import AddReview from "../components/reviews/AddReview";
 
 function FilmDetailed() {
   const { id } = useParams();
@@ -70,7 +71,7 @@ function FilmDetailed() {
             />
           </Card>
         </Col>
-        <Col md={8}>
+        <Col md={4}>
           <h2>
             {detail.title} ({new Date(detail.release_date).getFullYear()})
           </h2>
@@ -98,6 +99,9 @@ function FilmDetailed() {
             <strong>Crew:</strong>{" "}
             {topCrew.map((crew) => `${crew.name} (${crew.job})`).join(", ")}
           </p>
+        </Col>
+        <Col md={4}>
+          <AddReview />
         </Col>
       </Row>
       <Row className="text-center">
