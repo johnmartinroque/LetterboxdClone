@@ -9,7 +9,7 @@ import "./css/App.css";
 
 function App() {
   return (
-    <div>
+    <div style={{ backgroundColor: "#14171c", minHeight: "300vh" }}>
       <Router>
         <Header />
         <Routes>

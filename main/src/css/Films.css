@@ -1,0 +1,9 @@
+.hover-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-card:hover {
+  transform: scale(1.05); /* Slightly increase the size */
+  z-index: 1; /* Make sure it stays on top of other cards */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for effect */
+}

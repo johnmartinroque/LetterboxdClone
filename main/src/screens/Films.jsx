@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchTrendingFilms } from "../actions/filmActions";
 import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import "../css/Films.css";
 function Films() {
   const dispatch = useDispatch();
 
@@ -26,10 +26,13 @@ function Films() {
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : (
-        <Row>
+        <Row className="g-2">
           {films.map((film) => (
             <Col key={film.id} sm={6} md={4} lg={3} className="mb-4">
-              <Card>
+              <Card
+                className="hover-card"
+                style={{ border: "none", outline: "none" }}
+              >
                 <Link to={`/film/${film.id}`}>
                   <Card.Img
                     variant="top"
