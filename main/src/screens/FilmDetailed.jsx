@@ -8,6 +8,7 @@ import PopularReviews from "../components/reviews/PopularReviews";
 import RecentReviews from "../components/reviews/RecentReviews";
 import PosterModal from "../components/modals/PosterModal";
 import AddReview from "../components/reviews/AddReview";
+import Statistics from "../components/film/Statistics";
 
 function FilmDetailed() {
   const { id } = useParams();
@@ -70,8 +71,9 @@ function FilmDetailed() {
               style={{ cursor: "pointer" }}
             />
           </Card>
+          <Statistics />
         </Col>
-        <Col md={4}>
+        <Col md={4} style={{ color: "#aaaaaa" }}>
           <h2>
             {detail.title} ({new Date(detail.release_date).getFullYear()})
           </h2>
@@ -82,15 +84,28 @@ function FilmDetailed() {
           <p>
             <strong>Director:</strong> {director?.name || "N/A"}
           </p>
-          <p>
-            <strong>Synopsis:</strong>{" "}
-            {detail.overview || "No synopsis available."}
-          </p>
+          <h5 style={{ color: "#aaaaaa" }}>
+            {detail.tagline.toUpperCase() || "No synopsis available."}
+          </h5>
+          <p>{detail.overview || "No synopsis available."}</p>
           <p>
             <strong>Cast:</strong>
             {cast.map((actor, index) => (
               <span key={actor.id}>
-                <Link to={`/actor/${actor.id}`}>{actor.name}</Link>
+                <Link to={`/actor/${actor.id}`}>
+                  {" "}
+                  <div
+                    style={{
+                      backgroundColor: "#7c8ba3",
+                      display: "inline-block",
+                      color: "white",
+                      padding: "0.1rem",
+                      borderRadius: "0.2rem",
+                    }}
+                  >
+                    {actor.name}
+                  </div>
+                </Link>
                 {index < cast.length - 1 && ", "}
               </span>
             ))}

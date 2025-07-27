@@ -4,7 +4,7 @@ function Header() {
   return (
     <div>
       <nav
-        className="navbar navbar-expand-lg navbar-light "
+        className="navbar navbar-expand-lg navbar-light  "
         style={{
           backgroundColor: "transparent",
           boxShadow: "none",
