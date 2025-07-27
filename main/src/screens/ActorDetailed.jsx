@@ -51,7 +51,7 @@ function ActorDetailed() {
 
       <h3 className="mt-5">Known For</h3>
       <Row>
-        {movies.slice(0, 12).map((movie) => (
+        {movies.map((movie) => (
           <Col key={movie.id} sm={6} md={4} lg={3} className="mb-4">
             <Card>
               <Card.Img
