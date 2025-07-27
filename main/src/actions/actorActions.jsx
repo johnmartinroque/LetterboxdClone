@@ -30,7 +30,7 @@ export const fetchActorDetail = (id) => async (dispatch) => {
       type: FETCH_ACTOR_DETAIL_SUCCESS,
       payload: {
         info,
-        movies: credits.cast, // only include cast movies, not crew
+        movies: credits.cast,
       },
     });
   } catch (error) {

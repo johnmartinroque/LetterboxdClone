@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <Link class="navbar-brand" to="/">
+      <nav
+        className="navbar navbar-expand-lg navbar-light "
+        style={{
+          backgroundColor: "transparent",
+          boxShadow: "none",
+        }}
+      >
+        <Link class="navbar-brand" to="/" style={{ color: "	#ffffff" }}>
           Navbar
         </Link>
         <button
@@ -22,43 +28,18 @@ function Header() {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <Link class="nav-link" to="/">
+              <Link class="nav-link" to="/" style={{ color: "	#ffffff" }}>
                 Home
               </Link>
             </li>
             <li class="nav-item">
-              <Link class="nav-link" to="/films">
+              <Link class="nav-link" to="/films" style={{ color: "	#ffffff" }}>
                 Films
               </Link>
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">
-                  Action
-                </a>
-                <a class="dropdown-item" href="#">
-                  Another action
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
-            </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                Disabled
+              <a class="nav-link" href="#" style={{ color: "	#ffffff" }}>
+                Something
               </a>
             </li>
           </ul>

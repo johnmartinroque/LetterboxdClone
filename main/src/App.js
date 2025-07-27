@@ -8,7 +8,7 @@ import ActorDetailed from "./screens/ActorDetailed";
 
 function App() {
   return (
-    <div>
+    <div style={{ backgroundColor: "#14171C" }}>
       <Router>
         <Header />
         <Routes>
