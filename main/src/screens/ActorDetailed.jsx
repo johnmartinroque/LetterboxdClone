@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, Spinner, Alert, Card } from "react-bootstrap";
 import { fetchActorDetail } from "../actions/actorActions";
@@ -54,14 +54,16 @@ function ActorDetailed() {
         {movies.map((movie) => (
           <Col key={movie.id} sm={6} md={4} lg={3} className="mb-4">
             <Card>
-              <Card.Img
-                variant="top"
-                src={
-                  movie.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                    : "https://via.placeholder.com/500x750?text=No+Image"
-                }
-              />
+              <Link to={`/film/${movie.id}`}>
+                <Card.Img
+                  variant="top"
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                      : "https://via.placeholder.com/500x750?text=No+Image"
+                  }
+                />
+              </Link>
               <Card.Body>
                 <Card.Title className="fs-6">{movie.title}</Card.Title>
                 <Card.Text className="text-muted">

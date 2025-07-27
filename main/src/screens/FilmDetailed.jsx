@@ -44,6 +44,15 @@ function FilmDetailed() {
   return (
     <Container className="mt-4">
       <Row>
+        <Card.Img
+          src={
+            detail.backdrop_path
+              ? `https://image.tmdb.org/t/p/original${detail.backdrop_path}`
+              : "https://via.placeholder.com/500x750?text=No+Image"
+          }
+        />
+      </Row>
+      <Row>
         <Col md={4}>
           <Card>
             <Card.Img
