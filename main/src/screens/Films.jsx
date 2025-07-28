@@ -19,6 +19,9 @@ function Films() {
 
   return (
     <Container className="mt-4">
+      <Row>
+        <Col>Browse By</Col>
+      </Row>
       <h2 className="mb-4">Popular Films This Week</h2>
 
       {loading ? (

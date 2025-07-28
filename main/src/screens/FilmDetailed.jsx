@@ -95,7 +95,10 @@ function FilmDetailed() {
             {detail.genres.map((g) => g.name).join(", ")}
           </p>
           <p>
-            <strong>Director:</strong> {director?.name || "N/A"}
+            <strong>Director:</strong>{" "}
+            <Link to={`/director/${director.id}`}>
+              {director?.name || "N/A"}
+            </Link>
           </p>
           <h5 style={{ color: "#aaaaaa" }}>
             {detail.tagline.toUpperCase() || "No synopsis available."}
