@@ -6,11 +6,13 @@ import {
   filmTrendingReducer,
 } from "./reducers/filmReducers";
 import { actorDetailReducer } from "./reducers/actorReducers";
+import { directorDetailReducer } from "./reducers/directorReducers";
 
 const rootReducer = combineReducers({
   filmTrending: filmTrendingReducer,
   filmDetail: filmDetailReducer,
   actorDetail: actorDetailReducer,
+  directorDetail: directorDetailReducer,
 });
 
 const middleware = [thunk];

@@ -88,18 +88,19 @@ function FilmDetailed() {
         </Col>
         <Col md={4} style={{ color: "#aaaaaa" }}>
           <h2>
-            {detail.title} ({new Date(detail.release_date).getFullYear()})
+            {detail.title} ({new Date(detail.release_date).getFullYear()}){" "}
+            {director ? (
+              <Link to={`/director/${director.id}`}>{director.name}</Link>
+            ) : (
+              "Director unknown"
+            )}
           </h2>
+
           <p>
             <strong>Genres:</strong>{" "}
             {detail.genres.map((g) => g.name).join(", ")}
           </p>
-          <p>
-            <strong>Director:</strong>{" "}
-            <Link to={`/director/${director.id}`}>
-              {director?.name || "N/A"}
-            </Link>
-          </p>
+
           <h5 style={{ color: "#aaaaaa" }}>
             {detail.tagline.toUpperCase() || "No synopsis available."}
           </h5>
