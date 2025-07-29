@@ -8,10 +8,11 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../../firebase"; // Adjust path as needed
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 
 function RecentReviews({ filmId }) {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -23,7 +24,7 @@ function RecentReviews({ filmId }) {
           orderBy("createdAt", "desc"),
           limit(10)
         );
-
+        setLoading(true);
         const snapshot = await getDocs(q);
         const reviewsData = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -33,6 +34,8 @@ function RecentReviews({ filmId }) {
         setReviews(reviewsData);
       } catch (error) {
         console.error("Error fetching recent reviews:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -42,44 +45,49 @@ function RecentReviews({ filmId }) {
   return (
     <div>
       <h4>Recent Reviews</h4>
-      {reviews.length === 0 ? (
+      {loading ? (
+        <Spinner animation="border" style={{ color: "white" }} />
+      ) : reviews.length === 0 ? (
         <p>No reviews yet for this film.</p>
       ) : (
-        <ul>
+        <ul className="list-unstyled">
           {reviews.map((review) => (
-            <p
+            <li
               key={review.id}
               style={{
-                borderTop: "1px solid #ffff", // solid black line on top
-                paddingTop: "10px", // some space below the line
-                marginTop: "10px", // space before the line if needed
+                borderTop: "1px solid #ffff",
+                paddingTop: "10px",
+                marginTop: "10px",
               }}
             >
               <Row>
-                <Col className="d-flex text-start">
-                  <p>Review by</p>
+                <Col className="d-flex text-start gap-2">
+                  <span>Review by</span>
                   <strong>{review.username}</strong>
                   <strong>{review.rating}/5</strong>
                 </Col>
               </Row>
               <Row className="mb-3">
                 <Col className="text-start">
-                  <strong> {review.reviewText}</strong>
+                  <strong>{review.reviewText}</strong>
                 </Col>
               </Row>
               <Row className="mb-3">
                 <Col className="text-start">
-                  <i class="fa-solid fa-heart" style={{ color: "#ff8000" }}></i>{" "}
+                  <i
+                    className="fa-solid fa-heart"
+                    style={{ color: "#ff8000" }}
+                  ></i>{" "}
                   {review.likes} likes
                 </Col>
               </Row>
 
-              {/* 
+              {/* Uncomment to show date
               <small>
                 {review.createdAt?.toDate().toLocaleString() ?? "N/A"}
               </small>
               */}
-            </p>
+            </li>
           ))}
         </ul>
       )}
