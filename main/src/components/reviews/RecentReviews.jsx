@@ -47,7 +47,14 @@ function RecentReviews({ filmId }) {
       ) : (
         <ul>
           {reviews.map((review) => (
-            <p key={review.id}>
+            <p
+              key={review.id}
+              style={{
+                borderTop: "1px solid #ffff", // solid black line on top
+                paddingTop: "10px", // some space below the line
+                marginTop: "10px", // space before the line if needed
+              }}
+            >
               <Row>
                 <Col className="d-flex text-start">
                   <p>Review by</p>
@@ -55,9 +62,15 @@ function RecentReviews({ filmId }) {
                   <strong>{review.rating}/5</strong>
                 </Col>
               </Row>
-              <Row>
+              <Row className="mb-3">
                 <Col className="text-start">
                   <strong> {review.reviewText}</strong>
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col className="text-start">
+                  <i class="fa-solid fa-heart" style={{ color: "#ff8000" }}></i>{" "}
+                  {review.likes} likes
                 </Col>
               </Row>
 
