@@ -140,9 +140,11 @@ function FilmDetailed() {
           <PopularReviews />
         </Col>
       </Row>
+
       <Row className="text-center">
-        <Col>
-          <RecentReviews />
+        <Col md={4}></Col>
+        <Col md={8}>
+          <RecentReviews filmId={id} />
         </Col>
       </Row>
       <PosterModal
