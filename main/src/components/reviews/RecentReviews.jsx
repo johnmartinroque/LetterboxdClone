@@ -8,6 +8,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../../firebase"; // Adjust path as needed
+import { Col, Row } from "react-bootstrap";
 
 function RecentReviews({ filmId }) {
   const [reviews, setReviews] = useState([]);
@@ -46,12 +47,20 @@ function RecentReviews({ filmId }) {
       ) : (
         <ul>
           {reviews.map((review) => (
-            <p key={review.id} style={{ marginBottom: "1rem" }}>
-              <strong>{review.username}</strong> rated it{" "}
-              <strong>{review.rating}/5</strong>
-              <br />
-              {review.reviewText}
-              <br />
+            <p key={review.id}>
+              <Row>
+                <Col className="d-flex text-start">
+                  <p>Review by</p>
+                  <strong>{review.username}</strong>
+                  <strong>{review.rating}/5</strong>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="text-start">
+                  <strong> {review.reviewText}</strong>
+                </Col>
+              </Row>
+
               {/* 
               <small>
                 {review.createdAt?.toDate().toLocaleString() ?? "N/A"}
