@@ -8,7 +8,6 @@ import "./css/App.css";
 import DirectorDetailed from "./screens/DirectorDetailed";
 import Lists from "./screens/list/Lists";
 import NewList from "./screens/list/NewList";
-NewList;
 
 function App() {
   return (
@@ -23,6 +22,7 @@ function App() {
           <Route path="/actor/:id" element={<ActorDetailed />} />
           <Route path="/director/:id" element={<DirectorDetailed />} />
           <Route path="/lists" element={<Lists />} />
+          <Route path="/list/new" element={<NewList />} />
         </Routes>
       </Router>
     </div>
