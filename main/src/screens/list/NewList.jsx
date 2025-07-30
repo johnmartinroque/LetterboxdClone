@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 
 function NewList() {
   return (
@@ -29,6 +29,21 @@ function NewList() {
           <Col className="d-flex flex-column">
             <h5>Description</h5>
             <textarea style={{ height: "15rem" }} />
+          </Col>
+        </Row>
+        <Row className="mt-5">
+          <Col md={8} className="d-flex ">
+            <Button>ADD A FILM</Button>
+            <input type="text" className="form-control" />
+            <p>or </p>
+            <Button>Import</Button>
+          </Col>
+          <Col md={4}>
+            <select className="form-control" />
+            <Button>list</Button>
+            <Button>tiles</Button>
+            <Button>Cancel</Button>
+            <Button>Save</Button>
           </Col>
         </Row>
       </Container>
