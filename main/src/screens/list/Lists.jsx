@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import FeaturedLists from "../../components/lists/FeaturedLists";
 
 function Lists() {
   const navigate = useNavigate("");
@@ -23,6 +24,11 @@ function Lists() {
         <Button style={{ width: "10rem" }} onClick={startList}>
           Stat your own list
         </Button>
+      </Row>
+      <Row>
+        <Col>
+          <FeaturedLists />
+        </Col>
       </Row>
     </div>
   );
