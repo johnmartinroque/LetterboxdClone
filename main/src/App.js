@@ -8,6 +8,7 @@ import "./css/App.css";
 import DirectorDetailed from "./screens/DirectorDetailed";
 import Lists from "./screens/list/Lists";
 import NewList from "./screens/list/NewList";
+import Settings from "./screens/Settings";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/director/:id" element={<DirectorDetailed />} />
           <Route path="/lists" element={<Lists />} />
           <Route path="/list/new" element={<NewList />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </Router>
     </div>
