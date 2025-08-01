@@ -1,51 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Col, Container, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser, signInUser } from "../../actions/authenticationActions";
+import { signInUser } from "../../actions/authenticationActions"; // Updated import
 
 function SignIn() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState(""); // Changed to handle email instead of username
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, user } = userRegister;
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { loading, error, user } = userSignIn;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     try {
-      dispatch(signInUser(username, password));
-      setUsername("");
-      setPassword("");
+      dispatch(signInUser(email, password)); // Dispatch signIn action with email and password
     } catch (err) {
       console.error(err);
     }
   };
 
-  const names = ["john", "kobe", "martin"];
-
   useEffect(() => {
     if (user) {
-      console.log("User details:", {
-        email: user.email,
-        username: user.displayName,
-        userId: user.uid,
-      });
-      console.log(names);
+      console.log("user", { email: user.email });
     }
   }, [user]);
+
   return (
     <Container>
       <Form onSubmit={handleSubmit} style={{ width: "50rem" }}>
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username</Form.Label>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
 
@@ -73,4 +65,5 @@ function SignIn() {
     </Container>
   );
 }
+
 export default SignIn;

@@ -56,22 +56,10 @@ export const resetRegistration = () => (dispatch) => {
   dispatch({ type: USER_REGISTER_RESET });
 };
 
-export const signInUser = (username, password) => async (dispatch) => {
+export const signInUser = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_SIGNIN_REQUEST });
 
-    // Search for the user by their username in Firestore
-    const userDocRef = doc(db, "users", username); // Assuming username is the document ID in Firestore
-    const userSnap = await getDoc(userDocRef);
-
-    if (!userSnap.exists()) {
-      throw new Error("User not found");
-    }
-
-    const userData = userSnap.data();
-    const email = userData.email; // Retrieve the email associated with this username
-
-    // Now authenticate using Firebase's signInWithEmailAndPassword
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
