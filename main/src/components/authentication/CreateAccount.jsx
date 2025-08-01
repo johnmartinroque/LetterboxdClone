@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../actions/authenticationActions";
@@ -29,6 +29,8 @@ function CreateAccount() {
     }
   };
 
+  useEffect(() => {});
+
   return (
     <Container>
       <Form onSubmit={handleSubmit} style={{ width: "50rem" }}>
@@ -45,7 +47,7 @@ function CreateAccount() {
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter email"
+            placeholder="Enter username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
