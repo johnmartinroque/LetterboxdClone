@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CreateAccount from "../components/modals/CreateAccount";
 import { Col, Row } from "react-bootstrap";
 import PopularFIlmsWeek from "../components/film/PopularFIlmsWeek";
 

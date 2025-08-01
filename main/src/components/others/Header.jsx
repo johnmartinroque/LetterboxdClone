@@ -31,7 +31,7 @@ function Header() {
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                to="/createAccount"
+                to="/createaccount"
                 style={{ color: "#ffffff" }}
               >
                 Create Account

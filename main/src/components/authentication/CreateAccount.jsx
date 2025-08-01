@@ -1,0 +1,74 @@
+import React, { useState } from "react";
+import { Form, Button, Col, Container } from "react-bootstrap";
+
+function CreateAccount() {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ email, password, check1, check2 });
+  };
+
+  return (
+    <Container>
+      <Form onSubmit={handleSubmit} style={{ width: "50rem" }}>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter email"
+            value={username}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formCheck">
+          <Form.Check
+            type="checkbox"
+            label="I'm at least 16 years old and accept the Terms of Use."
+            checked={check1}
+            onChange={(e) => setCheck1(e.target.checked)}
+          />
+        </Form.Group>
+        <Form.Group controlId="formCheck">
+          <Form.Check
+            type="checkbox"
+            label="
+I accept the Privacy Policy and consent to the processing of my personal information in accordance with it."
+            checked={check2}
+            onChange={(e) => setCheck2(e.target.checked)}
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </Container>
+  );
+}
+
+export default CreateAccount;

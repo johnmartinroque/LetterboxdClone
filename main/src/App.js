@@ -9,6 +9,8 @@ import DirectorDetailed from "./screens/DirectorDetailed";
 import Lists from "./screens/list/Lists";
 import NewList from "./screens/list/NewList";
 import Settings from "./screens/Settings";
+import SignIn from "./components/authentication/SignIn";
+import CreateAccount from "./components/authentication/CreateAccount";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/lists" element={<Lists />} />
           <Route path="/list/new" element={<NewList />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/createaccount" element={<CreateAccount />} />
         </Routes>
       </Router>
     </div>
