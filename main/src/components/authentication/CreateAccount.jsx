@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Col, Container } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../actions/authenticationActions";
 
 function CreateAccount() {
   const [email, setEmail] = useState("");
@@ -8,9 +10,23 @@ function CreateAccount() {
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, user } = userRegister;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ email, password, check1, check2 });
+
+    if (check1 && check2) {
+      try {
+        dispatch(registerUser(email, username, password));
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      alert("Please accept the terms and privacy policy.");
+    }
   };
 
   return (
@@ -31,7 +47,7 @@ function CreateAccount() {
             type="text"
             placeholder="Enter email"
             value={username}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
 
@@ -63,8 +79,8 @@ I accept the Privacy Policy and consent to the processing of my personal informa
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Submit
+        <Button variant="primary" type="submit" disabled={loading}>
+          {loading ? "Registering..." : "Submit"}
         </Button>
       </Form>
     </Container>

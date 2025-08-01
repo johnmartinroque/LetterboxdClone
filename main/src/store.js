@@ -7,12 +7,14 @@ import {
 } from "./reducers/filmReducers";
 import { actorDetailReducer } from "./reducers/actorReducers";
 import { directorDetailReducer } from "./reducers/directorReducers";
+import { userRegisterReducer } from "./reducers/authenticationReducer";
 
 const rootReducer = combineReducers({
   filmTrending: filmTrendingReducer,
   filmDetail: filmDetailReducer,
   actorDetail: actorDetailReducer,
   directorDetail: directorDetailReducer,
+  userRegister: userRegisterReducer,
 });
 
 const middleware = [thunk];
