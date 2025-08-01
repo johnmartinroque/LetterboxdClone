@@ -8,7 +8,8 @@ import {
   USER_REGISTER_RESET,
 } from "../constants/authenticationConstants";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export const registerUser = (email, username, password) => async (dispatch) => {
   try {
@@ -23,6 +24,12 @@ export const registerUser = (email, username, password) => async (dispatch) => {
 
     await updateProfile(user, {
       displayName: username,
+    });
+
+    await setDoc(doc(db, "users", user.uid), {
+      userId: user.uid,
+      email: email,
+      username: username,
     });
 
     dispatch({
