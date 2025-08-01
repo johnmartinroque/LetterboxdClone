@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Col, Container } from "react-bootstrap";
+import { Form, Button, Col, Container, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../actions/authenticationActions";
+import { registerUser, signInUser } from "../../actions/authenticationActions";
+
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,13 +16,26 @@ function SignIn() {
     e.preventDefault();
 
     try {
-      dispatch(registerUser(username, password));
+      dispatch(signInUser(username, password));
+      setUsername("");
+      setPassword("");
     } catch (err) {
       console.error(err);
     }
   };
 
-  useEffect(() => {});
+  const names = ["john", "kobe", "martin"];
+
+  useEffect(() => {
+    if (user) {
+      console.log("User details:", {
+        email: user.email,
+        username: user.displayName,
+        userId: user.uid,
+      });
+      console.log(names);
+    }
+  }, [user]);
   return (
     <Container>
       <Form onSubmit={handleSubmit} style={{ width: "50rem" }}>
@@ -46,8 +60,15 @@ function SignIn() {
         </Form.Group>
 
         <Button variant="primary" type="submit" disabled={loading}>
-          {loading ? "Signing In" : "Sign"}
+          {loading ? "Signing In..." : "Sign In"}
         </Button>
+
+        {/* Error handling */}
+        {error && (
+          <Alert variant="danger" className="mt-3">
+            {error}
+          </Alert>
+        )}
       </Form>
     </Container>
   );
