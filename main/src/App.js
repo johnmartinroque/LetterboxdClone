@@ -11,12 +11,31 @@ import NewList from "./screens/list/NewList";
 import Settings from "./screens/Settings";
 import SignIn from "./components/authentication/SignIn";
 import CreateAccount from "./components/authentication/CreateAccount";
+import HeaderUser from "./components/others/HeaderUser";
+import { auth } from "./firebase";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setAuthChecked(true); // Ready to render after auth check
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (!authChecked) {
+    return null; // or a loading spinner
+  }
+
   return (
     <div style={{ backgroundColor: "#14171c", minHeight: "300vh" }}>
       <Router>
-        <Header />
+        {currentUser ? <HeaderUser /> : <Header />}
 
         <Routes>
           <Route path="/" element={<Home />} />

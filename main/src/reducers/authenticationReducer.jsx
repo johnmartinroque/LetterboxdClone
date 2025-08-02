@@ -7,6 +7,7 @@ import {
   USER_SIGNIN_SUCCESS,
   USER_SIGNIN_FAIL,
   USER_SIGNIN_RESET,
+  USER_LOGOUT,
 } from "../constants/authenticationConstants";
 
 const initialState = {
@@ -39,6 +40,7 @@ export const userSignInReducer = (state = initialState, action) => {
     case USER_SIGNIN_FAIL:
       return { ...state, loading: false, error: action.payload };
     case USER_SIGNIN_RESET:
+    case USER_LOGOUT:
       return { ...state, user: null, loading: false, error: null };
     default:
       return state;

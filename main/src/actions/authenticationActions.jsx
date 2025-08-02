@@ -1,6 +1,5 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-
 import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -10,10 +9,12 @@ import {
   USER_SIGNIN_SUCCESS,
   USER_SIGNIN_FAIL,
   USER_SIGNIN_RESET,
+  USER_LOGOUT,
 } from "../constants/authenticationConstants";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
@@ -82,4 +83,9 @@ export const signInUser = (email, password) => async (dispatch) => {
 // Reset sign-in state
 export const resetSignIn = () => (dispatch) => {
   dispatch({ type: USER_SIGNIN_RESET });
+};
+
+export const logoutUser = () => async (dispatch) => {
+  await signOut(auth); // Sign out from Firebase
+  dispatch({ type: USER_LOGOUT }); // Clear Redux state
 };
