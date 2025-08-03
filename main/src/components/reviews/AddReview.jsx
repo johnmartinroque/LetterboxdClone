@@ -1,5 +1,5 @@
-import { addDoc, collection, Timestamp, doc, getDoc } from "firebase/firestore";
-import React, { useState, useEffect } from "react";
+import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import { auth, db } from "../../firebase";
@@ -11,24 +11,6 @@ function AddReview(props) {
   const [username, setUsername] = useState("");
 
   const movieReviewsRef = collection(db, "reviews");
-
-  useEffect(() => {
-    const fetchUsername = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(db, "users", user.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-          const data = userDocSnap.data();
-          setUsername(data.username || "");
-        } else {
-          console.error("User document not found");
-        }
-      }
-    };
-
-    fetchUsername();
-  }, []);
 
   const addReview = async () => {
     try {
@@ -47,19 +29,45 @@ function AddReview(props) {
   const handleRating = (rate) => {
     setRating(rate);
     console.log("Selected Rating:", rate);
+    // you can add more logic here
   };
 
-  const click = () => {
-    addReview(); // Call the addReview function here
+  const addReviewHandler = () => {
+    addReview();
   };
+
+  const fetchUsername = async () => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const data = userDocSnap.data();
+          setUsername(data.username || "");
+        } else {
+          console.error("user document not found");
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsername();
+  });
 
   return (
     <div>
-      <Card
-        style={{ height: "40rem", padding: "1rem", backgroundColor: "#556678" }}
-      >
+      <Card style={{ height: "40rem", padding: "1rem" }}>
         <Card.Title style={{ color: "black" }}>Add Your Review</Card.Title>
         <Card.Body>
+          <Card.Text>
+            <i class="fa-solid fa-eye"></i>
+            <i class="fa-solid fa-heart" style={{ color: "#ff8000" }}></i>
+            <i class="fa-solid fa-plus"></i>
+          </Card.Text>
           <Card.Text>
             <Rating
               onClick={handleRating}
@@ -67,17 +75,17 @@ function AddReview(props) {
               initialValue={rating}
               ratingValue={rating}
               maxValue={5}
-              size={30}
-              transition
-              fillColor="#ffe601ff"
-              emptyColor="#ccc"
+              size={30} // optional: controls star size
+              transition // smooth transitions
+              fillColor="#ffe601ff" // optional: star color
+              emptyColor="#ccc" // optional: empty star color
             />
             <div style={{ marginTop: "1rem" }}>
-              Selected Rating: {rating} / 5
+              Selected Rating: {rating} / 6
             </div>
           </Card.Text>
         </Card.Body>
-        <Button onClick={click}>Submit Review</Button>
+        <Button onClick={addReviewHandler}>Submit Review</Button>
       </Card>
     </div>
   );

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Col, Container, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../actions/authenticationActions"; // Updated import
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [email, setEmail] = useState(""); // Changed to handle email instead of username
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userSignIn = useSelector((state) => state.userSignIn);
   const { loading, error, user } = userSignIn;
@@ -16,7 +18,8 @@ function SignIn() {
     e.preventDefault();
 
     try {
-      dispatch(signInUser(email, password)); // Dispatch signIn action with email and password
+      dispatch(signInUser(email, password));
+      navigate("/");
     } catch (err) {
       console.error(err);
     }
