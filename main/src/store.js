@@ -8,6 +8,7 @@ import {
 import { actorDetailReducer } from "./reducers/actorReducers";
 import { directorDetailReducer } from "./reducers/directorReducers";
 import {
+  userInfoReducer,
   userRegisterReducer,
   userSignInReducer,
 } from "./reducers/authenticationReducer";
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   directorDetail: directorDetailReducer,
   userRegister: userRegisterReducer,
   userSignIn: userSignInReducer,
+  userInfo: userInfoReducer,
 });
 
 const middleware = [thunk];

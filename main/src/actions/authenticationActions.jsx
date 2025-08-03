@@ -10,6 +10,9 @@ import {
   USER_SIGNIN_FAIL,
   USER_SIGNIN_RESET,
   USER_LOGOUT,
+  USER_INFO_REQUEST,
+  USER_INFO_SUCCESS,
+  USER_INFO_FAIL,
 } from "../constants/authenticationConstants";
 import {
   createUserWithEmailAndPassword,
@@ -88,4 +91,36 @@ export const resetSignIn = () => (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
   await signOut(auth); // Sign out from Firebase
   dispatch({ type: USER_LOGOUT }); // Clear Redux state
+};
+
+export const fetchUserInfo = () => async (dispatch) => {
+  try {
+    dispatch({ type: USER_INFO_REQUEST });
+
+    const user = auth.currentUser;
+    if (!user) throw new Error("No authenticated user found");
+
+    const userDocRef = doc(db, "users", user.uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (!userDocSnap.exists()) {
+      throw new Error("User document not found");
+    }
+
+    const userData = userDocSnap.data();
+
+    dispatch({
+      type: USER_INFO_SUCCESS,
+      payload: {
+        userId: user.uid,
+        email: user.email,
+        username: userData.username,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_INFO_FAIL,
+      payload: error.message,
+    });
+  }
 };
