@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import FeaturedLists from "../../components/lists/FeaturedLists";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,12 @@ function Lists() {
     }
   }, [dispatch, userInfo]);
 
-  if (loading) return <div>Loading user info...</div>;
+  if (loading)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
   if (!userInfo) return null;
 

@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import PopularFIlmsWeek from "../components/film/PopularFIlmsWeek";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { fetchUserInfo } from "../actions/authenticationActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
-  const [username, setUsername] = useState("");
-  const fetchUsername = async () => {
-    try {
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(db, "users", user.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-          const data = userDocSnap.data();
-          setUsername(data.username || "");
-        } else {
-          console.error("user document not found");
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const dispatch = useDispatch();
+  const { userInfo, loading, error } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
-    fetchUsername();
-  });
+    if (!userInfo) {
+      dispatch(fetchUserInfo());
+    }
+  }, [dispatch, userInfo]);
+
+  if (loading)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  if (error) return <div>Error: {error}</div>;
+  if (!userInfo) return null;
+
+  const { userId, email, username } = userInfo;
+
   return (
     <div>
       <Row className="text-center mt-5">
