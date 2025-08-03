@@ -81,6 +81,7 @@ function AddReview(props) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                backgroundColor: "green",
               }}
             >
               <i
