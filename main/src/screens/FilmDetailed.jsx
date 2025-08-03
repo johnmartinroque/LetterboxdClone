@@ -132,7 +132,7 @@ function FilmDetailed() {
           </p>
         </Col>
         <Col md={4}>
-          <AddReview />
+          <AddReview id={id} />
         </Col>
       </Row>
       <Row className="text-center">

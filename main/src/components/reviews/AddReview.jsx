@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 
-function AddReview() {
+function AddReview(props) {
+  const { id } = props;
   const [rating, setRating] = useState(0); // default value
 
   const handleRating = (rate) => {
     setRating(rate);
     console.log("Selected Rating:", rate);
     // you can add more logic here
+  };
+
+  const click = () => {
+    console.log(id);
   };
 
   return (
@@ -38,6 +43,7 @@ function AddReview() {
             </div>
           </Card.Text>
         </Card.Body>
+        <Button onClick={click}>click</Button>
       </Card>
     </div>
   );
