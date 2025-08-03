@@ -15,6 +15,7 @@ import HeaderUser from "./components/others/HeaderUser";
 import { auth } from "./firebase";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import UserHome from "./screens/UserHome";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -38,7 +39,7 @@ function App() {
         {currentUser ? <HeaderUser /> : <Header />}
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={currentUser ? <UserHome /> : <Home />} />
           <Route path="/films" element={<Films />} />
           <Route path="/film/:id" element={<FilmDetailed />} />
           <Route path="/actor/:id" element={<ActorDetailed />} />
