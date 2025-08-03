@@ -39,7 +39,7 @@ function App() {
         {currentUser ? <HeaderUser /> : <Header />}
 
         <Routes>
-          <Route path="/" element={currentUser ? <UserHome /> : <Home />} />
+          <Route path="/" element={currentUser ? <Home /> : <UserHome />} />
           <Route path="/films" element={<Films />} />
           <Route path="/film/:id" element={<FilmDetailed />} />
           <Route path="/actor/:id" element={<ActorDetailed />} />

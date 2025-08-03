@@ -63,12 +63,45 @@ function AddReview(props) {
       <Card style={{ height: "40rem", padding: "1rem" }}>
         <Card.Title style={{ color: "black" }}>Add Your Review</Card.Title>
         <Card.Body>
-          <Card.Text>
-            <i class="fa-solid fa-eye"></i>
-            <i class="fa-solid fa-heart" style={{ color: "#ff8000" }}></i>
-            <i class="fa-solid fa-plus"></i>
+          <Card.Text
+            style={{ display: "flex", justifyContent: "space-evenly" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <i className="fa-solid fa-eye" style={{ fontSize: "3rem" }}></i>
+              <h4>Watched</h4>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <i
+                className="fa-solid fa-heart"
+                style={{ color: "#ff8000", fontSize: "3rem" }}
+              ></i>
+              <h4>Liked</h4>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <i className="fa-solid fa-plus" style={{ fontSize: "3rem" }}></i>
+              <h4>Watchlist</h4>
+            </div>
           </Card.Text>
-          <Card.Text>
+          <Card.Text className="text-center">
+            <div style={{ marginTop: "1rem" }}>Rate</div>
             <Rating
               onClick={handleRating}
               allowFraction
@@ -80,10 +113,24 @@ function AddReview(props) {
               fillColor="#ffe601ff" // optional: star color
               emptyColor="#ccc" // optional: empty star color
             />
-            <div style={{ marginTop: "1rem" }}>
-              Selected Rating: {rating} / 6
-            </div>
           </Card.Text>
+          <div className="text-center">
+            <Card.Text>
+              <h3>Show your activity</h3>
+            </Card.Text>
+            <Card.Text>
+              <h3>Edit entry or add review…</h3>
+            </Card.Text>
+            <Card.Text>
+              <h3>Log this film again…</h3>
+            </Card.Text>
+            <Card.Text>
+              <h3>Add this film to lists…</h3>
+            </Card.Text>
+            <Card.Text>
+              <h3>something</h3>
+            </Card.Text>
+          </div>
         </Card.Body>
         <Button onClick={addReviewHandler}>Submit Review</Button>
       </Card>
