@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import { auth, db } from "../../firebase";
+import RevieModal from "../modals/RevieModal";
 
 function AddReview(props) {
   const { id } = props;
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [username, setUsername] = useState("");
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   const movieReviewsRef = collection(db, "reviews");
 
@@ -57,6 +59,15 @@ function AddReview(props) {
   useEffect(() => {
     fetchUsername();
   });
+
+  const modalClick = () => {
+    setShowReviewModal(true);
+    if (setShowReviewModal === true) {
+      setShowReviewModal(false);
+    }
+    console.log(showReviewModal);
+    console.log("hello");
+  };
 
   return (
     <div>
@@ -135,6 +146,8 @@ function AddReview(props) {
         </Card.Body>
         <Button onClick={addReviewHandler}>Submit Review</Button>
       </Card>
+      <Button>CLICK</Button>
+      <RevieModal onClick={modalClick} />
     </div>
   );
 }
