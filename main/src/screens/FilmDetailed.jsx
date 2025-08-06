@@ -9,6 +9,8 @@ import RecentReviews from "../components/reviews/RecentReviews";
 import PosterModal from "../components/modals/PosterModal";
 import AddReview from "../components/reviews/AddReview";
 import Statistics from "../components/film/Statistics";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 function FilmDetailed() {
   const { id } = useParams();
@@ -109,19 +111,32 @@ function FilmDetailed() {
             <strong>Cast:</strong>
             {cast.map((actor, index) => (
               <span key={actor.id}>
-                <Link to={`/actor/${actor.id}`}>
-                  <div
-                    style={{
-                      backgroundColor: "#7c8ba3",
-                      display: "inline-block",
-                      color: "white",
-                      padding: "0.1rem",
-                      borderRadius: "0.2rem",
-                    }}
+                <OverlayTrigger
+                  placement="top"
+                  overlay={
+                    <Tooltip id={`tooltip-top-${actor.id}`}>
+                      {actor.character}
+                    </Tooltip>
+                  }
+                >
+                  <Link
+                    to={`/actor/${actor.id}`}
+                    style={{ textDecoration: "none" }}
                   >
-                    {actor.name}
-                  </div>
-                </Link>
+                    <div
+                      style={{
+                        backgroundColor: "#7c8ba3",
+                        display: "inline-block",
+                        color: "white",
+                        padding: "0.1rem 0.4rem",
+                        borderRadius: "0.2rem",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {actor.name}
+                    </div>
+                  </Link>
+                </OverlayTrigger>
                 {index < cast.length - 1 && ", "}
               </span>
             ))}
