@@ -5,7 +5,7 @@ import { Rating } from "react-simple-star-rating";
 import { auth, db } from "../../firebase";
 import ReviewModal from "../modals/ReviewModal";
 function AddReview(props) {
-  const { id } = props;
+  const { id, title, releaseDate, posterPath } = props;
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [username, setUsername] = useState("");
@@ -141,7 +141,13 @@ function AddReview(props) {
       </Card>
       <Button onClick={toggleModal}>Show Review Modal</Button>
 
-      <ReviewModal show={showModal} onHide={toggleModal} />
+      <ReviewModal
+        show={showModal}
+        onHide={toggleModal}
+        title={title}
+        releaseDate={releaseDate}
+        posterPath={posterPath}
+      />
     </div>
   );
 }

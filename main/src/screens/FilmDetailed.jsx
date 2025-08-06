@@ -161,7 +161,12 @@ function FilmDetailed() {
           </Tabs>
         </Col>
         <Col md={4}>
-          <AddReview id={id} />
+          <AddReview
+            id={id}
+            title={detail.title}
+            releaseDate={detail.release_date}
+            posterPath={detail.poster_path}
+          />
         </Col>
       </Row>
       <Row className="text-center">
