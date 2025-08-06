@@ -3,15 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import { auth, db } from "../../firebase";
-import RevieModal from "../modals/RevieModal";
-
+import ReviewModal from "../modals/ReviewModal";
 function AddReview(props) {
   const { id } = props;
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [username, setUsername] = useState("");
-  const [showReviewModal, setShowReviewModal] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
   const movieReviewsRef = collection(db, "reviews");
 
   const addReview = async () => {
@@ -60,13 +58,8 @@ function AddReview(props) {
     fetchUsername();
   });
 
-  const modalClick = () => {
-    setShowReviewModal(true);
-    if (setShowReviewModal === true) {
-      setShowReviewModal(false);
-    }
-    console.log(showReviewModal);
-    console.log("hello");
+  const toggleModal = () => {
+    setShowModal((prev) => !prev);
   };
 
   return (
@@ -146,8 +139,9 @@ function AddReview(props) {
         </Card.Body>
         <Button onClick={addReviewHandler}>Submit Review</Button>
       </Card>
-      <Button>CLICK</Button>
-      <RevieModal onClick={modalClick} />
+      <Button onClick={toggleModal}>Show Review Modal</Button>
+
+      <ReviewModal show={showModal} onHide={toggleModal} />
     </div>
   );
 }
