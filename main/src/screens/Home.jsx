@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Spinner } from "react-bootstrap";
+import { Col, Image, Row, Spinner } from "react-bootstrap";
 import PopularFIlmsWeek from "../components/film/PopularFIlmsWeek";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
