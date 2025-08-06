@@ -17,50 +17,53 @@ function HeaderUser() {
   const handleLogout = () => {
     dispatch(logoutUser());
   };
+
   return (
-    <div>
-      <Navbar
-        expand="lg"
-        variant="dark"
-        style={{ backgroundColor: "transparent" }}
-      >
-        <Container className="justify-content-center">
-          <Navbar.Toggle aria-controls="navbar-nav" />
-          <Navbar.Collapse id="navbar-nav">
-            <div
-              className="d-flex align-items-center flex-wrap justify-content-center w-100 gap-3"
-              style={{ gap: "1rem" }}
-            >
-              <Nav className="d-flex flex-row align-items-center text-center">
-                <Navbar.Brand as={Link} to="/" style={{ color: "#ffffff" }}>
-                  Navbar
-                </Navbar.Brand>
+    <Navbar
+      expand="lg"
+      variant="dark"
+      style={{ backgroundColor: "transparent" }}
+    >
+      <Container>
+        {/* Brand */}
+        <Navbar.Brand as={Link} to="/">
+          MyApp
+        </Navbar.Brand>
 
-                <Nav.Link as={Link} to="/films" style={{ color: "#ffffff" }}>
-                  Films
-                </Nav.Link>
-                <Nav.Link as={Link} to="/lists" style={{ color: "#ffffff" }}>
-                  Lists
-                </Nav.Link>
-                <Nav.Link as={Link} to="/journal" style={{ color: "#ffffff" }}>
-                  Journal
-                </Nav.Link>
-              </Nav>
+        {/* Toggle for mobile */}
+        <Navbar.Toggle aria-controls="user-navbar-nav" />
 
-              <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
-              <Button onClick={handleLogout}>Log Out</Button>
-            </div>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </div>
+        {/* Collapsible nav links */}
+        <Navbar.Collapse id="user-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/films">
+              Films
+            </Nav.Link>
+            <Nav.Link as={Link} to="/lists">
+              Lists
+            </Nav.Link>
+            <Nav.Link as={Link} to="/journal">
+              Journal
+            </Nav.Link>
+          </Nav>
+
+          {/* Search and logout */}
+          <Form className="d-flex me-2">
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+            />
+            <Button variant="outline-success">Search</Button>
+          </Form>
+
+          <Button variant="outline-light" onClick={handleLogout}>
+            Log Out
+          </Button>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
