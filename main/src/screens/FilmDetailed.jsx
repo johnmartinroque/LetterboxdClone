@@ -11,6 +11,8 @@ import AddReview from "../components/reviews/AddReview";
 import Statistics from "../components/film/Statistics";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
 
 function FilmDetailed() {
   const { id } = useParams();
@@ -107,44 +109,56 @@ function FilmDetailed() {
             {detail.tagline.toUpperCase() || "No synopsis available."}
           </h5>
           <p>{detail.overview || "No synopsis available."}</p>
-          <p>
-            <strong>Cast:</strong>
-            {cast.map((actor, index) => (
-              <span key={actor.id}>
-                <OverlayTrigger
-                  placement="top"
-                  overlay={
-                    <Tooltip id={`tooltip-top-${actor.id}`}>
-                      {actor.character}
-                    </Tooltip>
-                  }
-                >
-                  <Link
-                    to={`/actor/${actor.id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <div
-                      style={{
-                        backgroundColor: "#7c8ba3",
-                        display: "inline-block",
-                        color: "white",
-                        padding: "0.1rem 0.4rem",
-                        borderRadius: "0.2rem",
-                        cursor: "pointer",
-                      }}
+          <Tabs defaultActiveKey="cast" id="cast-crew-tabs" className="mb-3">
+            <Tab eventKey="cast" title="Cast">
+              <p>
+                {cast.map((actor, index) => (
+                  <span key={actor.id}>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={
+                        <Tooltip id={`tooltip-top-${actor.id}`}>
+                          {actor.character}
+                        </Tooltip>
+                      }
                     >
-                      {actor.name}
-                    </div>
-                  </Link>
-                </OverlayTrigger>
-                {index < cast.length - 1 && ", "}
-              </span>
-            ))}
-          </p>
-          <p>
-            <strong>Crew:</strong>{" "}
-            {topCrew.map((crew) => `${crew.name} (${crew.job})`).join(", ")}
-          </p>
+                      <Link
+                        to={`/actor/${actor.id}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div
+                          style={{
+                            backgroundColor: "#7c8ba3",
+                            display: "inline-block",
+                            color: "white",
+                            padding: "0.1rem 0.4rem",
+                            borderRadius: "0.2rem",
+                            cursor: "pointer",
+                            marginRight: "0.3rem",
+                            marginBottom: "0.3rem",
+                          }}
+                        >
+                          {actor.name}
+                        </div>
+                      </Link>
+                    </OverlayTrigger>
+                    {index < cast.length - 1 && ""}
+                  </span>
+                ))}
+              </p>
+            </Tab>
+
+            <Tab eventKey="crew" title="Crew">
+              <p>
+                {topCrew.map((crew, index) => (
+                  <span key={crew.id || index}>
+                    <strong>{crew.name}</strong> ({crew.job})
+                    {index < topCrew.length - 1 && ", "}
+                  </span>
+                ))}
+              </p>
+            </Tab>
+          </Tabs>
         </Col>
         <Col md={4}>
           <AddReview id={id} />
