@@ -1,5 +1,6 @@
-body {
+#root,
+.App {
+  min-height: 100vh;
   background-color: #14171c;
-  margin: 0;
-  padding: 0;
+  color: white; /* Optional for better visibility */
 }

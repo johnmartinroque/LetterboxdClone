@@ -16,6 +16,7 @@ import { auth } from "./firebase";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import UserHome from "./screens/UserHome";
+import "../src/css/App.css";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -34,7 +35,7 @@ function App() {
   }
 
   return (
-    <div style={{ backgroundColor: "#14171c", minHeight: "300vh" }}>
+    <div>
       <Router>
         {currentUser ? <HeaderUser /> : <Header />}
 

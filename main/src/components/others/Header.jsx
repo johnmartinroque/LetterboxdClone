@@ -10,11 +10,7 @@ import Button from "react-bootstrap/Button";
 
 function Header() {
   return (
-    <Navbar
-      expand="lg"
-      variant="dark"
-      style={{ backgroundColor: "transparent" }}
-    >
+    <Navbar bg="transparent" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
           MyApp
