@@ -25,7 +25,7 @@ function ReviewModal({
   }, [initialRating]);
 
   const posterUrl = posterPath
-    ? `https://image.tmdb.org/t/p/w200${posterPath}`
+    ? `https://image.tmdb.org/t/p/original${posterPath}`
     : "https://via.placeholder.com/200x300?text=No+Image";
 
   const releaseYear = releaseDate ? new Date(releaseDate).getFullYear() : "N/A";

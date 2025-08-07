@@ -77,7 +77,7 @@ function FilmDetailed() {
             <Card.Img
               src={
                 detail.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${detail.poster_path}`
+                  ? `https://image.tmdb.org/t/p/w780${detail.poster_path}`
                   : "https://via.placeholder.com/500x750?text=No+Image"
               }
               onClick={() =>

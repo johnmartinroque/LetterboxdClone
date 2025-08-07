@@ -1,6 +1,6 @@
-import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import { auth, db } from "../../firebase";
 import ReviewModal from "../modals/ReviewModal";
@@ -10,13 +10,11 @@ import "../../css/Reviews.css";
 function AddReview(props) {
   const { id, title, releaseDate, posterPath } = props;
   const [rating, setRating] = useState(0);
-  const [text, setText] = useState("");
+
   const [username, setUsername] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const movieReviewsRef = collection(db, "reviews");
 
-  {
-    /* 
+  /* 
    const addReview = async () => {
     try {
       await addDoc(movieReviewsRef, {
@@ -36,7 +34,7 @@ function AddReview(props) {
     addReview();
   };
   */
-  }
+
   const handleRating = (rate) => {
     setRating(rate);
     console.log("Selected Rating:", rate);
