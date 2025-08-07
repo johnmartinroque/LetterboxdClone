@@ -1,6 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import "../../css/App.css";
 
 function ReviewModal({ show, onHide, title, releaseDate, posterPath }) {
   const posterUrl = posterPath
@@ -9,9 +10,9 @@ function ReviewModal({ show, onHide, title, releaseDate, posterPath }) {
 
   const releaseYear = releaseDate ? new Date(releaseDate).getFullYear() : "N/A";
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} dialogClassName="custom-modal">
       <Modal.Header closeButton>
-        <Modal.Title>I watched ...</Modal.Title>
+        <Modal.Title style={{ color: "white" }}>I watched ...</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -20,17 +21,17 @@ function ReviewModal({ show, onHide, title, releaseDate, posterPath }) {
             <img src={posterUrl} alt={title} style={{ width: "100%" }} />
           </Col>
           <Col md={8}>
-            <h4>{title}</h4>
-            <p>({releaseYear})</p>
+            <h4 style={{ color: "white" }}>{title}</h4>
+            <p style={{ color: "white" }}>({releaseYear})</p>
           </Col>
         </Row>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
+        <Button variant="secondary" onClick={onHide} style={{ color: "white" }}>
           Close
         </Button>
-        <Button variant="primary">Save changes</Button>
+        <Button className="save-button">Save changes</Button>
       </Modal.Footer>
     </Modal>
   );

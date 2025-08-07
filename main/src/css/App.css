@@ -2,5 +2,8 @@
 .App {
   min-height: 100vh;
   background-color: #14171c;
-  color: white; /* Optional for better visibility */
+}
+
+.custom-modal .modal-content {
+  background-color: #556678; /* Light blue background */
 }
