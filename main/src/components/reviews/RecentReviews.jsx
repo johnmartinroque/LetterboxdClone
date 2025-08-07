@@ -43,7 +43,7 @@ function RecentReviews({ filmId }) {
   }, [filmId]);
 
   return (
-    <div>
+    <div style={{ width: "50rem" }}>
       <h4>Recent Reviews</h4>
       {loading ? (
         <Spinner animation="border" style={{ color: "white" }} />
@@ -69,7 +69,18 @@ function RecentReviews({ filmId }) {
               </Row>
               <Row className="mb-3">
                 <Col className="text-start">
-                  <strong>{review.reviewText}</strong>
+                  <strong
+                    style={{
+                      wordWrap: "break-word",
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                      whiteSpace: "normal",
+                      maxWidth: "100%",
+                      display: "inline-block",
+                    }}
+                  >
+                    {review.reviewText}
+                  </strong>
                 </Col>
               </Row>
               <Row className="mb-3">

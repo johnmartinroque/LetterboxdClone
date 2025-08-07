@@ -5,6 +5,7 @@ import { Rating } from "react-simple-star-rating";
 import { auth, db } from "../../firebase";
 import ReviewModal from "../modals/ReviewModal";
 import ListGroup from "react-bootstrap/ListGroup";
+
 function AddReview(props) {
   const { id, title, releaseDate, posterPath } = props;
   const [rating, setRating] = useState(0);
@@ -13,7 +14,9 @@ function AddReview(props) {
   const [showModal, setShowModal] = useState(false);
   const movieReviewsRef = collection(db, "reviews");
 
-  const addReview = async () => {
+  {
+    /* 
+   const addReview = async () => {
     try {
       await addDoc(movieReviewsRef, {
         filmId: id,
@@ -27,14 +30,16 @@ function AddReview(props) {
     }
   };
 
+
+    const addReviewHandler = () => {
+    addReview();
+  };
+  */
+  }
   const handleRating = (rate) => {
     setRating(rate);
     console.log("Selected Rating:", rate);
     // you can add more logic here
-  };
-
-  const addReviewHandler = () => {
-    addReview();
   };
 
   const fetchUsername = async () => {
@@ -231,6 +236,7 @@ function AddReview(props) {
           <h3>Show your activity</h3>
         </ListGroup.Item>
         <ListGroup.Item
+          onClick={showModal}
           as="li"
           style={{
             display: "flex",
@@ -274,6 +280,8 @@ function AddReview(props) {
         releaseDate={releaseDate}
         posterPath={posterPath}
         rating={rating}
+        id={id}
+        username={username}
       />
     </div>
   );
