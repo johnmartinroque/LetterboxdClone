@@ -1,0 +1,4 @@
+.hoverable-text {
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}

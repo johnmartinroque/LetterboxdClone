@@ -5,6 +5,7 @@ import { Rating } from "react-simple-star-rating";
 import { auth, db } from "../../firebase";
 import ReviewModal from "../modals/ReviewModal";
 import ListGroup from "react-bootstrap/ListGroup";
+import "../../css/Reviews.css";
 
 function AddReview(props) {
   const { id, title, releaseDate, posterPath } = props;
@@ -236,7 +237,6 @@ function AddReview(props) {
           <h3>Show your activity</h3>
         </ListGroup.Item>
         <ListGroup.Item
-          onClick={showModal}
           as="li"
           style={{
             display: "flex",
@@ -246,7 +246,9 @@ function AddReview(props) {
           }}
         >
           {" "}
-          <h3>Add a review</h3>
+          <h3 onClick={toggleModal} className="hoverable-text">
+            Add a review
+          </h3>
         </ListGroup.Item>
         <ListGroup.Item
           as="li"
