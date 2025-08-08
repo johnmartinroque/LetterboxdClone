@@ -7,7 +7,6 @@ import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Rating } from "react-simple-star-rating";
 import Form from "react-bootstrap/Form";
-import { useSelector } from "react-redux";
 
 function ReviewModal({
   show,
@@ -17,6 +16,8 @@ function ReviewModal({
   posterPath,
   rating: initialRating,
   id,
+  username,
+  userId,
 }) {
   const [rating, setRating] = useState(initialRating || 0);
   const [text, setText] = useState("");
@@ -24,6 +25,7 @@ function ReviewModal({
   const [addDiary, setAddDiary] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
   const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
 
   useEffect(() => {
     setRating(initialRating); // Update rating if it changes
@@ -41,8 +43,19 @@ function ReviewModal({
     setRating(rate); // update rating in state
   };
 
-  const { userInfo } = useSelector((state) => state.userInfo);
-  const { username, userId } = userInfo || {};
+  const handleTagKeyDown = (e) => {
+    if (e.key === "Tab" && tagInput.trim() !== "") {
+      e.preventDefault(); // prevent focus change
+      if (!tags.includes(tagInput.trim())) {
+        setTags([...tags, tagInput.trim()]);
+      }
+      setTagInput(""); // clear input
+    }
+  };
+
+  const removeTag = (tagToRemove) => {
+    setTags(tags.filter((tag) => tag !== tagToRemove));
+  };
 
   const addReview = async () => {
     try {
@@ -51,7 +64,7 @@ function ReviewModal({
         createdAt: Timestamp.now(),
         rating: rating,
         reviewText: text,
-
+        tags: tags,
         addDiary: addDiary,
         watchedBefore: watchedBefore,
         username: username,
@@ -116,6 +129,49 @@ function ReviewModal({
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                 />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label style={{ color: "white" }}>Tags</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  placeholder="Type tag and press Tab"
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Tab" || e.key === "Enter") {
+                      e.preventDefault();
+                      if (tagInput.trim() && !tags.includes(tagInput.trim())) {
+                        setTags([...tags, tagInput.trim()]);
+                      }
+                      setTagInput(""); // clear input after adding
+                    }
+                  }}
+                />
+                <div
+                  className="mt-2 d-flex flex-wrap gap-2"
+                  style={{
+                    maxWidth: "100%",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="badge"
+                      style={{
+                        backgroundColor: "#ff8000",
+                        color: "white",
+                        padding: "5px 10px",
+                        borderRadius: "15px",
+                        fontSize: "0.85rem",
+                        whiteSpace: "normal",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </Form.Group>
               <Form.Group>
                 <i class="fa-solid fa-heart" style={{ color: "#ff8000" }}></i>

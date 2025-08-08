@@ -6,12 +6,24 @@ import { auth, db } from "../../firebase";
 import ReviewModal from "../modals/ReviewModal";
 import ListGroup from "react-bootstrap/ListGroup";
 import "../../css/Reviews.css";
+import { fetchUserInfo } from "../../actions/authenticationActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function AddReview(props) {
   const { id, title, releaseDate, posterPath } = props;
   const [rating, setRating] = useState(0);
 
   const [showModal, setShowModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const { userInfo, loading, error } = useSelector((state) => state.userInfo);
+
+  useEffect(() => {
+    if (!userInfo) {
+      dispatch(fetchUserInfo());
+    }
+  }, [dispatch, userInfo]);
+  const { userId, email, username } = userInfo || [];
 
   /* 
    const addReview = async () => {
@@ -257,6 +269,8 @@ function AddReview(props) {
         posterPath={posterPath}
         rating={rating}
         id={id}
+        username={username}
+        userId={userId}
       />
     </div>
   );
