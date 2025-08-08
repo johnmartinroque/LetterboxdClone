@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase"; // Adjust path as needed
 import { Col, Row, Spinner } from "react-bootstrap";
+import { Rating } from "react-simple-star-rating";
 
 function RecentReviews({ filmId }) {
   const [reviews, setReviews] = useState([]);
@@ -64,7 +65,14 @@ function RecentReviews({ filmId }) {
                 <Col className="d-flex text-start gap-2">
                   <span>Review by</span>
                   <strong>{review.username}</strong>
-                  <strong>{review.rating}/5</strong>
+                  <Rating
+                    readonly
+                    allowFraction
+                    initialValue={review.rating}
+                    size={20}
+                    fillColor="#ffe601ff"
+                    emptyColor="#ccc"
+                  />
                 </Col>
               </Row>
 
