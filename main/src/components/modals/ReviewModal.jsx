@@ -7,6 +7,7 @@ import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Rating } from "react-simple-star-rating";
 import Form from "react-bootstrap/Form";
+import { useSelector } from "react-redux";
 
 function ReviewModal({
   show,
@@ -16,7 +17,6 @@ function ReviewModal({
   posterPath,
   rating: initialRating,
   id,
-  username,
 }) {
   const [rating, setRating] = useState(initialRating || 0);
   const [text, setText] = useState("");
@@ -41,6 +41,9 @@ function ReviewModal({
     setRating(rate); // update rating in state
   };
 
+  const { userInfo } = useSelector((state) => state.userInfo);
+  const { username, userId } = userInfo || {};
+
   const addReview = async () => {
     try {
       await addDoc(movieReviewsRef, {
@@ -48,9 +51,11 @@ function ReviewModal({
         createdAt: Timestamp.now(),
         rating: rating,
         reviewText: text,
-        username: username,
+
         addDiary: addDiary,
         watchedBefore: watchedBefore,
+        username: username,
+        userId: userId,
       });
       onHide(); // Close modal after saving
     } catch (err) {

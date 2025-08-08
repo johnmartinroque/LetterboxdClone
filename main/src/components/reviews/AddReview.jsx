@@ -280,7 +280,6 @@ function AddReview(props) {
         posterPath={posterPath}
         rating={rating}
         id={id}
-        username={username}
       />
     </div>
   );
