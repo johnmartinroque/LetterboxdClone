@@ -13,6 +13,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import Ratings from "../components/reviews/Ratings";
 
 function FilmDetailed() {
   const { id } = useParams();
@@ -167,6 +168,7 @@ function FilmDetailed() {
             releaseDate={detail.release_date}
             posterPath={detail.poster_path}
           />
+          <Ratings />
         </Col>
       </Row>
       <Row className="text-center">

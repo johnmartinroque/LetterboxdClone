@@ -11,7 +11,6 @@ function AddReview(props) {
   const { id, title, releaseDate, posterPath } = props;
   const [rating, setRating] = useState(0);
 
-  const [username, setUsername] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   /* 
@@ -40,28 +39,6 @@ function AddReview(props) {
     console.log("Selected Rating:", rate);
     // you can add more logic here
   };
-
-  const fetchUsername = async () => {
-    try {
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(db, "users", user.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-          const data = userDocSnap.data();
-          setUsername(data.username || "");
-        } else {
-          console.error("user document not found");
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchUsername();
-  });
 
   const toggleModal = () => {
     setShowModal((prev) => !prev);
