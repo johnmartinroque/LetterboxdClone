@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Rating } from "react-simple-star-rating";
+import Form from "react-bootstrap/Form";
 
 function ReviewModal({
   show,
@@ -19,6 +20,10 @@ function ReviewModal({
 }) {
   const [rating, setRating] = useState(initialRating || 0);
   const [text, setText] = useState("");
+  const [watched, setWatched] = useState(true);
+  const [addDiary, setAddDiary] = useState(true);
+  const [isLiked, setIsLiked] = useState(false);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     setRating(initialRating); // Update rating if it changes
@@ -44,6 +49,8 @@ function ReviewModal({
         rating: rating,
         reviewText: text,
         username: username,
+        addDiary: addDiary,
+        watched: watched,
       });
       onHide(); // Close modal after saving
     } catch (err) {
@@ -65,12 +72,38 @@ function ReviewModal({
           <Col md={8}>
             <h4 style={{ color: "white" }}>{title}</h4>
             <p style={{ color: "white" }}>({releaseYear})</p>
-            <textarea
-              style={{ width: "100%", height: "150px" }}
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Write your review here..."
-            />
+            <Form>
+              <Form.Group className="mb-3" controlId="reviewTextarea">
+                <Form.Label style={{ color: "white" }}>Your Review</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={5}
+                  placeholder="Write your review here..."
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                />
+              </Form.Group>
+
+              {/* Two Checkboxes */}
+              <Form.Group className="mb-3">
+                <Form.Check
+                  type="checkbox"
+                  id="spoiler-check"
+                  label="Watched on "
+                  checked={addDiary}
+                  onChange={(e) => setAddDiary(e.target.checked)}
+                  style={{ color: "white" }}
+                />
+                <Form.Check
+                  type="checkbox"
+                  id="recommend-check"
+                  label="Watched"
+                  checked={watched}
+                  onChange={(e) => setWatched(e.target.checked)}
+                  style={{ color: "white" }}
+                />
+              </Form.Group>
+            </Form>
             <div style={{ marginTop: "1rem" }}>
               <Rating
                 onClick={handleRating}

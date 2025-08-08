@@ -146,7 +146,6 @@ function AddReview(props) {
         <Button onClick={addReviewHandler}>Submit Review</Button>
       </Card>
       */}
-      <Button onClick={toggleModal}>Show Review Modal</Button>
 
       <ListGroup as="ol">
         <ListGroup.Item as="li" style={{ backgroundColor: "#556678" }}>
