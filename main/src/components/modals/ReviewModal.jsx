@@ -20,7 +20,7 @@ function ReviewModal({
 }) {
   const [rating, setRating] = useState(initialRating || 0);
   const [text, setText] = useState("");
-  const [watched, setWatched] = useState(true);
+  const [watchedBefore, setWatchedBefore] = useState(true);
   const [addDiary, setAddDiary] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
   const [tags, setTags] = useState([]);
@@ -50,7 +50,7 @@ function ReviewModal({
         reviewText: text,
         username: username,
         addDiary: addDiary,
-        watched: watched,
+        watchedBefore: watchedBefore,
       });
       onHide(); // Close modal after saving
     } catch (err) {
@@ -67,12 +67,41 @@ function ReviewModal({
       <Modal.Body>
         <Row>
           <Col md={4}>
-            <img src={posterUrl} alt={title} style={{ width: "100%" }} />
+            <a href={`/film/${id}`} target="_blank" rel="noopener noreferrer">
+              <img
+                src={posterUrl}
+                alt={title}
+                style={{ width: "100%", cursor: "pointer" }}
+              />
+            </a>
           </Col>
           <Col md={8}>
             <h4 style={{ color: "white" }}>{title}</h4>
             <p style={{ color: "white" }}>({releaseYear})</p>
             <Form>
+              {/* Two Checkboxes */}
+              <Form.Group className="mb-3">
+                <Form.Check
+                  type="checkbox"
+                  id="spoiler-check"
+                  label={`Watched on ${new Date().toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}`}
+                  checked={addDiary}
+                  onChange={(e) => setAddDiary(e.target.checked)}
+                  style={{ color: "white" }}
+                />
+                <Form.Check
+                  type="checkbox"
+                  id="recommend-check"
+                  label="I've Watched this before"
+                  checked={watchedBefore}
+                  onChange={(e) => setWatchedBefore(e.target.checked)}
+                  style={{ color: "white" }}
+                />
+              </Form.Group>
               <Form.Group className="mb-3" controlId="reviewTextarea">
                 <Form.Label style={{ color: "white" }}>Your Review</Form.Label>
                 <Form.Control
@@ -83,25 +112,8 @@ function ReviewModal({
                   onChange={(e) => setText(e.target.value)}
                 />
               </Form.Group>
-
-              {/* Two Checkboxes */}
-              <Form.Group className="mb-3">
-                <Form.Check
-                  type="checkbox"
-                  id="spoiler-check"
-                  label="Watched on "
-                  checked={addDiary}
-                  onChange={(e) => setAddDiary(e.target.checked)}
-                  style={{ color: "white" }}
-                />
-                <Form.Check
-                  type="checkbox"
-                  id="recommend-check"
-                  label="Watched"
-                  checked={watched}
-                  onChange={(e) => setWatched(e.target.checked)}
-                  style={{ color: "white" }}
-                />
+              <Form.Group>
+                <i class="fa-solid fa-heart" style={{ color: "#ff8000" }}></i>
               </Form.Group>
             </Form>
             <div style={{ marginTop: "1rem" }}>
