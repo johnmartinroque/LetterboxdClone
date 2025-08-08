@@ -20,7 +20,7 @@ function ReviewModal({
 }) {
   const [rating, setRating] = useState(initialRating || 0);
   const [text, setText] = useState("");
-  const [watchedBefore, setWatchedBefore] = useState(true);
+  const [watchedBefore, setWatchedBefore] = useState(false);
   const [addDiary, setAddDiary] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
   const [tags, setTags] = useState([]);

@@ -67,6 +67,28 @@ function RecentReviews({ filmId }) {
                   <strong>{review.rating}/5</strong>
                 </Col>
               </Row>
+
+              {/* Watched / Rewatched Date */}
+              <Row className="mb-2">
+                <Col className="text-start">
+                  {review.watchedBefore
+                    ? `Rewatched on ${
+                        review.createdAt?.toDate().toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }) ?? "N/A"
+                      }`
+                    : `Watched on ${
+                        review.createdAt?.toDate().toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }) ?? "N/A"
+                      }`}
+                </Col>
+              </Row>
+
               <Row className="mb-3">
                 <Col className="text-start">
                   <strong
@@ -83,6 +105,7 @@ function RecentReviews({ filmId }) {
                   </strong>
                 </Col>
               </Row>
+
               <Row className="mb-3">
                 <Col className="text-start">
                   <i
@@ -92,12 +115,6 @@ function RecentReviews({ filmId }) {
                   {review.likes} likes
                 </Col>
               </Row>
-
-              {/* Uncomment to show date
-              <small>
-                {review.createdAt?.toDate().toLocaleString() ?? "N/A"}
-              </small>
-              */}
             </li>
           ))}
         </ul>
