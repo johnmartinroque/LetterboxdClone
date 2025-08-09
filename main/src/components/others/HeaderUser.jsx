@@ -8,11 +8,12 @@ import {
   Button,
   Container,
 } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { logoutUser } from "../../actions/authenticationActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function HeaderUser() {
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userInfo);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -45,6 +46,11 @@ function HeaderUser() {
             <Nav.Link as={Link} to="/journal">
               Journal
             </Nav.Link>
+            {userInfo && (
+              <Nav.Link as={Link} to={`/${userInfo.username}`}>
+                Profile
+              </Nav.Link>
+            )}
           </Nav>
 
           {/* Search and logout */}
