@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Spinner from "react-bootstrap/Spinner";
 import { searchFilms } from "../../actions/filmActions";
+import { useNavigate } from "react-router-dom";
 
 function SearchFilm() {
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate("");
   const dropdownRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -95,6 +97,7 @@ function SearchFilm() {
                   onClick={() => {
                     setQuery(film.title);
                     setShowDropdown(false);
+                    navigate(`/film/${film.id}`);
                   }}
                 >
                   <strong>{film.title}</strong>{" "}
