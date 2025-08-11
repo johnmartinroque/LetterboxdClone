@@ -1,5 +1,4 @@
 import React from "react";
-import RatingsBarChart from "../reviews/RatingsBarChart";
 
 function Statistics() {
   return (
@@ -12,9 +11,7 @@ function Statistics() {
         <i class="fa-solid fa-heart" style={{ color: "#ff8000" }}></i>
         <p class="mb-0 mx-2">100k</p>
       </div>
-      <div>
-        <RatingsBarChart />
-      </div>
+      <div></div>
     </>
   );
 }

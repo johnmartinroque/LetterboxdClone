@@ -13,8 +13,8 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import Ratings from "../components/reviews/Ratings";
 
+import RatingsBarChart from "../components/reviews/RatingsBarChart";
 function FilmDetailed() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -168,7 +168,7 @@ function FilmDetailed() {
             releaseDate={detail.release_date}
             posterPath={detail.poster_path}
           />
-          <Ratings />
+          <RatingsBarChart />
         </Col>
       </Row>
       <Row className="text-center">
