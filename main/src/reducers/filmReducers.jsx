@@ -5,6 +5,9 @@ import {
   FETCH_FILM_DETAIL_REQUEST,
   FETCH_FILM_DETAIL_SUCCESS,
   FETCH_FILM_DETAIL_FAIL,
+  SEARCH_FILMS_REQUEST,
+  SEARCH_FILMS_SUCCESS,
+  SEARCH_FILMS_FAIL,
 } from "../constants/filmConstants";
 
 const initialState = {
@@ -46,6 +49,19 @@ export const filmDetailReducer = (state = detailInitialState, action) => {
       };
     case FETCH_FILM_DETAIL_FAIL:
       return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const searchFilmsReducer = (state = { films: [] }, action) => {
+  switch (action.type) {
+    case SEARCH_FILMS_REQUEST:
+      return { loading: true, films: [] };
+    case SEARCH_FILMS_SUCCESS:
+      return { loading: false, films: action.payload };
+    case SEARCH_FILMS_FAIL:
+      return { loading: false, error: action.payload, films: [] };
     default:
       return state;
   }

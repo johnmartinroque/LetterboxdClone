@@ -5,6 +5,9 @@ import {
   FETCH_FILM_DETAIL_REQUEST,
   FETCH_FILM_DETAIL_SUCCESS,
   FETCH_FILM_DETAIL_FAIL,
+  SEARCH_FILMS_REQUEST,
+  SEARCH_FILMS_SUCCESS,
+  SEARCH_FILMS_FAIL,
 } from "../constants/filmConstants";
 
 const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY;
@@ -55,6 +58,51 @@ export const fetchFilmDetail = (id) => async (dispatch) => {
     dispatch({
       type: FETCH_FILM_DETAIL_FAIL,
       payload: error.message || "Something went wrong.",
+    });
+  }
+};
+
+export const searchFilms = (query) => async (dispatch) => {
+  dispatch({ type: SEARCH_FILMS_REQUEST });
+
+  try {
+    const searchRes = await fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+        query
+      )}&language=en-US`
+    );
+
+    if (!searchRes.ok) throw new Error("Failed to search films");
+
+    const searchData = await searchRes.json();
+
+    // Fetch directors for each movie
+    const filmsWithDirector = await Promise.all(
+      searchData.results.map(async (film) => {
+        const creditsRes = await fetch(
+          `https://api.themoviedb.org/3/movie/${film.id}/credits?api_key=${TMDB_API_KEY}`
+        );
+
+        if (!creditsRes.ok) return { ...film, director: "Unknown" };
+
+        const creditsData = await creditsRes.json();
+        const director = creditsData.crew.find((p) => p.job === "Director");
+
+        return {
+          ...film,
+          director: director ? director.name : "Unknown",
+        };
+      })
+    );
+
+    dispatch({
+      type: SEARCH_FILMS_SUCCESS,
+      payload: filmsWithDirector,
+    });
+  } catch (error) {
+    dispatch({
+      type: SEARCH_FILMS_FAIL,
+      payload: error.message || "Something went wrong",
     });
   }
 };

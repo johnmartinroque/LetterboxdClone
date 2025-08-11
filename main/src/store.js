@@ -4,6 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   filmDetailReducer,
   filmTrendingReducer,
+  searchFilmsReducer,
 } from "./reducers/filmReducers";
 import { actorDetailReducer } from "./reducers/actorReducers";
 import { directorDetailReducer } from "./reducers/directorReducers";
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   userSignIn: userSignInReducer,
   userInfo: userInfoReducer,
   recentReviews: recentReviewsReducer,
+  searchFilms: searchFilmsReducer,
 });
 
 const middleware = [thunk];

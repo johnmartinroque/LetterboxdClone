@@ -4,6 +4,7 @@ import { fetchTrendingFilms } from "../actions/filmActions";
 import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../css/Films.css";
+import SearchFilm from "../components/film/SearchFilm";
 function Films() {
   const dispatch = useDispatch();
 
@@ -21,6 +22,9 @@ function Films() {
     <Container className="mt-4">
       <Row>
         <Col>Browse By</Col>
+        <Col>
+          <SearchFilm />
+        </Col>
       </Row>
       <h2 className="mb-4">Popular Films This Week</h2>
 
