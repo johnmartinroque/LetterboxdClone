@@ -80,6 +80,7 @@ function SearchFilm() {
             maxHeight: "250px",
             overflowY: "auto",
             zIndex: 1000,
+            backgroundColor: "#556678",
           }}
         >
           {error && (
@@ -100,10 +101,13 @@ function SearchFilm() {
                     navigate(`/film/${film.id}`);
                   }}
                 >
-                  <strong>{film.title}</strong>{" "}
-                  {film.release_date && `(${film.release_date.slice(0, 4)})`}
+                  <strong style={{ color: "white" }}>{film.title}</strong>{" "}
+                  <strong style={{ color: "white" }}>
+                    {" "}
+                    {film.release_date && `(${film.release_date.slice(0, 4)})`}
+                  </strong>
                   <br />
-                  <small style={{ color: "#555" }}>
+                  <small style={{ color: "#dadadaff" }}>
                     Director: {film.director}
                   </small>
                 </div>
