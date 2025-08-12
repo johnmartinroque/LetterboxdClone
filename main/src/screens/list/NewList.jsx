@@ -2,16 +2,27 @@ import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import SearchFilmNewList from "../../components/lists/SearchFilmNewlist";
 import Form from "react-bootstrap/Form";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function NewList() {
   const [selectedFilms, setSelectedFilms] = useState([]);
   const [isRanked, setIsRanked] = useState(false);
 
   const handleAddFilm = (film) => {
-    // Avoid duplicates
     if (!selectedFilms.find((f) => f.id === film.id)) {
       setSelectedFilms((prev) => [...prev, film]);
     }
+  };
+
+  // Drag end handler
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const reordered = Array.from(selectedFilms);
+    const [movedItem] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, movedItem);
+
+    setSelectedFilms(reordered);
   };
 
   return (
@@ -73,27 +84,87 @@ function NewList() {
             {selectedFilms.length === 0 && (
               <p style={{ color: "#bbb" }}>No films added yet</p>
             )}
-            {selectedFilms.map((film, index) => (
-              <div
-                key={film.id}
-                style={{
-                  padding: "8px 12px",
-                  background: "#334",
-                  marginBottom: "5px",
-                  borderRadius: "4px",
-                }}
-              >
-                {isRanked && (
-                  <span style={{ color: "#aaa", marginRight: "8px" }}>
-                    #{index + 1}
+
+            {isRanked ? (
+              <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable droppableId="filmList" direction="vertical">
+                  {(provided) => (
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                      {selectedFilms.map((film, index) => (
+                        <Draggable
+                          key={film.id}
+                          draggableId={film.id.toString()}
+                          index={index}
+                        >
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={{
+                                padding: "8px 12px",
+                                background: "#334",
+                                marginBottom: "5px",
+                                borderRadius: "4px",
+                                display: "flex",
+                                alignItems: "center",
+                                ...provided.draggableProps.style,
+                              }}
+                            >
+                              {isRanked && (
+                                <span
+                                  style={{
+                                    color: "#aaa",
+                                    marginRight: "8px",
+                                    minWidth: "24px",
+                                  }}
+                                >
+                                  #{index + 1}
+                                </span>
+                              )}
+                              {film.poster_path && (
+                                <img
+                                  src={`https://image.tmdb.org/t/p/w92${film.poster_path}`}
+                                  alt={`${film.title} poster`}
+                                  style={{ width: "50px", borderRadius: "4px" }}
+                                />
+                              )}
+                              <strong style={{ color: "white" }}>
+                                {film.title}
+                              </strong>{" "}
+                              <span
+                                style={{ color: "#ccc", marginLeft: "6px" }}
+                              >
+                                {film.release_date &&
+                                  `(${film.release_date.slice(0, 4)})`}
+                              </span>
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            ) : (
+              selectedFilms.map((film) => (
+                <div
+                  key={film.id}
+                  style={{
+                    padding: "8px 12px",
+                    background: "#334",
+                    marginBottom: "5px",
+                    borderRadius: "4px",
+                  }}
+                >
+                  <strong style={{ color: "white" }}>{film.title}</strong>{" "}
+                  <span style={{ color: "#ccc" }}>
+                    {film.release_date && `(${film.release_date.slice(0, 4)})`}
                   </span>
-                )}
-                <strong style={{ color: "white" }}>{film.title}</strong>{" "}
-                <span style={{ color: "#ccc" }}>
-                  {film.release_date && `(${film.release_date.slice(0, 4)})`}
-                </span>
-              </div>
-            ))}
+                </div>
+              ))
+            )}
           </Col>
         </Row>
       </Container>
