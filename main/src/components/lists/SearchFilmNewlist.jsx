@@ -6,7 +6,7 @@ import { searchFilms } from "../../actions/filmActions";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-function SearchFilmNewList({ onAddFilm }) {
+function SearchFilmNewList({ onAddFilm, isRanked }) {
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate("");
@@ -94,7 +94,7 @@ function SearchFilmNewList({ onAddFilm }) {
             <div style={{ padding: "10px", color: "red" }}>{error}</div>
           )}
           {films && films.length > 0
-            ? films.map((film) => (
+            ? films.map((film, index) => (
                 <div
                   key={film.id}
                   style={{

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import SearchFilmNewList from "../../components/lists/SearchFilmNewlist";
+import Form from "react-bootstrap/Form";
 
 function NewList() {
   const [selectedFilms, setSelectedFilms] = useState([]);
+  const [isRanked, setIsRanked] = useState(false);
 
   const handleAddFilm = (film) => {
     // Avoid duplicates
@@ -36,6 +38,15 @@ function NewList() {
             <input type="text" className="form-control" />
             <h5>Who can view</h5>
             <select className="form-control" />
+            <Form>
+              <Form.Check
+                type="checkbox"
+                id="default-checkbox"
+                label="Ranked list"
+                checked={isRanked}
+                onChange={(e) => setIsRanked(e.target.checked)}
+              />
+            </Form>
           </Col>
           <Col className="d-flex flex-column">
             <h5>Description</h5>
@@ -45,7 +56,7 @@ function NewList() {
 
         <Row className="mt-5">
           <Col md={8} className="d-flex ">
-            <SearchFilmNewList onAddFilm={handleAddFilm} />
+            <SearchFilmNewList onAddFilm={handleAddFilm} isRanked={isRanked} />
           </Col>
           <Col md={4}>
             <select className="form-control" />
@@ -62,7 +73,7 @@ function NewList() {
             {selectedFilms.length === 0 && (
               <p style={{ color: "#bbb" }}>No films added yet</p>
             )}
-            {selectedFilms.map((film) => (
+            {selectedFilms.map((film, index) => (
               <div
                 key={film.id}
                 style={{
@@ -72,6 +83,11 @@ function NewList() {
                   borderRadius: "4px",
                 }}
               >
+                {isRanked && (
+                  <span style={{ color: "#aaa", marginRight: "8px" }}>
+                    #{index + 1}
+                  </span>
+                )}
                 <strong style={{ color: "white" }}>{film.title}</strong>{" "}
                 <span style={{ color: "#ccc" }}>
                   {film.release_date && `(${film.release_date.slice(0, 4)})`}
