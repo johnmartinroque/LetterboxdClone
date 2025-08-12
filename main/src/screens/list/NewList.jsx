@@ -14,6 +14,10 @@ function NewList() {
     }
   };
 
+  const handleRemoveFilm = (filmId) => {
+    setSelectedFilms((prev) => prev.filter((film) => film.id !== filmId));
+  };
+
   // Drag end handler
   const handleDragEnd = (result) => {
     if (!result.destination) return;
@@ -138,6 +142,16 @@ function NewList() {
                                 {film.release_date &&
                                   `(${film.release_date.slice(0, 4)})`}
                               </span>
+                              <i
+                                className="fa-solid fa-trash"
+                                style={{
+                                  color: "#f55",
+                                  marginLeft: "auto",
+                                  cursor: "pointer",
+                                  fontSize: "1rem",
+                                }}
+                                onClick={() => handleRemoveFilm(film.id)}
+                              ></i>
                             </div>
                           )}
                         </Draggable>
