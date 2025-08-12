@@ -33,10 +33,7 @@ function NewList() {
         </Row>
         <Row className="mt-5">
           <Col md={8} className="d-flex ">
-            <Button>ADD A FILM</Button>
-            <input type="text" className="form-control" />
-            <p>or </p>
-            <Button>Import</Button>
+            {/* search film here */}
           </Col>
           <Col md={4}>
             <select className="form-control" />

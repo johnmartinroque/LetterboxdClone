@@ -1,54 +1,50 @@
-import React from "react";
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
-import landingPagePic from "../images/bg.jpg";
+import React, { useEffect, useState } from "react";
+import { Col, Image, Row, Spinner } from "react-bootstrap";
+import PopularFIlmsWeek from "../components/film/PopularFIlmsWeek";
+import { auth, db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { fetchUserInfo } from "../actions/authenticationActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function UserHome() {
+  const dispatch = useDispatch();
+  const { userInfo, loading, error } = useSelector((state) => state.userInfo);
+
+  useEffect(() => {
+    if (!userInfo) {
+      dispatch(fetchUserInfo());
+    }
+  }, [dispatch, userInfo]);
+
+  if (loading)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  if (error) return <div>Error: {error}</div>;
+  if (!userInfo) return null;
+
+  const { userId, email, username } = userInfo;
+
   return (
     <div>
-      <Container>
-        <Row>
-          <Col className="position-relative p-0">
-            <Image
-              src={landingPagePic}
-              style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
-                WebkitMaskImage: `
-                  linear-gradient(to top,    transparent 0%, black 90%, black 100%, transparent 100%),
-                  linear-gradient(to bottom, transparent 0%, black 0%, black 80%, transparent 100%),
-                  linear-gradient(to left,   transparent 0%, black 40%, black 80%, transparent 100%),
-                  linear-gradient(to right,  transparent 0%, black 40%, black 80%, transparent 100%)`,
-                WebkitMaskComposite: "intersect",
-                WebkitMaskRepeat: "no-repeat",
-                WebkitMaskSize: "100% 100%",
-              }}
-            />
-            <h2
-              style={{
-                position: "absolute",
-                bottom: "20px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                color: "white",
-                fontSize: "3rem",
-                padding: "10px 20px",
-                borderRadius: "8px",
-                maxWidth: "90%",
-                textAlign: "center",
-              }}
-            >
-              Track films you’ve watched. Save those you want to see. Tell your
-              friends what’s good.
-            </h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="d-flex justify-content-center">
-            <Button>Get started - it's free</Button>
-          </Col>
-        </Row>
-      </Container>
+      <Row className="text-center mt-5">
+        <Col>
+          <h2 style={{ color: "white" }}>
+            Welcome back, {username} Here’s what we’ve been watching…
+          </h2>
+          <h5 style={{ color: "white" }}>
+            This homepage will become customized as you follow active members on
+            Letterboxd.
+          </h5>
+        </Col>
+      </Row>
+      <Row className="text-center">
+        <Col>
+          <PopularFIlmsWeek />
+        </Col>
+      </Row>
     </div>
   );
 }
