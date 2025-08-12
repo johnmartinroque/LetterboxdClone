@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import SearchFilmNewList from "../../components/lists/SearchFilmNewlist";
 
 function NewList() {
+  const [selectedFilms, setSelectedFilms] = useState([]);
+
+  const handleAddFilm = (film) => {
+    // Avoid duplicates
+    if (!selectedFilms.find((f) => f.id === film.id)) {
+      setSelectedFilms((prev) => [...prev, film]);
+    }
+  };
+
   return (
     <div>
       <Container>
@@ -17,6 +27,7 @@ function NewList() {
             />
           </Col>
         </Row>
+
         <Row>
           <Col className="d-flex flex-column">
             <h5>Name</h5>
@@ -31,9 +42,10 @@ function NewList() {
             <textarea style={{ height: "15rem" }} />
           </Col>
         </Row>
+
         <Row className="mt-5">
           <Col md={8} className="d-flex ">
-            {/* search film here */}
+            <SearchFilmNewList onAddFilm={handleAddFilm} />
           </Col>
           <Col md={4}>
             <select className="form-control" />
@@ -41,6 +53,31 @@ function NewList() {
             <Button>tiles</Button>
             <Button>Cancel</Button>
             <Button>Save</Button>
+          </Col>
+        </Row>
+
+        <Row className="mt-3">
+          <Col md={8}>
+            <h5 style={{ color: "white" }}>Your List</h5>
+            {selectedFilms.length === 0 && (
+              <p style={{ color: "#bbb" }}>No films added yet</p>
+            )}
+            {selectedFilms.map((film) => (
+              <div
+                key={film.id}
+                style={{
+                  padding: "8px 12px",
+                  background: "#334",
+                  marginBottom: "5px",
+                  borderRadius: "4px",
+                }}
+              >
+                <strong style={{ color: "white" }}>{film.title}</strong>{" "}
+                <span style={{ color: "#ccc" }}>
+                  {film.release_date && `(${film.release_date.slice(0, 4)})`}
+                </span>
+              </div>
+            ))}
           </Col>
         </Row>
       </Container>
