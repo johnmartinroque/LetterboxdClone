@@ -7,6 +7,9 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 function NewList() {
   const [selectedFilms, setSelectedFilms] = useState([]);
   const [isRanked, setIsRanked] = useState(false);
+  const [name, setName] = useState("");
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
 
   const handleAddFilm = (film) => {
     if (!selectedFilms.find((f) => f.id === film.id)) {
@@ -50,7 +53,50 @@ function NewList() {
             <h5>Name</h5>
             <input type="text" className="form-control" />
             <h5>Tags</h5>
-            <input type="text" className="form-control" />
+            <Form>
+              <Form.Control
+                type="text"
+                placeholder="Type tag and press Tab or Enter"
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Tab" || e.key === "Enter") {
+                    e.preventDefault();
+                    if (tagInput.trim() && !tags.includes(tagInput.trim())) {
+                      setTags([...tags, tagInput.trim()]);
+                    }
+                    setTagInput(""); // clear after adding
+                  }
+                }}
+              />
+              <div
+                className="mt-2 d-flex flex-wrap gap-2"
+                style={{
+                  maxWidth: "100%",
+                  wordBreak: "break-word",
+                }}
+              >
+                {tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="badge"
+                    style={{
+                      backgroundColor: "#ff8000",
+                      color: "white",
+                      padding: "5px 10px",
+                      borderRadius: "15px",
+                      fontSize: "0.85rem",
+                      whiteSpace: "normal",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setTags(tags.filter((t) => t !== tag))}
+                    title="Click to remove"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </Form>
             <h5>Who can view</h5>
             <select className="form-control" />
             <Form>
