@@ -218,6 +218,17 @@ function NewList() {
                     borderRadius: "4px",
                   }}
                 >
+                  {film.poster_path && (
+                    <img
+                      src={`https://image.tmdb.org/t/p/w92${film.poster_path}`}
+                      alt={`${film.title} poster`}
+                      style={{
+                        width: "50px",
+                        borderRadius: "4px",
+                        marginRight: "10px",
+                      }}
+                    />
+                  )}
                   <strong style={{ color: "white" }}>{film.title}</strong>{" "}
                   <span style={{ color: "#ccc" }}>
                     {film.release_date && `(${film.release_date.slice(0, 4)})`}
