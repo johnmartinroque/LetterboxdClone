@@ -3,6 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import SearchFilmNewList from "../../components/lists/SearchFilmNewlist";
 import Form from "react-bootstrap/Form";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import ListedFilmModal from "../../components/modals/ListedFilmModal";
 
 function NewList() {
   const [selectedFilms, setSelectedFilms] = useState([]);
@@ -10,6 +11,8 @@ function NewList() {
   const [name, setName] = useState("");
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [activeFilm, setActiveFilm] = useState(null);
 
   const handleAddFilm = (film) => {
     if (!selectedFilms.find((f) => f.id === film.id)) {
@@ -30,6 +33,17 @@ function NewList() {
     reordered.splice(result.destination.index, 0, movedItem);
 
     setSelectedFilms(reordered);
+  };
+
+  const handleOpenModal = (film) => {
+    setActiveFilm(film);
+    setShowModal(true);
+  };
+
+  const handleUpdateFilm = (updatedFilm) => {
+    setSelectedFilms((prev) =>
+      prev.map((film) => (film.id === updatedFilm.id ? updatedFilm : film))
+    );
   };
 
   return (
@@ -185,6 +199,13 @@ function NewList() {
                               {film.release_date &&
                                 `(${film.release_date.slice(0, 4)})`}
                             </span>
+                            <Button
+                              variant="outline-light"
+                              size="sm"
+                              onClick={() => handleOpenModal(film)}
+                            >
+                              Add Notes
+                            </Button>
                             <i
                               className="fa-solid fa-trash"
                               style={{
@@ -207,6 +228,12 @@ function NewList() {
           </Col>
         </Row>
       </Container>
+      <ListedFilmModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        film={activeFilm}
+        onUpdate={handleUpdateFilm}
+      />
     </div>
   );
 }
