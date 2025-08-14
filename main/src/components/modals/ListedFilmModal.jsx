@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Button, Modal, Form } from "react-bootstrap";
-
+import "../../css/App.css";
 function ListedFilmModal({ show, onHide, film, onUpdate }) {
   const [notes, setNotes] = useState("");
   const [watchedBefore, setWatchedBefore] = useState(false);
@@ -28,7 +28,13 @@ function ListedFilmModal({ show, onHide, film, onUpdate }) {
   };
 
   return (
-    <Modal show={show} onHide={onHide} size="lg" centered>
+    <Modal
+      show={show}
+      onHide={onHide}
+      size="lg"
+      dialogClassName="custom-modal"
+      centered
+    >
       <Modal.Header closeButton>
         <Modal.Title style={{ color: "white" }}>Edit List Entry</Modal.Title>
       </Modal.Header>
@@ -45,7 +51,6 @@ function ListedFilmModal({ show, onHide, film, onUpdate }) {
             <h4 style={{ color: "white" }}>{film.title}</h4>
             <Form>
               <Form.Group className="mb-3">
-                <Form.Label style={{ color: "white" }}>Notes</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={4}
@@ -57,7 +62,7 @@ function ListedFilmModal({ show, onHide, film, onUpdate }) {
               <Form.Group>
                 <Form.Check
                   type="checkbox"
-                  label="I've watched this before"
+                  label="Notes contain spoiler"
                   checked={watchedBefore}
                   onChange={(e) => setWatchedBefore(e.target.checked)}
                   style={{ color: "white" }}
