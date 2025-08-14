@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
+import { Link, useNavigate } from "react-router-dom";
 
 function FeaturedLists() {
   const [lists, setLists] = useState([]);
@@ -41,32 +42,34 @@ function FeaturedLists() {
     <div>
       <Container>
         <h3 style={{ color: "white" }}>Featured Lists</h3>
-        {lists.map((list) => (
-          <div key={list.id} style={{ color: "white", marginBottom: "15px" }}>
-            <h5>{list.name}</h5>
-            <p>{list.description}</p>
-            <p>
-              <strong>By:</strong> {list.username}
-            </p>
-            <p>
-              <strong>Tags:</strong> {list.tags?.join(", ")}
-            </p>
-            <p>
-              <strong>Ranked:</strong> {list.isRanked ? "Yes" : "No"}
-            </p>
-            <p>
-              <strong>Films:</strong>
-            </p>
-            <ul>
-              {list.films?.map((film, idx) => (
-                <li key={idx}>
-                  {list.isRanked && `#${film.rank} `}
-                  {film.title} {film.notes && ` - Notes: ${film.notes}`}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {lists
+          .map((list) => (
+            <div key={list.id} style={{ color: "white", marginBottom: "15px" }}>
+              <Link to={`/list/${list.id}`}>{list.name}</Link>
+              <p>{list.description}</p>
+              <p>
+                <strong>By:</strong> {list.username}
+              </p>
+              <p>
+                <strong>Tags:</strong> {list.tags?.join(", ")}
+              </p>
+              <p>
+                <strong>Ranked:</strong> {list.isRanked ? "Yes" : "No"}
+              </p>
+              <p>
+                <strong>Films:</strong>
+              </p>
+              <ul>
+                {list.films?.map((film, idx) => (
+                  <li key={idx}>
+                    {list.isRanked && `#${film.rank} `}
+                    {film.title} {film.notes && ` - Notes: ${film.notes}`}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+          .slice(0, 3)}
       </Container>
     </div>
   );

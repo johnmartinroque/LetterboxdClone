@@ -4,6 +4,9 @@ import {
   NEWLIST_SEARCH_FILMS_FAIL,
   NEWLIST_ADD_FILM,
   NEWLIST_REMOVE_FILM,
+  LIST_DETAILS_REQUEST,
+  LIST_DETAILS_SUCCESS,
+  LIST_DETAILS_FAIL,
 } from "../constants/listConstants";
 
 export const searchFilmsNewListReducer = (state = { films: [] }, action) => {
@@ -37,6 +40,19 @@ export const newListSelectedFilmsReducer = (
         selected: state.selected.filter((film) => film.id !== action.payload),
       };
 
+    default:
+      return state;
+  }
+};
+
+export const listDetailsReducer = (state = { list: {} }, action) => {
+  switch (action.type) {
+    case LIST_DETAILS_REQUEST:
+      return { loading: true, ...state };
+    case LIST_DETAILS_SUCCESS:
+      return { loading: false, list: action.payload };
+    case LIST_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

@@ -18,6 +18,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import UserHome from "./screens/UserHome";
 import "../src/css/App.css";
 import Profile from "./screens/Profile";
+import ListDetailed from "./screens/list/ListDetailed";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -51,6 +52,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/:username" element={<Profile />} />
+          <Route path="/list/:id" element={<ListDetailed />} />
         </Routes>
       </Router>
     </div>

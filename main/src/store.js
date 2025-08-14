@@ -14,6 +14,7 @@ import {
   userSignInReducer,
 } from "./reducers/authenticationReducer";
 import { recentReviewsReducer } from "./reducers/reviewReducers";
+import { listDetailsReducer } from "./reducers/listReducers";
 
 const rootReducer = combineReducers({
   filmTrending: filmTrendingReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   userInfo: userInfoReducer,
   recentReviews: recentReviewsReducer,
   searchFilms: searchFilmsReducer,
+  listDetails: listDetailsReducer,
 });
 
 const middleware = [thunk];
