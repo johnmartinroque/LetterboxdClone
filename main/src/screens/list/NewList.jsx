@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import SearchFilmNewList from "../../components/lists/SearchFilmNewlist";
 import Form from "react-bootstrap/Form";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ListedFilmModal from "../../components/modals/ListedFilmModal";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserInfo } from "../../actions/authenticationActions";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
 
 function NewList() {
   const [selectedFilms, setSelectedFilms] = useState([]);
@@ -13,6 +17,26 @@ function NewList() {
   const [tagInput, setTagInput] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [activeFilm, setActiveFilm] = useState(null);
+  const [description, setDescription] = useState("");
+
+  const dispatch = useDispatch();
+  const { userInfo, loading, error } = useSelector((state) => state.userInfo);
+  useEffect(() => {
+    if (!userInfo) {
+      dispatch(fetchUserInfo());
+    }
+  }, [dispatch, userInfo]);
+
+  if (loading)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  if (error) return <div>Error: {error}</div>;
+  if (!userInfo) return null;
+
+  const { userId, email, username } = userInfo;
 
   const handleAddFilm = (film) => {
     if (!selectedFilms.find((f) => f.id === film.id)) {
@@ -24,7 +48,6 @@ function NewList() {
     setSelectedFilms((prev) => prev.filter((film) => film.id !== filmId));
   };
 
-  // Drag end handler
   const handleDragEnd = (result) => {
     if (!result.destination) return;
 
@@ -46,6 +69,46 @@ function NewList() {
     );
   };
 
+  const handleSaveList = async () => {
+    if (!name.trim()) {
+      alert("List name is required!");
+      return;
+    }
+    if (selectedFilms.length === 0) {
+      alert("Please add at least one film!");
+      return;
+    }
+
+    try {
+      const filmsData = selectedFilms.map((film, index) => ({
+        id: film.id,
+        title: film.title,
+        notes: film.notes || "",
+        rank: isRanked ? index + 1 : null,
+      }));
+
+      await addDoc(collection(db, "lists"), {
+        username,
+        uid: userId,
+        name: name.trim(),
+        description: description.trim(),
+        tags,
+        films: filmsData,
+        isRanked,
+        createdAt: serverTimestamp(),
+      });
+
+      alert("List saved successfully!");
+      setName("");
+      setDescription("");
+      setTags([]);
+      setSelectedFilms([]);
+    } catch (err) {
+      console.error("Error saving list:", err);
+      alert("Failed to save list.");
+    }
+  };
+
   return (
     <div>
       <Container>
@@ -65,7 +128,12 @@ function NewList() {
         <Row>
           <Col className="d-flex flex-column">
             <h5>Name</h5>
-            <input type="text" className="form-control" />
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
             <h5>Tags</h5>
             <Form>
               <Form.Control
@@ -79,7 +147,7 @@ function NewList() {
                     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
                       setTags([...tags, tagInput.trim()]);
                     }
-                    setTagInput(""); // clear after adding
+                    setTagInput("");
                   }
                 }}
               />
@@ -125,7 +193,11 @@ function NewList() {
           </Col>
           <Col className="d-flex flex-column">
             <h5>Description</h5>
-            <textarea style={{ height: "15rem" }} />
+            <textarea
+              style={{ height: "15rem" }}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </Col>
         </Row>
 
@@ -138,7 +210,9 @@ function NewList() {
             <Button>list</Button>
             <Button>tiles</Button>
             <Button>Cancel</Button>
-            <Button>Save</Button>
+            <Button variant="success" onClick={handleSaveList}>
+              Save
+            </Button>
           </Col>
         </Row>
 
