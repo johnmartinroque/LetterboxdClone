@@ -135,107 +135,75 @@ function NewList() {
               <p style={{ color: "#bbb" }}>No films added yet</p>
             )}
 
-            {isRanked ? (
-              <DragDropContext onDragEnd={handleDragEnd}>
-                <Droppable droppableId="filmList" direction="vertical">
-                  {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
-                      {selectedFilms.map((film, index) => (
-                        <Draggable
-                          key={film.id}
-                          draggableId={film.id.toString()}
-                          index={index}
-                        >
-                          {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={{
-                                padding: "8px 12px",
-                                background: "#334",
-                                marginBottom: "5px",
-                                borderRadius: "4px",
-                                display: "flex",
-                                alignItems: "center",
-                                ...provided.draggableProps.style,
-                              }}
-                            >
-                              {isRanked && (
-                                <span
-                                  style={{
-                                    color: "#aaa",
-                                    marginRight: "8px",
-                                    minWidth: "24px",
-                                  }}
-                                >
-                                  #{index + 1}
-                                </span>
-                              )}
-                              {film.poster_path && (
-                                <img
-                                  src={`https://image.tmdb.org/t/p/w92${film.poster_path}`}
-                                  alt={`${film.title} poster`}
-                                  style={{ width: "50px", borderRadius: "4px" }}
-                                />
-                              )}
-                              <strong style={{ color: "white" }}>
-                                {film.title}
-                              </strong>{" "}
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="filmList" direction="vertical">
+                {(provided) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {selectedFilms.map((film, index) => (
+                      <Draggable
+                        key={film.id}
+                        draggableId={film.id.toString()}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={{
+                              padding: "8px 12px",
+                              background: "#334",
+                              marginBottom: "5px",
+                              borderRadius: "4px",
+                              display: "flex",
+                              alignItems: "center",
+                              ...provided.draggableProps.style,
+                            }}
+                          >
+                            {isRanked && (
                               <span
-                                style={{ color: "#ccc", marginLeft: "6px" }}
-                              >
-                                {film.release_date &&
-                                  `(${film.release_date.slice(0, 4)})`}
-                              </span>
-                              <i
-                                className="fa-solid fa-trash"
                                 style={{
-                                  color: "#f55",
-                                  marginLeft: "auto",
-                                  cursor: "pointer",
-                                  fontSize: "1rem",
+                                  color: "#aaa",
+                                  marginRight: "8px",
+                                  minWidth: "24px",
                                 }}
-                                onClick={() => handleRemoveFilm(film.id)}
-                              ></i>
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            ) : (
-              selectedFilms.map((film) => (
-                <div
-                  key={film.id}
-                  style={{
-                    padding: "8px 12px",
-                    background: "#334",
-                    marginBottom: "5px",
-                    borderRadius: "4px",
-                  }}
-                >
-                  {film.poster_path && (
-                    <img
-                      src={`https://image.tmdb.org/t/p/w92${film.poster_path}`}
-                      alt={`${film.title} poster`}
-                      style={{
-                        width: "50px",
-                        borderRadius: "4px",
-                        marginRight: "10px",
-                      }}
-                    />
-                  )}
-                  <strong style={{ color: "white" }}>{film.title}</strong>{" "}
-                  <span style={{ color: "#ccc" }}>
-                    {film.release_date && `(${film.release_date.slice(0, 4)})`}
-                  </span>
-                </div>
-              ))
-            )}
+                              >
+                                #{index + 1}
+                              </span>
+                            )}
+                            {film.poster_path && (
+                              <img
+                                src={`https://image.tmdb.org/t/p/w92${film.poster_path}`}
+                                alt={`${film.title} poster`}
+                                style={{ width: "50px", borderRadius: "4px" }}
+                              />
+                            )}
+                            <strong style={{ color: "white" }}>
+                              {film.title}
+                            </strong>
+                            <span style={{ color: "#ccc", marginLeft: "6px" }}>
+                              {film.release_date &&
+                                `(${film.release_date.slice(0, 4)})`}
+                            </span>
+                            <i
+                              className="fa-solid fa-trash"
+                              style={{
+                                color: "#f55",
+                                marginLeft: "auto",
+                                cursor: "pointer",
+                                fontSize: "1rem",
+                              }}
+                              onClick={() => handleRemoveFilm(film.id)}
+                            ></i>
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </Col>
         </Row>
       </Container>
