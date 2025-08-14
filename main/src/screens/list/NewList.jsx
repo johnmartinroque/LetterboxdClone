@@ -206,6 +206,19 @@ function NewList() {
                             >
                               Add Notes
                             </Button>
+                            {film.notes && (
+                              <div
+                                style={{
+                                  marginTop: "4px",
+                                  paddingLeft: isRanked ? "32px" : "58px", // indent to align with title
+                                  color: "#ddd",
+                                  fontSize: "0.85rem",
+                                  whiteSpace: "pre-wrap",
+                                }}
+                              >
+                                {film.notes}
+                              </div>
+                            )}
                             <i
                               className="fa-solid fa-trash"
                               style={{
