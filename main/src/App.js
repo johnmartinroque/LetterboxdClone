@@ -19,6 +19,7 @@ import UserHome from "./screens/UserHome";
 import "../src/css/App.css";
 import Profile from "./screens/Profile";
 import ListDetailed from "./screens/list/ListDetailed";
+import FilmReviews from "./screens/review/FilmReviews";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -53,6 +54,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/:username" element={<Profile />} />
           <Route path="/list/:id" element={<ListDetailed />} />
+          <Route path="/film/:id/reviews" element={<FilmReviews />} />
         </Routes>
       </Router>
     </div>
