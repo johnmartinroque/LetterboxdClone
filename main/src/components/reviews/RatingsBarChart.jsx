@@ -20,26 +20,23 @@ ChartJS.register(
 );
 
 function RatingsBarChart() {
-  const ratings = [5, 4, 2, 1, 3, 4, 5, 2, 5, 2, 4, 1, 5];
+  const ratings = [1, 1.5, 1.5, 2, 3.5, 5];
 
-  // Count occurrences of each rating (1 to 5)
-  const ratingCounts = [1, 2, 3, 4, 5].map(
-    (rating) => ratings.filter((r) => r === rating).length
+  // Generate steps: 0.5, 1.0, 1.5, ..., 5.0
+  const ratingSteps = Array.from({ length: 10 }, (_, i) => (i + 1) * 0.5);
+
+  // Count occurrences of each rating step
+  const ratingCounts = ratingSteps.map(
+    (step) => ratings.filter((r) => r === step).length
   );
 
   const data = {
-    labels: ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"],
+    labels: ratingSteps.map((r) => `${r} Stars`),
     datasets: [
       {
         label: "Number of Ratings",
         data: ratingCounts,
-        backgroundColor: [
-          "#ff4d4d",
-          "#ffa64d",
-          "#ffd11a",
-          "#66cc66",
-          "#3399ff",
-        ],
+        backgroundColor: "#3399ff",
       },
     ],
   };
@@ -50,13 +47,50 @@ function RatingsBarChart() {
       legend: { display: false },
       title: {
         display: true,
-        text: "Ratings Distribution",
+        text: "Ratings Distribution (0.5 Increments)",
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            const count = context.raw;
+            const total = context.chart.data.datasets[0].data.reduce(
+              (a, b) => a + b,
+              0
+            );
+            const rating = parseFloat(context.label); // e.g., "1.5 Stars" → 1.5
+
+            // Generate star string
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 === 0.5;
+            const starText = "⭐".repeat(fullStars) + (halfStar ? "½" : "");
+
+            // Calculate percentage
+            const percentage =
+              total > 0 ? ((count / total) * 100).toFixed(1) : "0.0";
+
+            return `${starText} - ${count} ratings (${percentage}%)`;
+          },
+          title: () => "", // Remove the default title (which would be the label)
+        },
       },
     },
     scales: {
       y: {
         beginAtZero: true,
-        ticks: { precision: 0 },
+        ticks: {
+          display: false, // Hide Y-axis labels
+        },
+        grid: {
+          display: false, // Hide Y-axis grid
+        },
+      },
+      x: {
+        ticks: {
+          display: false, // Hide X-axis labels
+        },
+        grid: {
+          display: false, // Hide X-axis grid
+        },
       },
     },
   };
