@@ -36,8 +36,7 @@ function FilmDetailed() {
 
   const director = credits.crew.find((person) => person.job === "Director");
   const cast = credits.cast.slice(0, 15);
-  const topCrew = credits.crew.slice(0, 5);
-
+  const allCrew = credits.crew.slice(0, 20);
   const handleImageClick = (imageUrl) => {
     setModalImage(imageUrl);
     setShowModal(true);
@@ -47,6 +46,16 @@ function FilmDetailed() {
     setShowModal(false);
     setModalImage("");
   };
+
+  const groupedCrew = allCrew.reduce((acc, crew) => {
+    if (!acc[crew.job]) {
+      acc[crew.job] = [];
+    }
+    if (!acc[crew.job].includes(crew.name)) {
+      acc[crew.job].push(crew.name);
+    }
+    return acc;
+  }, {});
 
   return (
     <Container className="mt-4">
@@ -150,14 +159,25 @@ function FilmDetailed() {
             </Tab>
 
             <Tab eventKey="crew" title="Crew">
-              <p>
-                {topCrew.map((crew, index) => (
-                  <span key={crew.id || index}>
-                    <strong>{crew.name}</strong> ({crew.job})
-                    {index < topCrew.length - 1 && ", "}
-                  </span>
-                ))}
-              </p>
+              <div style={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
+                {Object.entries(groupedCrew)
+                  .sort((a, b) => a[0].localeCompare(b[0])) // Optional: sort alphabetically
+                  .map(([job, names]) => (
+                    <div key={job} style={{ marginBottom: "0.5em" }}>
+                      <div>
+                        <strong>{job.toUpperCase()}</strong>
+                        {".".repeat(Math.max(20 - job.length, 5))}
+                        {names.slice(0, 2).join(" ")}
+                      </div>
+                      {names.length > 2 &&
+                        names.slice(2).map((name, i) => (
+                          <div key={i} style={{ paddingLeft: "22ch" }}>
+                            {name}
+                          </div>
+                        ))}
+                    </div>
+                  ))}
+              </div>
             </Tab>
           </Tabs>
         </Col>
@@ -168,7 +188,7 @@ function FilmDetailed() {
             releaseDate={detail.release_date}
             posterPath={detail.poster_path}
           />
-          <RatingsBarChart />
+          <RatingsBarChart filmId={id} />
         </Col>
       </Row>
       <Row className="text-center">

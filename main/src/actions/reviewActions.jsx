@@ -11,6 +11,9 @@ import {
   RECENT_REVIEWS_FAIL,
   RECENT_REVIEWS_REQUEST,
   RECENT_REVIEWS_SUCCESS,
+  RATINGS_REQUEST,
+  RATINGS_SUCCESS,
+  RATINGS_FAIL,
 } from "../constants/reviewConstans";
 
 export const fetchRecentReviews = (filmId) => async (dispatch) => {

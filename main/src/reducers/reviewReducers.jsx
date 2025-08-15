@@ -19,3 +19,9 @@ export const recentReviewsReducer = (state = { reviews: [] }, action) => {
       return state;
   }
 };
+
+const ratingsInitialState = {
+  ratings: [],
+  loading: false,
+  error: null,
+};
