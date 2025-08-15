@@ -48,7 +48,7 @@ export const newListSelectedFilmsReducer = (
 export const listDetailsReducer = (state = { list: {} }, action) => {
   switch (action.type) {
     case LIST_DETAILS_REQUEST:
-      return { loading: true, ...state };
+      return { loading: true, list: {} }; // <-- Clear the old list
     case LIST_DETAILS_SUCCESS:
       return { loading: false, list: action.payload };
     case LIST_DETAILS_FAIL:
