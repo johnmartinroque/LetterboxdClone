@@ -59,15 +59,17 @@ function FeaturedLists() {
                   }}
                 >
                   {film.posterPath && (
-                    <img
-                      src={film.posterPath}
-                      alt={film.title}
-                      style={{
-                        width: "120px",
-                        borderRadius: "6px",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
-                      }}
-                    />
+                    <Link to={`/list/${list.id}`}>
+                      <img
+                        src={film.posterPath}
+                        alt={film.title}
+                        style={{
+                          width: "120px",
+                          borderRadius: "6px",
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
+                        }}
+                      />
+                    </Link>
                   )}
                 </div>
               ))}
