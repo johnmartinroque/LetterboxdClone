@@ -75,14 +75,41 @@ export const fetchListDetails = (id) => async (dispatch) => {
     const docRef = doc(db, "lists", id);
     const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      dispatch({
-        type: LIST_DETAILS_SUCCESS,
-        payload: { id: docSnap.id, ...docSnap.data() },
-      });
-    } else {
+    if (!docSnap.exists()) {
       throw new Error("List not found");
     }
+
+    const data = docSnap.data();
+
+    // Fetch poster path for each film using fetch instead of axios
+    const filmsWithPosters = await Promise.all(
+      (data.films || []).map(async (film) => {
+        try {
+          const response = await fetch(
+            `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+              film.title
+            )}`
+          );
+          const result = await response.json();
+          const movie = result.results?.[0];
+
+          return {
+            ...film,
+            posterPath: movie?.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : null,
+          };
+        } catch (err) {
+          console.error(`Failed to fetch poster for ${film.title}:`, err);
+          return { ...film, posterPath: null };
+        }
+      })
+    );
+
+    dispatch({
+      type: LIST_DETAILS_SUCCESS,
+      payload: { id: docSnap.id, ...data, films: filmsWithPosters },
+    });
   } catch (error) {
     dispatch({
       type: LIST_DETAILS_FAIL,
