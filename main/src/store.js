@@ -14,7 +14,10 @@ import {
   userSignInReducer,
 } from "./reducers/authenticationReducer";
 import { recentReviewsReducer } from "./reducers/reviewReducers";
-import { listDetailsReducer } from "./reducers/listReducers";
+import {
+  featuredListsReducer,
+  listDetailsReducer,
+} from "./reducers/listReducers";
 
 const rootReducer = combineReducers({
   filmTrending: filmTrendingReducer,
@@ -27,6 +30,7 @@ const rootReducer = combineReducers({
   recentReviews: recentReviewsReducer,
   searchFilms: searchFilmsReducer,
   listDetails: listDetailsReducer,
+  featuredLists: featuredListsReducer,
 });
 
 const middleware = [thunk];

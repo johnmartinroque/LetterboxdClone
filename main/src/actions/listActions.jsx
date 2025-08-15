@@ -1,4 +1,11 @@
-import { doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import {
   NEWLIST_SEARCH_FILMS_REQUEST,
   NEWLIST_SEARCH_FILMS_SUCCESS,
@@ -8,10 +15,65 @@ import {
   LIST_DETAILS_REQUEST,
   LIST_DETAILS_SUCCESS,
   LIST_DETAILS_FAIL,
+  FEATURED_LISTS_REQUEST,
+  FEATURED_LISTS_SUCCESS,
+  FEATURED_LISTS_FAIL,
 } from "../constants/listConstants";
 import { db } from "../firebase";
 
 const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+
+export const fetchFeaturedLists = () => async (dispatch) => {
+  try {
+    dispatch({ type: FEATURED_LISTS_REQUEST });
+
+    const q = query(collection(db, "lists"), orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(q);
+
+    const listsData = await Promise.all(
+      querySnapshot.docs.map(async (doc) => {
+        const list = { id: doc.id, ...doc.data() };
+
+        // Fetch poster paths for films
+        const filmsWithPosters = await Promise.all(
+          (list.films || []).map(async (film) => {
+            try {
+              const res = await fetch(
+                `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+                  film.title
+                )}`
+              );
+              const data = await res.json();
+              const movie = data.results?.[0];
+
+              return {
+                ...film,
+                posterPath: movie?.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : null,
+              };
+            } catch (err) {
+              console.error("Poster fetch error for", film.title, err);
+              return { ...film, posterPath: null };
+            }
+          })
+        );
+
+        return { ...list, films: filmsWithPosters };
+      })
+    );
+
+    dispatch({
+      type: FEATURED_LISTS_SUCCESS,
+      payload: listsData,
+    });
+  } catch (error) {
+    dispatch({
+      type: FEATURED_LISTS_FAIL,
+      payload: error.message,
+    });
+  }
+};
 
 export const searchFilmsNewList = (query) => async (dispatch) => {
   dispatch({ type: NEWLIST_SEARCH_FILMS_REQUEST });

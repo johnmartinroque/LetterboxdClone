@@ -7,8 +7,23 @@ import {
   LIST_DETAILS_REQUEST,
   LIST_DETAILS_SUCCESS,
   LIST_DETAILS_FAIL,
+  FEATURED_LISTS_REQUEST,
+  FEATURED_LISTS_SUCCESS,
+  FEATURED_LISTS_FAIL,
 } from "../constants/listConstants";
 
+export const featuredListsReducer = (state = { lists: [] }, action) => {
+  switch (action.type) {
+    case FEATURED_LISTS_REQUEST:
+      return { loading: true, lists: [] };
+    case FEATURED_LISTS_SUCCESS:
+      return { loading: false, lists: action.payload };
+    case FEATURED_LISTS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 export const searchFilmsNewListReducer = (state = { films: [] }, action) => {
   switch (action.type) {
     case NEWLIST_SEARCH_FILMS_REQUEST:
