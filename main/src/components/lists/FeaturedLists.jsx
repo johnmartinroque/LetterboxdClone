@@ -44,26 +44,34 @@ function FeaturedLists() {
           <p>
             <strong>Ranked:</strong> {list.isRanked ? "Yes" : "No"}
           </p>
-          <Row>
-            {list.films?.slice(0, 4).map((film, idx) => (
-              <Col xs={6} md={3} key={idx} className="mb-3 text-center">
-                {film.posterPath && (
-                  <img
-                    src={film.posterPath}
-                    alt={film.title}
-                    style={{ width: "100%", borderRadius: "6px" }}
-                  />
-                )}
-                <div style={{ marginTop: "0.5rem" }}>
-                  {list.isRanked && film.rank && (
-                    <div>
-                      <strong>#{film.rank}</strong>
-                    </div>
+          <Row
+            style={{ position: "relative", height: "200px", marginTop: "1rem" }}
+          >
+            <div style={{ display: "flex", position: "relative" }}>
+              {list.films?.slice(0, 4).map((film, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    position: "relative",
+                    zIndex: idx,
+                    marginLeft: idx === 0 ? 0 : "-40px", // overlap
+                    transition: "transform 0.2s",
+                  }}
+                >
+                  {film.posterPath && (
+                    <img
+                      src={film.posterPath}
+                      alt={film.title}
+                      style={{
+                        width: "120px",
+                        borderRadius: "6px",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
+                      }}
+                    />
                   )}
-                  <strong>{film.title}</strong>
                 </div>
-              </Col>
-            ))}
+              ))}
+            </div>
           </Row>
         </div>
       ))}
