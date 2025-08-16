@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchListDetails } from "../../actions/listActions";
 import { useParams } from "react-router-dom";
@@ -25,6 +25,28 @@ function ListDetailed() {
 
   return (
     <Container style={{ color: "white" }}>
+      <Row className="mb-4">
+        <Card.Img
+          src={
+            list.firstMovieBackdrop
+              ? list.firstMovieBackdrop
+              : "https://via.placeholder.com/1280x720?text=No+Image"
+          }
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "cover",
+            WebkitMaskImage: `
+              linear-gradient(to top,    transparent 0%, black 20%, black 80%, transparent 100%),
+              linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%),
+              linear-gradient(to left,   transparent 0%, black 20%, black 80%, transparent 100%),
+              linear-gradient(to right,  transparent 0%, black 20%, black 80%, transparent 100%)`,
+            WebkitMaskComposite: "intersect",
+            WebkitMaskRepeat: "no-repeat",
+            WebkitMaskSize: "100% 100%",
+          }}
+        />
+      </Row>
       <h2>{list.name}</h2>
       <p>{list.description}</p>
       <p>

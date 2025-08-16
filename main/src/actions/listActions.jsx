@@ -168,9 +168,34 @@ export const fetchListDetails = (id) => async (dispatch) => {
       })
     );
 
+    // Get the backdrop photo for the first movie in the array, if exists
+    let firstMovieBackdrop = null;
+    if (data.films && data.films.length > 0) {
+      try {
+        const firstFilmTitle = data.films[0].title;
+        const response = await fetch(
+          `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+            firstFilmTitle
+          )}`
+        );
+        const result = await response.json();
+        const firstMovie = result.results?.[0];
+        if (firstMovie?.backdrop_path) {
+          firstMovieBackdrop = `https://image.tmdb.org/t/p/original${firstMovie.backdrop_path}`;
+        }
+      } catch (err) {
+        console.error("Failed to fetch backdrop for first movie:", err);
+      }
+    }
+
     dispatch({
       type: LIST_DETAILS_SUCCESS,
-      payload: { id: docSnap.id, ...data, films: filmsWithPosters },
+      payload: {
+        id: docSnap.id,
+        ...data,
+        films: filmsWithPosters,
+        firstMovieBackdrop,
+      },
     });
   } catch (error) {
     dispatch({
