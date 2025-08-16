@@ -171,7 +171,12 @@ function FilmDetailed() {
                       </div>
                       {names.length > 2 &&
                         names.slice(2).map((name, i) => (
-                          <div key={i} style={{ paddingLeft: "22ch" }}>
+                          <div
+                            key={i}
+                            style={{
+                              paddingLeft: "22ch",
+                            }}
+                          >
                             {name}
                           </div>
                         ))}
