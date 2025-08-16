@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase"; // Update with your actual Firebase config path
+import { db } from "../firebase";
 
-function Profile() {
+function Profile({ currentUser }) {
   const { uid } = useParams(); // UID from URL
   const [profileUser, setProfileUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const isOwnProfile = currentUser && currentUser.uid === uid;
 
   useEffect(() => {
     const fetchUserByUID = async () => {
@@ -39,9 +41,22 @@ function Profile() {
 
   return (
     <div>
-      <h1>{profileUser.username}'s Profile</h1>
+      <h1>
+        {isOwnProfile ? "Your Profile" : `${profileUser.username}'s Profile`}
+      </h1>
       <p>Email: {profileUser.email}</p>
-      {/* Add more user profile fields here */}
+
+      {isOwnProfile ? (
+        <div>
+          <p>This is your personal profile. You can edit your info here.</p>
+          {/* Add settings, edit buttons, etc. */}
+        </div>
+      ) : (
+        <div>
+          <p>This is a public view of {profileUser.username}'s profile.</p>
+          {/* Show public-facing info like their lists, films, etc. */}
+        </div>
+      )}
     </div>
   );
 }
