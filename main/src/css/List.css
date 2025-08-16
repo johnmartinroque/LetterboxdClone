@@ -1,0 +1,10 @@
+.poster-wrapper {
+  display: inline-flex; /* shrink-wrap to posters */
+  cursor: pointer;
+  transition: outline 0.3s ease;
+}
+
+.poster-wrapper:hover {
+  outline: 2px solid white;
+  outline-offset: 0;
+}

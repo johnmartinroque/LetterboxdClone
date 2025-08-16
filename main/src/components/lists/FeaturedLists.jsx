@@ -3,7 +3,7 @@ import { Container, Spinner, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFeaturedLists } from "../../actions/listActions";
 import { Link } from "react-router-dom";
-
+import "../../css/List.css";
 function FeaturedLists() {
   const dispatch = useDispatch();
   const { loading, lists, error } = useSelector((state) => state.featuredLists);
@@ -34,9 +34,11 @@ function FeaturedLists() {
               <div
                 style={{
                   position: "relative",
-                  height: "200px",
+
                   marginTop: "1rem",
+                  backgroundColor: "red",
                 }}
+                className="poster-wrapper"
               >
                 <div style={{ display: "flex", position: "relative" }}>
                   {list.films?.slice(0, 4).map((film, idx) => (
@@ -56,7 +58,7 @@ function FeaturedLists() {
                             alt={film.title}
                             style={{
                               width: "120px",
-                              borderRadius: "6px",
+
                               boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
                             }}
                           />
@@ -67,13 +69,21 @@ function FeaturedLists() {
                 </div>
               </div>
               <h5>
-                <Link to={`/list/${list.id}`} style={{ color: "#fff" }}>
+                <Link
+                  to={`/list/${list.id}`}
+                  style={{ color: "#fff", textDecoration: "none" }}
+                >
                   {list.name}
                 </Link>
               </h5>
               <p>
                 <strong>Created By:</strong>{" "}
-                <Link to={`/user/${list.uid}`}>{list.username}</Link>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/user/${list.uid}`}
+                >
+                  {list.username}
+                </Link>
               </p>
             </div>
           </Col>
