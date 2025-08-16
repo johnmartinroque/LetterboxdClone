@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Col, Container } from "react-bootstrap";
+import { Form, Button, Col, Container, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../actions/authenticationActions";
+import { useNavigate } from "react-router-dom";
 
 function CreateAccount() {
   const [email, setEmail] = useState("");
@@ -27,6 +28,30 @@ function CreateAccount() {
     } else {
       alert("Please accept the terms and privacy policy.");
     }
+  };
+
+  // Friendly error mapping function
+  const getFriendlyErrorMessage = (error) => {
+    if (!error) return null;
+
+    if (error.includes("auth/email-already-in-use")) {
+      return "This email is already registered. Please use another one.";
+    }
+
+    if (error.includes("auth/invalid-email")) {
+      return "The email address is not valid. Please check and try again.";
+    }
+
+    if (error.includes("auth/weak-password")) {
+      return "Your password is too weak. Please use at least 6 characters.";
+    }
+
+    if (error.includes("auth/missing-password")) {
+      return "Please enter a password.";
+    }
+
+    // Fallback message
+    return "An error occurred during registration. Please try again.";
   };
 
   useEffect(() => {});
@@ -84,6 +109,11 @@ I accept the Privacy Policy and consent to the processing of my personal informa
         <Button variant="primary" type="submit" disabled={loading}>
           {loading ? "Registering..." : "Submit"}
         </Button>
+        {error && (
+          <Alert variant="danger" className="mt-3">
+            {getFriendlyErrorMessage(error)}
+          </Alert>
+        )}
       </Form>
     </Container>
   );

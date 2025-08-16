@@ -27,10 +27,10 @@ function App() {
   const [authChecked, setAuthChecked] = useState(false);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Logged in user:", user?.uid);
       setCurrentUser(user);
-      setAuthChecked(true); // Ready to render after auth check
+      setAuthChecked(true);
     });
-
     return () => unsubscribe();
   }, []);
 

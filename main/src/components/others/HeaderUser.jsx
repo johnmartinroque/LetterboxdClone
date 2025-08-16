@@ -43,7 +43,10 @@ function HeaderUser() {
               <NavDropdown.Item as={Link} to={`/`}>
                 Home
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to={`${userInfo?.username || ""}`}>
+              <NavDropdown.Item
+                as={Link}
+                to={`/user/${userInfo?.userId || ""}`}
+              >
                 Profile
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Films</NavDropdown.Item>
