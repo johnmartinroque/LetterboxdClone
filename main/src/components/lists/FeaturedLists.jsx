@@ -72,7 +72,8 @@ function FeaturedLists() {
                 </Link>
               </h5>
               <p>
-                <strong>Created By:</strong> {list.username}
+                <strong>Created By:</strong>{" "}
+                <Link to={`/`}>{list.username}</Link>
               </p>
             </div>
           </Col>

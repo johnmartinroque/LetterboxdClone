@@ -68,7 +68,7 @@ function HeaderUser() {
               Journal
             </Nav.Link>
             {userInfo && (
-              <Nav.Link as={Link} to={`/${userInfo.username}`}>
+              <Nav.Link as={Link} to={`/user/${userInfo.userId}`}>
                 Profile
               </Nav.Link>
             )}

@@ -52,7 +52,7 @@ function App() {
           <Route path="/list/new" element={<NewList />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/:username" element={<Profile />} />
+          <Route path="/user/:uid" element={<Profile />} />
           <Route path="/list/:id" element={<ListDetailed />} />
           <Route path="/film/:id/reviews" element={<FilmReviews />} />
           <Route path="/createaccount" element={<CreateAccount />} />
