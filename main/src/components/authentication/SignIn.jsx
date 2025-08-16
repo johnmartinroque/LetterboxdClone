@@ -16,20 +16,37 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      dispatch(signInUser(email, password));
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    }
+    dispatch(signInUser(email, password));
   };
 
   useEffect(() => {
     if (user) {
-      console.log("user", { email: user.email });
+      navigate("/");
     }
-  }, [user]);
+  }, [user, navigate]);
+
+  const getFriendlyErrorMessage = (error) => {
+    if (!error) return null;
+
+    if (error.includes("auth/invalid-credential")) {
+      return "Invalid email or password. Please check your credentials.";
+    }
+
+    if (error.includes("auth/user-not-found")) {
+      return "No account found with this email address.";
+    }
+
+    if (error.includes("auth/wrong-password")) {
+      return "Incorrect password. Please try again.";
+    }
+
+    if (error.includes("auth/too-many-requests")) {
+      return "Too many failed attempts. Please try again later.";
+    }
+
+    // Default fallback
+    return "An unexpected error occurred. Please try again.";
+  };
 
   return (
     <Container>
@@ -61,7 +78,7 @@ function SignIn() {
         {/* Error handling */}
         {error && (
           <Alert variant="danger" className="mt-3">
-            {error}
+            {getFriendlyErrorMessage(error)}
           </Alert>
         )}
       </Form>
