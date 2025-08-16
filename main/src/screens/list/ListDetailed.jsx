@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchListDetails } from "../../actions/listActions";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function ListDetailed() {
   const { id } = useParams();
@@ -47,32 +47,60 @@ function ListDetailed() {
           }}
         />
       </Row>
-      <h2>{list.name}</h2>
-      <p>{list.description}</p>
+
       <p>
         <strong>By:</strong> {list.username}
       </p>
-      <p>
-        <strong>Tags:</strong> {list.tags?.join(", ")}
-      </p>
+
       <p>
         <strong>Ranked:</strong> {list.isRanked ? "Yes" : "No"}
       </p>
 
-      <h4>Films</h4>
       <Row>
+        <Row>
+          <Col>
+            <h1>{list.name}</h1>
+            <p>{list.description}</p>
+          </Col>
+          <Col>
+            <p>
+              <strong>Tagged</strong>
+            </p>
+            <div>
+              {list.tags?.map((tag, index) => (
+                <span
+                  key={index}
+                  style={{
+                    backgroundColor: "#7c8ba3",
+                    display: "inline-block",
+                    color: "white",
+                    padding: "0.1rem 0.4rem",
+                    borderRadius: "0.2rem",
+                    cursor: "pointer",
+                    marginRight: "0.3rem",
+                    marginBottom: "0.3rem",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </Col>
+        </Row>
         {list.films?.map((film, idx) => (
           <Col key={idx} xs={6} md={2} className="mb-4 text-center">
             {film.posterPath && (
-              <img
-                src={film.posterPath}
-                alt={film.title}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: "8px",
-                }}
-              />
+              <Link to={`/film/${film.id}`}>
+                <img
+                  src={film.posterPath}
+                  alt={film.title}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: "8px",
+                  }}
+                />
+              </Link>
             )}
             <div style={{ marginTop: "0.5rem" }}>
               {list.isRanked && film.rank && (
