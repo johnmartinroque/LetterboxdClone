@@ -1,4 +1,5 @@
-import React from "react";
+// RatingsBarChart.js
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -9,6 +10,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../firebase"; // adjust path to your firebase config
 
 ChartJS.register(
   CategoryScale,
@@ -19,8 +22,32 @@ ChartJS.register(
   Legend
 );
 
-function RatingsBarChart() {
-  const ratings = [1, 1.5, 1.5, 2, 3.5, 5];
+function RatingsBarChart({ filmId }) {
+  const [ratings, setRatings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const reviewsRef = collection(db, "reviews");
+        const q = query(reviewsRef, where("filmId", "==", filmId));
+        const snapshot = await getDocs(q);
+
+        const fetchedRatings = snapshot.docs.map(
+          (doc) => doc.data().rating // get rating field
+        );
+        setRatings(fetchedRatings);
+      } catch (error) {
+        console.error("Error fetching ratings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (filmId) {
+      fetchRatings();
+    }
+  }, [filmId]);
 
   // Generate steps: 0.5, 1.0, 1.5, ..., 5.0
   const ratingSteps = Array.from({ length: 10 }, (_, i) => (i + 1) * 0.5);
@@ -47,7 +74,7 @@ function RatingsBarChart() {
       legend: { display: false },
       title: {
         display: true,
-        text: "Ratings Distribution (0.5 Increments)",
+        text: "RATINGS",
       },
       tooltip: {
         callbacks: {
@@ -70,32 +97,30 @@ function RatingsBarChart() {
 
             return `${starText} - ${count} ratings (${percentage}%)`;
           },
-          title: () => "", // Remove the default title (which would be the label)
+          title: () => "",
         },
       },
     },
     scales: {
       y: {
         beginAtZero: true,
-        ticks: {
-          display: false, // Hide Y-axis labels
-        },
-        grid: {
-          display: false, // Hide Y-axis grid
-        },
+        ticks: { display: false },
+        grid: { display: false },
       },
       x: {
-        ticks: {
-          display: false, // Hide X-axis labels
-        },
-        grid: {
-          display: false, // Hide X-axis grid
-        },
+        ticks: { display: false },
+        grid: { display: false },
       },
     },
   };
 
-  return <Bar data={data} options={options} />;
+  if (loading) return <p style={{ color: "white" }}>Loading ratings...</p>;
+
+  return (
+    <div>
+      <Bar data={data} options={options} />
+    </div>
+  );
 }
 
 export default RatingsBarChart;
