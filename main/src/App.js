@@ -21,6 +21,7 @@ import "../src/css/App.css";
 import ListDetailed from "./screens/list/ListDetailed";
 import FilmReviews from "./screens/review/FilmReviews";
 import ProfileRouter from "./screens/profile/ProfileRouter";
+import ProtectedRoute from "./components/authentication/ProtectedRoute";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -51,7 +52,6 @@ function App() {
           <Route path="/director/:id" element={<DirectorDetailed />} />
           <Route path="/lists" element={<Lists />} />
           <Route path="/list/new" element={<NewList />} />
-          <Route path="/settings" element={<Settings />} />
           <Route path="/signin" element={<SignIn />} />
           <Route
             path="/user/:uid"
@@ -61,6 +61,14 @@ function App() {
           <Route path="/list/:id" element={<ListDetailed />} />
           <Route path="/film/:id/reviews" element={<FilmReviews />} />
           <Route path="/createaccount" element={<CreateAccount />} />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute user={currentUser}>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </div>

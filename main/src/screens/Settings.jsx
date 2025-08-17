@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import FourFavoriteFilms from "../components/film/FourFavoriteFilms";
 
 function Settings() {
   return (
@@ -52,7 +53,7 @@ function Settings() {
             </Row>
           </Col>
           <Col>
-            <h3>Favorite Films</h3>
+            <FourFavoriteFilms />
           </Col>
         </Row>
       </Container>
