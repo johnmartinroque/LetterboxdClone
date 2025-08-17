@@ -118,7 +118,45 @@ function RatingsBarChart({ filmId }) {
 
   return (
     <div>
-      <Bar data={data} options={options} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-end",
+        }}
+      >
+        {/* Left star */}
+        <i
+          className="fa-solid fa-star"
+          style={{ fontSize: "10px", color: "#ffe601", marginRight: "10px" }}
+        ></i>
+
+        {/* Chart */}
+        <div style={{ flex: 1 }}>
+          <Bar data={data} options={options} />
+        </div>
+
+        {/* Right star */}
+        <i
+          className="fa-solid fa-star"
+          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
+        ></i>
+        <i
+          className="fa-solid fa-star"
+          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
+        ></i>
+        <i
+          className="fa-solid fa-star"
+          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
+        ></i>
+        <i
+          className="fa-solid fa-star"
+          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
+        ></i>
+        <i
+          className="fa-solid fa-star"
+          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
+        ></i>
+      </div>
     </div>
   );
 }
