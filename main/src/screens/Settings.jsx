@@ -5,6 +5,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ProfileSettings from "../components/settings/ProfileSettings";
 import Avatar from "../components/settings/Avatar";
+import Auth from "../components/settings/Auth";
 
 function Settings() {
   return (
@@ -25,7 +26,7 @@ function Settings() {
               <ProfileSettings />
             </Tab>
             <Tab eventKey="auth" title="Auth">
-              Auth
+              <Auth />
             </Tab>
             <Tab eventKey="avatar" title="Avatar">
               <Avatar />
