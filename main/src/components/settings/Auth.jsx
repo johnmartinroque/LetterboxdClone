@@ -4,7 +4,7 @@ import {
   updatePassword,
 } from "firebase/auth";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Alert, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -27,7 +27,12 @@ function Auth() {
           <Form>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Current Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+              />
             </Form.Group>
             <Form.Group
               className="mb-3"
@@ -36,23 +41,35 @@ function Auth() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>New Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Confirm New Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="formBasicCheckbox"
-            ></Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="formBasicCheckbox"
-            ></Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? "Updating..." : "Submit"}
             </Button>
+            {error && (
+              <Alert variant="danger" className="mt-3">
+                {error}
+              </Alert>
+            )}
+            {success && (
+              <Alert variant="success" className="mt-3">
+                {success}
+              </Alert>
+            )}
           </Form>
         </Col>
       </Row>
