@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import FourFavoriteFilms from "../components/film/FourFavoriteFilms";
+import ProfileAuth from "../components/authentication/ProfileAuth";
 
 function Settings() {
   return (
@@ -57,6 +58,7 @@ function Settings() {
           </Col>
         </Row>
       </Container>
+      <ProfileAuth />
     </div>
   );
 }
