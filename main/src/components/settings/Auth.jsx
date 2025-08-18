@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { Alert, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { auth } from "../../firebase";
 
 function Auth() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -15,6 +16,50 @@ function Auth() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+
+    if (newPassword !== confirmPassword) {
+      setError("New Passwords do not match.");
+      return;
+    }
+
+    const user = auth.currentUser;
+
+    if (!user) {
+      setError("No authenticated user.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const credential = EmailAuthProvider.credential(
+        user.email,
+        currentPassword
+      );
+      await reauthenticateWithCredential(user, credential);
+
+      await updatePassword(user, newPassword);
+      setSuccess("Password changed successfully.");
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (err) {
+      if (err.code === "auth/invalid-credential") {
+        setError("The current password is incorrect.");
+      } else if (err.code === "auth/weak-password") {
+        setError("The new password is too weak. Please choose a stronger one.");
+      } else {
+        setError(err.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <Row>
@@ -24,7 +69,7 @@ function Auth() {
       </Row>
       <Row>
         <Col>
-          <Form>
+          <Form onSubmit={handlePasswordChange}>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Current Password</Form.Label>
               <Form.Control
