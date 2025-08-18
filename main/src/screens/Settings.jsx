@@ -2,6 +2,9 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import FourFavoriteFilms from "../components/film/FourFavoriteFilms";
 import ProfileAuth from "../components/authentication/ProfileAuth";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import ProfileSettings from "../components/settings/ProfileSettings";
 
 function Settings() {
   return (
@@ -13,49 +16,21 @@ function Settings() {
           </Col>
         </Row>
         <Row>
-          <Col className="d-flex flex-column">
-            <h5>Username</h5>
-            <input type="text" className="form-control" />
-            <Row>
-              <Col>
-                <h5>Given Name</h5>
-                <input type="text" className="form-control" />
-              </Col>
-              <Col>
-                <h5>Family Name</h5>
-                <input type="text" className="form-control" />
-              </Col>
-            </Row>
-            <Row>
-              <h5>Email Address</h5>
-              <input type="email" className="form-control" />
-            </Row>
-            <Row>
-              <Col>
-                <h5>Location</h5>
-                <input type="text" className="form-control" />
-              </Col>
-              <Col>
-                <h5>Website</h5>
-                <input type="text" className="form-control" />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <h5>Bio</h5>
-                <textarea
-                  style={{ height: "15rem" }}
-                  className="form-control"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Button style={{ width: "10rem" }}>Save Changes</Button>
-            </Row>
-          </Col>
-          <Col>
-            <FourFavoriteFilms />
-          </Col>
+          <Tabs
+            defaultActiveKey="profile"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+          >
+            <Tab eventKey="home" title="Home">
+              <ProfileSettings />
+            </Tab>
+            <Tab eventKey="profile" title="Profile">
+              Auth
+            </Tab>
+            <Tab eventKey="contact" title="Contact">
+              Tab content for Contact
+            </Tab>
+          </Tabs>
         </Row>
       </Container>
       <ProfileAuth />
