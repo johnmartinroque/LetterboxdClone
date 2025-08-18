@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import FourFavoriteFilms from "../components/film/FourFavoriteFilms";
 import ProfileAuth from "../components/authentication/ProfileAuth";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ProfileSettings from "../components/settings/ProfileSettings";
+import Avatar from "../components/settings/Avatar";
 
 function Settings() {
   return (
@@ -21,14 +21,14 @@ function Settings() {
             id="uncontrolled-tab-example"
             className="mb-3"
           >
-            <Tab eventKey="home" title="Home">
+            <Tab eventKey="profile" title="Profile">
               <ProfileSettings />
             </Tab>
-            <Tab eventKey="profile" title="Profile">
+            <Tab eventKey="auth" title="Auth">
               Auth
             </Tab>
-            <Tab eventKey="contact" title="Contact">
-              Tab content for Contact
+            <Tab eventKey="avatar" title="Avatar">
+              <Avatar />
             </Tab>
           </Tabs>
         </Row>
