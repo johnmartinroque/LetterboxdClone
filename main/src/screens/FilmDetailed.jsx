@@ -197,8 +197,9 @@ function FilmDetailed() {
         </Col>
       </Row>
       <Row className="text-center">
-        <Col>
-          <PopularReviews />
+        <Col md={4}></Col>
+        <Col md={8}>
+          <PopularReviews filmId={id} />
         </Col>
       </Row>
 
