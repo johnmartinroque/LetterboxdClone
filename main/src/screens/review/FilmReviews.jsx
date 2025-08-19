@@ -4,6 +4,8 @@ import { Rating } from "react-simple-star-rating";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchRecentReviews } from "../../actions/reviewActions";
+import Statistics from "../../components/film/Statistics";
+import { fetchFilmDetail } from "../../actions/filmActions";
 
 function FilmReviews() {
   const { id: filmId } = useParams();
@@ -12,9 +14,19 @@ function FilmReviews() {
     (state) => state.recentReviews
   );
 
+  const {
+    detail,
+    credits,
+    loading: filmLoading,
+  } = useSelector((state) => state.filmDetail);
+
+  const posterUrl = detail?.poster_path
+    ? `https://image.tmdb.org/t/p/w300${detail.poster_path}`
+    : null;
   useEffect(() => {
     if (filmId) {
       dispatch(fetchRecentReviews(filmId));
+      dispatch(fetchFilmDetail(filmId));
     }
   }, [dispatch, filmId]);
 
@@ -115,6 +127,23 @@ function FilmReviews() {
           </ul>
         )}
       </div>
+      <Row className="mb-4">
+        <Col className="text-center">
+          {posterUrl && (
+            <img
+              src={posterUrl}
+              alt="Film Poster"
+              style={{ width: "100%", maxWidth: "300px", borderRadius: "8px" }}
+            />
+          )}
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <Statistics filmId={filmId} />
+        </Col>
+      </Row>
     </Container>
   );
 }
