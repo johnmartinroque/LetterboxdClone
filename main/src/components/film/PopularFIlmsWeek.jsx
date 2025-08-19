@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../../css/App.css";
 import { fetchTrendingFilms } from "../../actions/filmActions";
+import Statistics from "./Statistics";
 
 function PopularFIlmsWeek() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function PopularFIlmsWeek() {
                   />
                 </Link>
               </Card>
+              <Statistics filmId={film.id} />
             </Col>
           ))}
         </Row>
