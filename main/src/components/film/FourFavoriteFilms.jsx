@@ -1,13 +1,48 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import ListedFilmModal from "../../components/modals/ListedFilmModal"; // optional
-import SearchFilmNewList from "../../components/lists/SearchFilmNewlist"; // reusing this
+import { db } from "../../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // 👈 use firebase auth
+import SearchFilmNewList from "../../components/lists/SearchFilmNewlist";
 
 function FourFavoriteFilms() {
   const [selectedFilms, setSelectedFilms] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [activeFilm, setActiveFilm] = useState(null);
+  const auth = getAuth();
+  const userId = auth.currentUser?.uid; // 👈 get logged-in user
+
+  // fetch saved favorite films
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      if (!userId) return;
+      const profileRef = doc(db, "profile", userId);
+      const profileSnap = await getDoc(profileRef);
+
+      if (profileSnap.exists()) {
+        const data = profileSnap.data();
+        if (data.favoriteFilms) {
+          setSelectedFilms(data.favoriteFilms);
+        }
+      }
+    };
+    fetchFavorites();
+  }, [userId]);
+
+  const saveFavorites = async (films) => {
+    if (!userId) return;
+    const profileRef = doc(db, "profile", userId);
+    await setDoc(
+      profileRef,
+      {
+        favoriteFilms: films.map((f) => ({
+          id: f.id,
+          title: f.title,
+          poster_path: f.poster_path,
+        })),
+      },
+      { merge: true }
+    );
+  };
 
   const handleAddFilm = (film) => {
     if (selectedFilms.length >= 4) {
@@ -15,32 +50,25 @@ function FourFavoriteFilms() {
       return;
     }
     if (!selectedFilms.find((f) => f.id === film.id)) {
-      setSelectedFilms((prev) => [...prev, film]);
+      const updated = [...selectedFilms, film];
+      setSelectedFilms(updated);
+      saveFavorites(updated);
     }
   };
 
   const handleRemoveFilm = (filmId) => {
-    setSelectedFilms((prev) => prev.filter((film) => film.id !== filmId));
+    const updated = selectedFilms.filter((film) => film.id !== filmId);
+    setSelectedFilms(updated);
+    saveFavorites(updated);
   };
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;
-
     const reordered = Array.from(selectedFilms);
     const [moved] = reordered.splice(result.source.index, 1);
     reordered.splice(result.destination.index, 0, moved);
     setSelectedFilms(reordered);
-  };
-
-  const handleOpenModal = (film) => {
-    setActiveFilm(film);
-    setShowModal(true);
-  };
-
-  const handleUpdateFilm = (updatedFilm) => {
-    setSelectedFilms((prev) =>
-      prev.map((film) => (film.id === updatedFilm.id ? updatedFilm : film))
-    );
+    saveFavorites(reordered);
   };
 
   return (
@@ -112,6 +140,8 @@ function FourFavoriteFilms() {
                               }}
                             />
                           )}
+
+                          <span style={{ color: "white" }}>{film.title}</span>
 
                           <i
                             className="fa-solid fa-trash"
