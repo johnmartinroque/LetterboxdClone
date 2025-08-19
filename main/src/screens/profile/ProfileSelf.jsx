@@ -1,18 +1,30 @@
 import React from "react";
-import { Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProfileSelf({ user }) {
-  const navigate = useNavigate("");
-
+  const navigate = useNavigate();
   return (
     <div>
-      <h1>Your Profile</h1>
-      <p>Email: {user.email}</p>
-      <p>Username: {user.username}</p>
-      <p>This view is editable.</p>
-      {/* Add edit buttons, settings, etc. */}
-      <Link to={`/settings`}>Edit Profile</Link>
+      <Container>
+        <Row>
+          <Col className="d-flex">
+            <h2>{user.username}</h2>
+            <img
+              src="https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png"
+              style={{ width: "3rem" }}
+            />
+            <Button onClick={() => navigate("/settings")}>Edit Profile</Button>
+          </Col>
+        </Row>
+        <h1>Your Profile</h1>
+        <p>Email: {user.email}</p>
+        <p>Username: {user.username}</p>
+        <p>This view is editable.</p>
+        {/* Add edit buttons, settings, etc. */}
+      </Container>
     </div>
   );
 }
