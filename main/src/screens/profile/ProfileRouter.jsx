@@ -22,7 +22,7 @@ function ProfileRouter({ currentUser }) {
         const snap = await getDoc(ref);
 
         if (snap.exists()) {
-          setProfileUser(snap.data());
+          setProfileUser({ id: snap.id, ...snap.data() });
         } else {
           setError("User not found");
         }

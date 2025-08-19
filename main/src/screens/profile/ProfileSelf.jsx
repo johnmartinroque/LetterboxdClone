@@ -3,9 +3,14 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function ProfileSelf({ user }) {
   const navigate = useNavigate();
+  const [copied, setCopied] = useState(false);
+
+  const profileUrl = `http://localhost:3000/user/${user.id}/`;
+
   return (
     <div>
       <Container>
@@ -17,6 +22,11 @@ function ProfileSelf({ user }) {
               style={{ width: "3rem" }}
             />
             <Button onClick={() => navigate("/settings")}>Edit Profile</Button>
+            <CopyToClipboard text={profileUrl} onCopy={() => setCopied(true)}>
+              <Button variant={copied ? "success" : "primary"}>
+                {copied ? "Copied!" : "Copy Profile URL"}
+              </Button>
+            </CopyToClipboard>
           </Col>
         </Row>
         <h1>Your Profile</h1>
