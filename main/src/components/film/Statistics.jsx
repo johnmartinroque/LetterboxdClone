@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { db } from "../../firebase";
 
-function Statistics() {
+function Statistics({ filmId }) {
+  const [likes, setLikes] = useState(0);
+  const [watched, setWatched] = useState(0);
+  const [heart, setHeart] = useState(0);
+  console.log(filmId);
   return (
     <>
       <div class="d-flex justify-content-center align-items-center">

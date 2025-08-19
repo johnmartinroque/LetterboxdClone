@@ -98,7 +98,7 @@ function FilmDetailed() {
               style={{ cursor: "pointer" }}
             />
           </Card>
-          <Statistics />
+          <Statistics filmId={id} />
         </Col>
         <Col md={4} style={{ color: "#aaaaaa" }}>
           <h2>
