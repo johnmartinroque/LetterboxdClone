@@ -31,7 +31,7 @@ function RecentActivity() {
         return {
           title: data.title,
           poster: data.poster_path
-            ? `https://image.tmdb.org/t/p/w342${data.poster_path}`
+            ? `https://image.tmdb.org/t/p/original${data.poster_path}`
             : null,
         };
       } catch (err) {

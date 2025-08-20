@@ -46,7 +46,7 @@ function FavoriteFilms() {
                 <Link to={`/film/${film.id}`}>
                   <Card.Img
                     variant="top"
-                    src={`https://image.tmdb.org/t/p/w342${film.poster_path}`}
+                    src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
                     alt={film.title}
                   />
                 </Link>
