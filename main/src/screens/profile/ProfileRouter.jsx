@@ -14,6 +14,7 @@ import UserReviews from "../../components/profile/UserReviews";
 import Diary from "../../components/profile/Diary";
 import Watchlist from "../../components/profile/Watchlist";
 import RecentActivity from "../../components/profile/RecentActivity";
+import RecentReviews from "../../components/reviews/RecentReviews";
 function ProfileRouter({ currentUser }) {
   const { uid } = useParams();
   const [profileUser, setProfileUser] = useState(null);
