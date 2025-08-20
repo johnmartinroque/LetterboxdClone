@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { Spinner } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 import { db } from "../../firebase";
 import ProfileSelf from "./ProfileSelf";
 import ProfilePublic from "./ProfilePublic";
@@ -41,9 +41,22 @@ function ProfileRouter({ currentUser }) {
   if (error) return <div style={{ color: "red" }}>{error}</div>;
   if (!profileUser) return null;
 
-  return isOwnProfile ? (
+  return (
     <>
-      <ProfileSelf user={profileUser} />
+      {isOwnProfile ? (
+        <ProfileSelf user={profileUser} />
+      ) : (
+        <ProfilePublic user={profileUser} />
+      )}
+
+      <ProfileTabs />
+    </>
+  );
+}
+
+function ProfileTabs() {
+  return (
+    <Container>
       <Tabs
         defaultActiveKey="profile"
         id="uncontrolled-tab-example"
@@ -59,26 +72,7 @@ function ProfileRouter({ currentUser }) {
           Tab content for Contact
         </Tab>
       </Tabs>
-    </>
-  ) : (
-    <>
-      <ProfilePublic user={profileUser} />
-      <Tabs
-        defaultActiveKey="profile"
-        id="uncontrolled-tab-example"
-        className="mb-3"
-      >
-        <Tab eventKey="home" title="Home">
-          Tab content for Home
-        </Tab>
-        <Tab eventKey="profile" title="Profile">
-          Tab content for Profile
-        </Tab>
-        <Tab eventKey="contact" title="Contact" disabled>
-          Tab content for Contact
-        </Tab>
-      </Tabs>
-    </>
+    </Container>
   );
 }
 
