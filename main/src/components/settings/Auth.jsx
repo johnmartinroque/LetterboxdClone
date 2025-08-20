@@ -67,7 +67,7 @@ function Auth() {
           <h1>Change Password</h1>
         </Col>
       </Row>
-      <Row>
+      <Row style={{ width: "50rem" }}>
         <Col>
           <Form onSubmit={handlePasswordChange}>
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -103,7 +103,7 @@ function Auth() {
               />
             </Form.Group>
             <Button variant="primary" type="submit" disabled={loading}>
-              {loading ? "Updating..." : "Submit"}
+              {loading ? "Updating..." : "Change"}
             </Button>
             {error && (
               <Alert variant="danger" className="mt-3">

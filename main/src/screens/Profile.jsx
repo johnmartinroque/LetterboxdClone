@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 function Profile({ currentUser }) {
   const { uid } = useParams(); // UID from URL
