@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FeaturedLists from "../../components/lists/FeaturedLists";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../actions/authenticationActions";
@@ -40,6 +40,7 @@ function Lists() {
       <Row>
         <Col>
           <FeaturedLists />
+          <Link to={`/lists/featured/`}>All</Link>
         </Col>
       </Row>
     </div>

@@ -1,0 +1,96 @@
+import React, { useEffect } from "react";
+import { Container, Spinner, Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFeaturedLists } from "../../actions/listActions";
+import { Link } from "react-router-dom";
+import "../../css/List.css";
+function AllFeaturedLists() {
+  const dispatch = useDispatch();
+  const { loading, lists, error } = useSelector((state) => state.featuredLists);
+
+  useEffect(() => {
+    dispatch(fetchFeaturedLists());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <Container>
+        <Spinner animation="border" variant="light" />
+      </Container>
+    );
+  }
+
+  if (error) {
+    return <p style={{ color: "red" }}>{error}</p>;
+  }
+
+  return (
+    <Container>
+      <h3 style={{ color: "white" }}>Featured Lists</h3>
+      <Row>
+        {lists.map((list, index) => (
+          <Col key={list.id} md={4} style={{ marginBottom: "2rem" }}>
+            <div style={{ color: "white" }}>
+              <div
+                style={{
+                  position: "relative",
+
+                  marginTop: "1rem",
+                  backgroundColor: "red",
+                }}
+                className="poster-wrapper"
+              >
+                <div style={{ display: "flex", position: "relative" }}>
+                  {list.films?.slice(0, 4).map((film, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: "relative",
+                        zIndex: idx,
+                        marginLeft: idx === 0 ? 0 : "-40px",
+                        transition: "transform 0.2s",
+                      }}
+                    >
+                      {film.posterPath && (
+                        <Link to={`/list/${list.id}`}>
+                          <img
+                            src={film.posterPath}
+                            alt={film.title}
+                            style={{
+                              width: "120px",
+
+                              boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
+                            }}
+                          />
+                        </Link>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <h5>
+                <Link
+                  to={`/list/${list.id}`}
+                  style={{ color: "#fff", textDecoration: "none" }}
+                >
+                  {list.name}
+                </Link>
+              </h5>
+              <p>
+                <strong>Created By:</strong>{" "}
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/user/${list.uid}`}
+                >
+                  {list.username}
+                </Link>
+              </p>
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  );
+}
+
+export default AllFeaturedLists;

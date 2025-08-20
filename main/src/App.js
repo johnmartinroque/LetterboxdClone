@@ -22,6 +22,7 @@ import ListDetailed from "./screens/list/ListDetailed";
 import FilmReviews from "./screens/review/FilmReviews";
 import ProfileRouter from "./screens/profile/ProfileRouter";
 import ProtectedRoute from "./components/authentication/ProtectedRoute";
+import AllFeaturedLists from "./screens/list/AllFeaturedLists";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -51,6 +52,7 @@ function App() {
           <Route path="/actor/:id" element={<ActorDetailed />} />
           <Route path="/director/:id" element={<DirectorDetailed />} />
           <Route path="/lists" element={<Lists />} />
+          <Route path="/lists/featured" element={<AllFeaturedLists />} />
           <Route path="/list/new" element={<NewList />} />
           <Route path="/signin" element={<SignIn />} />
           <Route
