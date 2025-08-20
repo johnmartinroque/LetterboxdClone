@@ -94,7 +94,7 @@ function RecentActivity() {
       <Row>
         {reviews.map((review) => (
           <Col key={review.id} xs={6} md={3} className="mb-3">
-            <Card bg="dark" text="white" className="h-100">
+            <Card className="h-100 border-0 shadow-none bg-transparent">
               {review.poster && (
                 <Link to={`/film/${review.filmId}`}>
                   <Card.Img
@@ -105,6 +105,16 @@ function RecentActivity() {
                 </Link>
               )}
             </Card>
+            <Card.Body className="text-center">
+              <Rating
+                readonly
+                allowFraction
+                initialValue={review.rating}
+                size={20}
+                fillColor="#ffe601ff"
+                emptyColor="#ccc"
+              />
+            </Card.Body>
           </Col>
         ))}
       </Row>

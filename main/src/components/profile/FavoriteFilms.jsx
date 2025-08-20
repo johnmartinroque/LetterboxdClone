@@ -41,7 +41,7 @@ function FavoriteFilms() {
       <Row>
         {favoriteFilms.map((film, index) => (
           <Col key={film.id} xs={6} md={3} className="mb-3">
-            <Card bg="dark" text="white" className="h-100">
+            <Card className="h-100 border-0 shadow-none bg-transparent">
               {film.poster_path && (
                 <Link to={`/film/${film.id}`}>
                   <Card.Img
