@@ -11,6 +11,9 @@ import FavoriteFilms from "../../components/profile/FavoriteFilms";
 import Activity from "../../components/profile/Activity";
 import FilmsWatched from "../../components/profile/FilmsWatched";
 import UserReviews from "../../components/profile/UserReviews";
+import Diary from "../../components/profile/Diary";
+import Watchlist from "../../components/profile/Watchlist";
+import RecentActivity from "../../components/profile/RecentActivity";
 function ProfileRouter({ currentUser }) {
   const { uid } = useParams();
   const [profileUser, setProfileUser] = useState(null);
@@ -68,6 +71,7 @@ function ProfileTabs() {
       >
         <Tab eventKey="profile" title="Profile">
           <FavoriteFilms />
+          <RecentActivity />
         </Tab>
         <Tab eventKey="activity" title="Activity">
           <Activity />
@@ -75,11 +79,14 @@ function ProfileTabs() {
         <Tab eventKey="films" title="Films">
           <FilmsWatched />
         </Tab>
-        <Tab eventKey="films" title="Films">
-          <FilmsWatched />
+        <Tab eventKey="diary" title="Diary">
+          <Diary />
         </Tab>
         <Tab eventKey="userReviews" title="Reviews">
           <UserReviews />
+        </Tab>
+        <Tab eventKey="watchlist" title="Watchlist">
+          <Watchlist />
         </Tab>
       </Tabs>
     </Container>

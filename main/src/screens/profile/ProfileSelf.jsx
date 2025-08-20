@@ -34,8 +34,6 @@ function ProfileSelf({ user }) {
         <p>Email: {user.email}</p>
         <p>Username: {user.username}</p>
         <p>This view is editable.</p>
-        {/* Add edit buttons, settings, etc. */}
-        <FavoriteFilms userId={user.id} />
       </Container>
     </div>
   );
