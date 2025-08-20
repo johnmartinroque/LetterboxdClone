@@ -23,6 +23,7 @@ import FilmReviews from "./screens/review/FilmReviews";
 import ProfileRouter from "./screens/profile/ProfileRouter";
 import ProtectedRoute from "./components/authentication/ProtectedRoute";
 import AllFeaturedLists from "./screens/list/AllFeaturedLists";
+import Footer from "./components/others/Footer";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -41,38 +42,41 @@ function App() {
   }
 
   return (
-    <div>
-      <Router>
-        {currentUser ? <HeaderUser /> : <Header />}
+    <div id="root">
+      <div className="App">
+        <Router>
+          {currentUser ? <HeaderUser /> : <Header />}
 
-        <Routes>
-          <Route path="/" element={currentUser ? <UserHome /> : <Home />} />
-          <Route path="/films" element={<Films />} />
-          <Route path="/film/:id" element={<FilmDetailed />} />
-          <Route path="/actor/:id" element={<ActorDetailed />} />
-          <Route path="/director/:id" element={<DirectorDetailed />} />
-          <Route path="/lists" element={<Lists />} />
-          <Route path="/lists/featured" element={<AllFeaturedLists />} />
-          <Route path="/list/new" element={<NewList />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route
-            path="/user/:uid"
-            element={<ProfileRouter currentUser={currentUser} />}
-          />
+          <Routes>
+            <Route path="/" element={currentUser ? <UserHome /> : <Home />} />
+            <Route path="/films" element={<Films />} />
+            <Route path="/film/:id" element={<FilmDetailed />} />
+            <Route path="/actor/:id" element={<ActorDetailed />} />
+            <Route path="/director/:id" element={<DirectorDetailed />} />
+            <Route path="/lists" element={<Lists />} />
+            <Route path="/lists/featured" element={<AllFeaturedLists />} />
+            <Route path="/list/new" element={<NewList />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route
+              path="/user/:uid"
+              element={<ProfileRouter currentUser={currentUser} />}
+            />
 
-          <Route path="/list/:id" element={<ListDetailed />} />
-          <Route path="/film/:id/reviews" element={<FilmReviews />} />
-          <Route path="/createaccount" element={<CreateAccount />} />
-          <Route
-            path="/settings"
-            element={
-              <ProtectedRoute user={currentUser}>
-                <Settings />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
+            <Route path="/list/:id" element={<ListDetailed />} />
+            <Route path="/film/:id/reviews" element={<FilmReviews />} />
+            <Route path="/createaccount" element={<CreateAccount />} />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute user={currentUser}>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </div>
+      <Footer />
     </div>
   );
 }

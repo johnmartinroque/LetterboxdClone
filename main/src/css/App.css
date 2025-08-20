@@ -10,3 +10,7 @@
 .custom-modal .modal-content {
   background-color: #556678; /* Light blue background */
 }
+
+footer {
+  margin-top: auto; /* pushes footer to bottom */
+}

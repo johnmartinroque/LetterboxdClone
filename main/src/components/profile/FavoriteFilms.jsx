@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Spinner, Row, Col, Card } from "react-bootstrap";
@@ -43,17 +43,14 @@ function FavoriteFilms() {
           <Col key={film.id} xs={6} md={3} className="mb-3">
             <Card bg="dark" text="white" className="h-100">
               {film.poster_path && (
-                <Card.Img
-                  variant="top"
-                  src={`https://image.tmdb.org/t/p/w342${film.poster_path}`}
-                  alt={film.title}
-                />
+                <Link to={`/film/${film.id}`}>
+                  <Card.Img
+                    variant="top"
+                    src={`https://image.tmdb.org/t/p/w342${film.poster_path}`}
+                    alt={film.title}
+                  />
+                </Link>
               )}
-              <Card.Body>
-                <Card.Title style={{ fontSize: "1rem" }}>
-                  #{index + 1} {film.title}
-                </Card.Title>
-              </Card.Body>
             </Card>
           </Col>
         ))}
