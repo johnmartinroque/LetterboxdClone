@@ -5,6 +5,7 @@ import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { fetchUserInfo } from "../actions/authenticationActions";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function UserHome() {
   const dispatch = useDispatch();
@@ -32,7 +33,8 @@ function UserHome() {
       <Row className="text-center mt-5">
         <Col>
           <h2 style={{ color: "white" }}>
-            Welcome back, {username} Here’s what we’ve been watching…
+            Welcome back, <Link to={`/user/${userId}`}>{username}</Link> Here’s
+            what we’ve been watching…
           </h2>
           <h5 style={{ color: "white" }}>
             This homepage will become customized as you follow active members on

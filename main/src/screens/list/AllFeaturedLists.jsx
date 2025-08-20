@@ -46,7 +46,7 @@ function AllFeaturedLists() {
                       key={idx}
                       style={{
                         position: "relative",
-                        zIndex: idx,
+                        zIndex: (list.films?.length || 0) - idx,
                         marginLeft: idx === 0 ? 0 : "-40px",
                         transition: "transform 0.2s",
                       }}
