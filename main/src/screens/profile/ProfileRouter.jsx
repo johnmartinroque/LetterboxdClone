@@ -7,6 +7,10 @@ import ProfileSelf from "./ProfileSelf";
 import ProfilePublic from "./ProfilePublic";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import FavoriteFilms from "../../components/profile/FavoriteFilms";
+import Activity from "../../components/profile/Activity";
+import FilmsWatched from "../../components/profile/FilmsWatched";
+import UserReviews from "../../components/profile/UserReviews";
 function ProfileRouter({ currentUser }) {
   const { uid } = useParams();
   const [profileUser, setProfileUser] = useState(null);
@@ -62,14 +66,20 @@ function ProfileTabs() {
         id="uncontrolled-tab-example"
         className="mb-3"
       >
-        <Tab eventKey="home" title="Home">
-          Tab content for Home
-        </Tab>
         <Tab eventKey="profile" title="Profile">
-          Tab content for Profile
+          <FavoriteFilms />
         </Tab>
-        <Tab eventKey="contact" title="Contact" disabled>
-          Tab content for Contact
+        <Tab eventKey="activity" title="Activity">
+          <Activity />
+        </Tab>
+        <Tab eventKey="films" title="Films">
+          <FilmsWatched />
+        </Tab>
+        <Tab eventKey="films" title="Films">
+          <FilmsWatched />
+        </Tab>
+        <Tab eventKey="userReviews" title="Reviews">
+          <UserReviews />
         </Tab>
       </Tabs>
     </Container>

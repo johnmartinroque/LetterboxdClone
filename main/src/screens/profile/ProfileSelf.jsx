@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import FavoriteFilms from "../../components/film/FavoriteFilms";
+import FavoriteFilms from "../../components/profile/FavoriteFilms";
 
 function ProfileSelf({ user }) {
   const navigate = useNavigate();
