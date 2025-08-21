@@ -19,9 +19,11 @@ function RecentReviews({ filmId }) {
   }, [dispatch, filmId]);
 
   return (
-    <div style={{ width: "50rem" }}>
+    <div style={{ width: "50rem", minHeight: "20rem" }}>
       <h4>Recent Reviews</h4>
-      <Link to={`/film/${filmId}/reviews`}>See More</Link>
+      {reviews.length > 0 && (
+        <Link to={`/film/${filmId}/reviews`}>See More</Link>
+      )}
       {loading ? (
         <Spinner animation="border" style={{ color: "white" }} />
       ) : error ? (
