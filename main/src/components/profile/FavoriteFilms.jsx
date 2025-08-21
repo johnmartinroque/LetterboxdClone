@@ -48,6 +48,7 @@ function FavoriteFilms() {
                     variant="top"
                     src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
                     alt={film.title}
+                    fluid
                   />
                 </Link>
               )}

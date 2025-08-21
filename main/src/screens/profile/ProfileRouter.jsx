@@ -14,7 +14,7 @@ import UserReviews from "../../components/profile/UserReviews";
 import Diary from "../../components/profile/Diary";
 import Watchlist from "../../components/profile/Watchlist";
 import RecentActivity from "../../components/profile/RecentActivity";
-import RecentReviews from "../../components/reviews/RecentReviews";
+import "../../css/Profile.css";
 function ProfileRouter({ currentUser }) {
   const { uid } = useParams();
   const [profileUser, setProfileUser] = useState(null);
@@ -70,7 +70,7 @@ function ProfileTabs() {
         id="uncontrolled-tab-example"
         className="mb-3"
       >
-        <Tab eventKey="profile" title="Profile">
+        <Tab eventKey="profile" title="Profile" tabClassName="tab-content">
           <FavoriteFilms />
           <RecentActivity />
         </Tab>

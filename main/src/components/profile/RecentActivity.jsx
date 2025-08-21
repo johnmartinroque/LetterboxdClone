@@ -101,6 +101,7 @@ function RecentActivity() {
                     variant="top"
                     src={review.poster}
                     alt={review.title}
+                    fluid
                   />
                 </Link>
               )}

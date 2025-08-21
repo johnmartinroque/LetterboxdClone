@@ -1,0 +1,9 @@
+.tab-content {
+  max-height: 120vh;
+  overflow-y: auto; /* Hide scrollbar but allow scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.tab-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
