@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { thunk } from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
+  favoriteFilmsReducer,
   filmDetailReducer,
   filmTrendingReducer,
   searchFilmsReducer,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   listDetails: listDetailsReducer,
   featuredLists: featuredListsReducer,
   popularReviews: popularReviewsReducer,
+  favoriteFilms: favoriteFilmsReducer,
 });
 
 const middleware = [thunk];

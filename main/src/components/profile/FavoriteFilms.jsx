@@ -1,35 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase";
 import { Spinner, Row, Col, Card } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFavoriteFilms } from "../../actions/filmActions";
 
 function FavoriteFilms() {
-  const { uid } = useParams(); // 👈 user ID from URL
-  const [favoriteFilms, setFavoriteFilms] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { uid } = useParams();
+  const dispatch = useDispatch();
+
+  const { loading, favoriteFilms, error } = useSelector(
+    (state) => state.favoriteFilms
+  );
 
   useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const profileRef = doc(db, "profile", uid);
-        const profileSnap = await getDoc(profileRef);
-
-        if (profileSnap.exists()) {
-          const data = profileSnap.data();
-          setFavoriteFilms(data.favoriteFilms || []);
-        }
-      } catch (err) {
-        console.error("Error fetching favorite films:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFavorites();
-  }, [uid]);
+    if (uid) {
+      dispatch(fetchFavoriteFilms(uid));
+    }
+  }, [dispatch, uid]);
 
   if (loading) return <Spinner animation="border" />;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   if (favoriteFilms.length === 0) {
     return <p style={{ color: "#ccc" }}>No favorite films yet.</p>;
@@ -39,7 +29,7 @@ function FavoriteFilms() {
     <div>
       <h3 style={{ color: "white" }}>Favorite Films</h3>
       <Row>
-        {favoriteFilms.map((film, index) => (
+        {favoriteFilms.map((film) => (
           <Col key={film.id} xs={6} md={3} className="mb-3">
             <Card className="h-100 border-0 shadow-none bg-transparent">
               {film.poster_path && (

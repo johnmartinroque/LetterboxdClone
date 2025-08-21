@@ -8,6 +8,9 @@ import {
   SEARCH_FILMS_REQUEST,
   SEARCH_FILMS_SUCCESS,
   SEARCH_FILMS_FAIL,
+  FETCH_FAVORITE_FILMS_REQUEST,
+  FETCH_FAVORITE_FILMS_SUCCESS,
+  FETCH_FAVORITE_FILMS_FAIL,
 } from "../constants/filmConstants";
 
 const initialState = {
@@ -62,6 +65,22 @@ export const searchFilmsReducer = (state = { films: [] }, action) => {
       return { loading: false, films: action.payload };
     case SEARCH_FILMS_FAIL:
       return { loading: false, error: action.payload, films: [] };
+    default:
+      return state;
+  }
+};
+
+export const favoriteFilmsReducer = (
+  state = { loading: false, favoriteFilms: [], error: null },
+  action
+) => {
+  switch (action.type) {
+    case FETCH_FAVORITE_FILMS_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FETCH_FAVORITE_FILMS_SUCCESS:
+      return { loading: false, favoriteFilms: action.payload, error: null };
+    case FETCH_FAVORITE_FILMS_FAIL:
+      return { loading: false, favoriteFilms: [], error: action.payload };
     default:
       return state;
   }

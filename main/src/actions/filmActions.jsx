@@ -1,3 +1,4 @@
+import { doc, getDoc } from "firebase/firestore";
 import {
   FETCH_TRENDING_REQUEST,
   FETCH_TRENDING_SUCCESS,
@@ -8,7 +9,11 @@ import {
   SEARCH_FILMS_REQUEST,
   SEARCH_FILMS_SUCCESS,
   SEARCH_FILMS_FAIL,
+  FETCH_FAVORITE_FILMS_REQUEST,
+  FETCH_FAVORITE_FILMS_SUCCESS,
+  FETCH_FAVORITE_FILMS_FAIL,
 } from "../constants/filmConstants";
+import { db } from "../firebase";
 
 const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
@@ -103,6 +108,29 @@ export const searchFilms = (query) => async (dispatch) => {
     dispatch({
       type: SEARCH_FILMS_FAIL,
       payload: error.message || "Something went wrong",
+    });
+  }
+};
+
+export const fetchFavoriteFilms = (uid) => async (dispatch) => {
+  dispatch({ type: FETCH_FAVORITE_FILMS_REQUEST });
+  try {
+    const profileRef = doc(db, "profile", uid);
+    const profileSnap = await getDoc(profileRef);
+
+    if (!profileSnap.exists()) {
+      throw new Error("Profile not found");
+    }
+
+    const data = profileSnap.data();
+    dispatch({
+      type: FETCH_FAVORITE_FILMS_SUCCESS,
+      payload: data.favoriteFilms || [],
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_FAVORITE_FILMS_FAIL,
+      payload: error.message || "Failed to fetch favorite films",
     });
   }
 };
