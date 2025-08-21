@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Col, Container, Alert } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Col,
+  Container,
+  Alert,
+  InputGroup,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../actions/authenticationActions";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +17,7 @@ function CreateAccount() {
   const [password, setPassword] = useState("");
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -78,14 +86,26 @@ function CreateAccount() {
           />
         </Form.Group>
 
-        <Form.Group controlId="formPassword">
+        <Form.Group controlId="formPassword" className="mt-3">
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <InputGroup>
+            <Form.Control
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <InputGroup.Text
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ cursor: "pointer", background: "white" }}
+            >
+              <i
+                className={`fa-solid ${
+                  showPassword ? "fa-eye-slash" : "fa-eye"
+                }`}
+              ></i>
+            </InputGroup.Text>
+          </InputGroup>
         </Form.Group>
 
         <Form.Group controlId="formCheck">
