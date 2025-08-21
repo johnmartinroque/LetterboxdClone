@@ -1,5 +1,6 @@
 .tab-content {
-  max-height: 120vh;
+  max-height: 130vh;
+  padding-bottom: 1rem;
   overflow-y: auto; /* Hide scrollbar but allow scrolling */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
