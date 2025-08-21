@@ -1,0 +1,33 @@
+.month-column {
+  width: 100px;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.day-column {
+  width: 40px;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.film-column {
+  width: auto;
+}
+
+.released-column {
+  width: 40px;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.rating-column {
+  width: 40px;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.like-column {
+  width: 40px;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.rewatch-column {
+  width: 40px;
+  white-space: nowrap; /* Prevents wrapping */
+}
