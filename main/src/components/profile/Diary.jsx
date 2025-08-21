@@ -1,68 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
-import { useParams } from "react-router-dom";
 import "../../css/Diary.css";
-
-const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDiary } from "../../actions/profileActions";
 
 function Diary() {
-  const { uid } = useParams(); // userId from URL
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { uid } = useParams();
+  const dispatch = useDispatch();
+
+  const { loading, reviews, error } = useSelector((state) => state.diary);
 
   useEffect(() => {
-    const fetchDiary = async () => {
-      try {
-        if (!uid) return;
-
-        // get reviews with addDiary = true
-        const q = query(
-          collection(db, "reviews"),
-          where("userId", "==", uid),
-          where("addDiary", "==", true)
-        );
-
-        const querySnap = await getDocs(q);
-        const rawReviews = querySnap.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        // fetch film details from TMDB
-        const enrichedReviews = await Promise.all(
-          rawReviews.map(async (review) => {
-            try {
-              const res = await fetch(
-                `https://api.themoviedb.org/3/movie/${review.filmId}?api_key=${TMDB_API_KEY}&language=en-US`
-              );
-              const movie = await res.json();
-              return {
-                ...review,
-                filmTitle: movie.title,
-                filmPoster: movie.poster_path,
-                released: movie.release_date
-                  ? new Date(movie.release_date).getFullYear()
-                  : "N/A",
-              };
-            } catch (err) {
-              console.error("Error fetching movie:", err);
-              return review; // fallback
-            }
-          })
-        );
-
-        setReviews(enrichedReviews);
-      } catch (error) {
-        console.error("Error fetching diary reviews:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDiary();
-  }, [uid]);
+    if (uid) dispatch(fetchDiary(uid));
+  }, [dispatch, uid]);
 
   return (
     <div>
@@ -70,19 +21,25 @@ function Diary() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th className="month-column">MONTH</th>
-            <th className="day-column">DAY</th>
-            <th className="film-column">FILM</th>
-            <th className="released-column">RELEASED</th>
-            <th className="rating-column">RATING</th>
-            <th className="like-column">LIKE</th>
-            <th className="rewatch-column">REWATCH</th>
+            <th>MONTH</th>
+            <th>DAY</th>
+            <th>FILM</th>
+            <th>RELEASED</th>
+            <th>RATING</th>
+            <th>LIKE</th>
+            <th>REWATCH</th>
           </tr>
         </thead>
         <tbody>
           {loading ? (
             <tr>
               <td colSpan="7">Loading...</td>
+            </tr>
+          ) : error ? (
+            <tr>
+              <td colSpan="7" style={{ color: "red" }}>
+                {error}
+              </td>
             </tr>
           ) : reviews.length === 0 ? (
             <tr>
@@ -100,26 +57,30 @@ function Diary() {
 
               return (
                 <tr key={review.id}>
-                  <td className="month-column">
+                  <td>
                     {month} {date?.getFullYear()}
                   </td>
-                  <td className="day-column">{day}</td>
-                  <td className="film-column">
-                    {review.filmPoster && (
-                      <img
-                        src={`https://image.tmdb.org/t/p/w92${review.filmPoster}`}
-                        alt={review.filmTitle}
-                        style={{
-                          width: "40px",
-                          marginRight: "8px",
-                          verticalAlign: "middle",
-                        }}
-                      />
-                    )}
-                    {review.filmTitle || review.filmId}
+                  <td>{day}</td>
+                  <td>
+                    <Link to={`/user/${review.userId}/film/${review.filmId}`}>
+                      {review.filmPoster && (
+                        <img
+                          src={`https://image.tmdb.org/t/p/w92${review.filmPoster}`}
+                          alt={review.filmTitle}
+                          style={{
+                            width: "40px",
+                            marginRight: "8px",
+                            verticalAlign: "middle",
+                          }}
+                        />
+                      )}
+                    </Link>
+                    <Link to={`/user/${review.userId}/`}>
+                      {review.filmTitle || review.filmId}
+                    </Link>
                   </td>
-                  <td className="released-column">{review.released}</td>
-                  <td className="rating-column">
+                  <td>{review.released}</td>
+                  <td>
                     {[...Array(Math.floor(review.rating || 0))].map((_, i) => (
                       <i key={i} className="fa-solid fa-star"></i>
                     ))}
@@ -127,7 +88,7 @@ function Diary() {
                       <i className="fa-solid fa-star-half-stroke"></i>
                     )}
                   </td>
-                  <td className="like-column">
+                  <td>
                     {review.likes > 0 && (
                       <i
                         className="fa-solid fa-heart"
@@ -135,7 +96,7 @@ function Diary() {
                       ></i>
                     )}
                   </td>
-                  <td className="rewatch-column">
+                  <td>
                     {review.watchedBefore && (
                       <i className="fa-solid fa-repeat"></i>
                     )}
