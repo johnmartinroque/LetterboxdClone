@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Col, Container, Alert } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Col,
+  Container,
+  Alert,
+  InputGroup,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../actions/authenticationActions"; // Updated import
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-  const [email, setEmail] = useState(""); // Changed to handle email instead of username
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,8 +57,14 @@ function SignIn() {
   };
 
   return (
-    <Container>
-      <Form onSubmit={handleSubmit} style={{ width: "50rem" }}>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ height: "50rem" }}
+    >
+      <Form
+        onSubmit={handleSubmit}
+        style={{ width: "50rem", backgroundColor: "#556678", padding: "2rem" }}
+      >
         <Form.Group controlId="formEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -61,14 +75,26 @@ function SignIn() {
           />
         </Form.Group>
 
-        <Form.Group controlId="formPassword">
+        <Form.Group controlId="formPassword" className="mt-3">
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <InputGroup>
+            <Form.Control
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <InputGroup.Text
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ cursor: "pointer", background: "white" }}
+            >
+              <i
+                className={`fa-solid ${
+                  showPassword ? "fa-eye-slash" : "fa-eye"
+                }`}
+              ></i>
+            </InputGroup.Text>
+          </InputGroup>
         </Form.Group>
 
         <Button variant="primary" type="submit" disabled={loading}>
