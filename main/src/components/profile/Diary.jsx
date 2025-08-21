@@ -5,6 +5,8 @@ import { db } from "../../firebase";
 import { useParams } from "react-router-dom";
 import "../../css/Diary.css";
 
+const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+
 function Diary() {
   const { uid } = useParams(); // userId from URL
   const [reviews, setReviews] = useState([]);
@@ -15,6 +17,7 @@ function Diary() {
       try {
         if (!uid) return;
 
+        // get reviews with addDiary = true
         const q = query(
           collection(db, "reviews"),
           where("userId", "==", uid),
@@ -22,12 +25,35 @@ function Diary() {
         );
 
         const querySnap = await getDocs(q);
-        const data = querySnap.docs.map((doc) => ({
+        const rawReviews = querySnap.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
 
-        setReviews(data);
+        // fetch film details from TMDB
+        const enrichedReviews = await Promise.all(
+          rawReviews.map(async (review) => {
+            try {
+              const res = await fetch(
+                `https://api.themoviedb.org/3/movie/${review.filmId}?api_key=${TMDB_API_KEY}&language=en-US`
+              );
+              const movie = await res.json();
+              return {
+                ...review,
+                filmTitle: movie.title,
+                filmPoster: movie.poster_path,
+                released: movie.release_date
+                  ? new Date(movie.release_date).getFullYear()
+                  : "N/A",
+              };
+            } catch (err) {
+              console.error("Error fetching movie:", err);
+              return review; // fallback
+            }
+          })
+        );
+
+        setReviews(enrichedReviews);
       } catch (error) {
         console.error("Error fetching diary reviews:", error);
       } finally {
@@ -79,11 +105,20 @@ function Diary() {
                   </td>
                   <td className="day-column">{day}</td>
                   <td className="film-column">
+                    {review.filmPoster && (
+                      <img
+                        src={`https://image.tmdb.org/t/p/w92${review.filmPoster}`}
+                        alt={review.filmTitle}
+                        style={{
+                          width: "40px",
+                          marginRight: "8px",
+                          verticalAlign: "middle",
+                        }}
+                      />
+                    )}
                     {review.filmTitle || review.filmId}
                   </td>
-                  <td className="released-column">
-                    {review.released || "N/A"}
-                  </td>
+                  <td className="released-column">{review.released}</td>
                   <td className="rating-column">
                     {[...Array(Math.floor(review.rating || 0))].map((_, i) => (
                       <i key={i} className="fa-solid fa-star"></i>
