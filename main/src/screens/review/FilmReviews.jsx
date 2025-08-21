@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Spinner, Row, Col, Container } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchRecentReviews } from "../../actions/reviewActions";
 import Statistics from "../../components/film/Statistics";
 import { fetchFilmDetail } from "../../actions/filmActions";
@@ -59,7 +59,7 @@ function FilmReviews() {
                 <Row>
                   <Col className="d-flex text-start gap-2">
                     <span>Review by</span>
-                    <strong>{review.username}</strong>
+                    <Link to={`/user/${review.userId}`}>{review.username}</Link>
                     <Rating
                       readonly
                       allowFraction
