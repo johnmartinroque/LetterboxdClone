@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -15,10 +15,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 function HeaderUser() {
   const dispatch = useDispatch();
+  const navigate = useNavigate("");
   const { userInfo } = useSelector((state) => state.userInfo);
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    navigate("/");
   };
 
   return (

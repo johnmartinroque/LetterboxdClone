@@ -4,7 +4,7 @@ import {
   updatePassword,
 } from "firebase/auth";
 import React, { useState } from "react";
-import { Alert, Col, Row } from "react-bootstrap";
+import { Alert, Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { auth } from "../../firebase";
@@ -16,6 +16,10 @@ function Auth() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handlePasswordChange = async (e) => {
     e.preventDefault();
@@ -70,37 +74,72 @@ function Auth() {
       <Row style={{ width: "50rem" }}>
         <Col>
           <Form onSubmit={handlePasswordChange}>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="currentPassword">
               <Form.Label>Current Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-              />
+              <InputGroup>
+                <Form.Control
+                  type={showCurrentPassword ? "text" : "password"}
+                  placeholder="Current Password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+                <InputGroup.Text
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  style={{ cursor: "pointer", background: "white" }}
+                >
+                  <i
+                    className={`fa-solid ${
+                      showCurrentPassword ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                  ></i>
+                </InputGroup.Text>
+              </InputGroup>
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="formBasicCheckbox"
-            ></Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            {/* New Password */}
+            <Form.Group className="mb-3" controlId="newPassword">
               <Form.Label>New Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
+              <InputGroup>
+                <Form.Control
+                  type={showNewPassword ? "text" : "password"}
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <InputGroup.Text
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  style={{ cursor: "pointer", background: "white" }}
+                >
+                  <i
+                    className={`fa-solid ${
+                      showNewPassword ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                  ></i>
+                </InputGroup.Text>
+              </InputGroup>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+
+            {/* Confirm New Password */}
+            <Form.Group className="mb-3" controlId="confirmPassword">
               <Form.Label>Confirm New Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+              <InputGroup>
+                <Form.Control
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm New Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <InputGroup.Text
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  style={{ cursor: "pointer", background: "white" }}
+                >
+                  <i
+                    className={`fa-solid ${
+                      showConfirmPassword ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                  ></i>
+                </InputGroup.Text>
+              </InputGroup>
             </Form.Group>
             <Button variant="primary" type="submit" disabled={loading}>
               {loading ? "Updating..." : "Change"}
