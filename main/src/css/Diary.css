@@ -1,5 +1,5 @@
 .month-column {
-  width: 100px;
+  width: 40px;
   white-space: nowrap; /* Prevents wrapping */
 }
 
@@ -9,25 +9,25 @@
 }
 
 .film-column {
-  width: auto;
+  width: none;
 }
 
 .released-column {
-  width: 40px;
+  width: 5rem;
   white-space: nowrap; /* Prevents wrapping */
 }
 
 .rating-column {
-  width: 40px;
+  width: 10rem;
   white-space: nowrap; /* Prevents wrapping */
 }
 
 .like-column {
-  width: 40px;
+  width: 5rem;
   white-space: nowrap; /* Prevents wrapping */
 }
 
 .rewatch-column {
-  width: 40px;
+  width: 5rem;
   white-space: nowrap; /* Prevents wrapping */
 }
