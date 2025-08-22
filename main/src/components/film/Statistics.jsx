@@ -39,11 +39,12 @@ function Statistics({ filmId }) {
 
   return (
     <div className="d-flex justify-content-center align-items-center">
-      <i className="fa-solid fa-eye" style={{ color: "#00e054" }}></i>
-      <p className="mb-0 mx-2">{likes}</p>
-
-      <i className="fa-solid fa-list" style={{ color: "#40bcf4" }}></i>
+      <i class="fa-solid fa-eye" style={{ color: "	#00e054" }}></i>
       <p className="mb-0 mx-2">{watched}</p>
+      <i class="fa-solid fa-list" style={{ color: "#40bcf4" }}></i>
+      <p className="mb-0 mx-2">0</p>
+      <i class="fa-solid fa-heart" style={{ color: "	#ff8000" }}></i>
+      <p className="mb-0 mx-2">{likes}</p>
     </div>
   );
 }
