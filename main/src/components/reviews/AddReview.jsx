@@ -1,4 +1,12 @@
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  getDoc,
+} from "firebase/firestore";
+
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
@@ -11,9 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 function AddReview(props) {
-  const { filmId } = useParams();
-
-  const { id, title, releaseDate, posterPath } = props;
+  const { id, title, releaseDate, posterPath, filmId } = props;
   const [rating, setRating] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [watched, setWatched] = useState(false);
@@ -73,84 +79,44 @@ function AddReview(props) {
     <div>
       <ListGroup as="ol">
         <ListGroup.Item as="li" style={{ backgroundColor: "#556678" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "2rem",
-            }}
-          >
-            {/* Watched */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              {watched ? (
-                <>
-                  <i
-                    className="fa-solid fa-eye"
-                    style={{ fontSize: "3rem" }}
-                    onClick={toggleWatched}
-                  ></i>
-                  <h4>Watched</h4>
-                </>
-              ) : (
-                <>
-                  <i
-                    className="fa-solid fa-eye"
-                    style={{ fontSize: "3rem", color: "#47ff37ff" }}
-                    onClick={toggleWatched}
-                  ></i>
-                  <h4>Watched</h4>
-                </>
-              )}
-            </div>
+          <div className="container">
+            <div className="row text-center">
+              {/* Watched */}
+              <div className="col-4 d-flex flex-column align-items-center">
+                <i
+                  className="fa-solid fa-eye"
+                  style={{
+                    fontSize: "3rem",
+                    color: watched ? "" : "#47ff37ff",
+                    cursor: "pointer",
+                  }}
+                  onClick={toggleWatched}
+                ></i>
+                <h5>{watched ? "Watched" : "Watched"}</h5>
+              </div>
 
-            {/* Liked */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+              {/* Liked */}
+              <div className="col-4 d-flex flex-column align-items-center">
+                <i
+                  className="fa-solid fa-heart"
+                  style={{
+                    fontSize: "3rem",
+                    color: isLiked ? "#ff8000" : "",
+                    cursor: "pointer",
+                  }}
+                  onClick={toggleLiked}
+                ></i>
+                <h5>{isLiked ? "Liked" : "Remove"}</h5>
+              </div>
 
-                padding: "0.5rem", // optional
-                borderRadius: "0.5rem", // optional
-              }}
-            >
-              {isLiked ? (
-                <>
-                  <i
-                    className="fa-solid fa-heart"
-                    style={{ color: "#ff8000", fontSize: "3rem" }}
-                    onClick={toggleLiked}
-                  ></i>
-                  <h4>Liked</h4>
-                </>
-              ) : (
-                <>
-                  <i
-                    className="fa-solid fa-heart"
-                    style={{ fontSize: "3rem" }}
-                    onClick={toggleLiked}
-                  ></i>
-                  <h4>Remove</h4>
-                </>
-              )}
-            </div>
-
-            {/* Watchlist */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <i className="fa-solid fa-plus" style={{ fontSize: "3rem" }}></i>
-              <h4>Watchlist</h4>
+              {/* Watchlist */}
+              <div className="col-4 d-flex flex-column align-items-center">
+                <i
+                  className="fa-solid fa-plus"
+                  style={{ fontSize: "3rem", cursor: "pointer" }}
+                ></i>
+                <h5>Watchlist</h5>
+              </div>
             </div>
           </div>
         </ListGroup.Item>

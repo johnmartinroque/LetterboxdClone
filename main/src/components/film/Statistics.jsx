@@ -30,7 +30,6 @@ function Statistics({ filmId }) {
 
           setLikes(doc.likes || 0);
           setWatched(doc.watched || 0);
-          setHearts(doc.heart || 0);
         } else {
           console.warn("⚠️ No stats found for filmId:", filmId);
         }
@@ -51,9 +50,6 @@ function Statistics({ filmId }) {
 
       <i className="fa-solid fa-list" style={{ color: "#40bcf4" }}></i>
       <p className="mb-0 mx-2">{watched}</p>
-
-      <i className="fa-solid fa-heart" style={{ color: "#ff8000" }}></i>
-      <p className="mb-0 mx-2">{hearts}</p>
     </div>
   );
 }

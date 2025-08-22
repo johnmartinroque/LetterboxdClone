@@ -192,6 +192,7 @@ function FilmDetailed() {
             title={detail.title}
             releaseDate={detail.release_date}
             posterPath={detail.poster_path}
+            filmId={id}
           />
           <RatingsBarChart filmId={id} />
         </Col>
