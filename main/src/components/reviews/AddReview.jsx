@@ -8,10 +8,15 @@ import ListGroup from "react-bootstrap/ListGroup";
 import "../../css/Reviews.css";
 import { fetchUserInfo } from "../../actions/authenticationActions";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 function AddReview(props) {
+  const { filmId } = useParams();
+
   const { id, title, releaseDate, posterPath } = props;
   const [rating, setRating] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [watched, setWatched] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -24,6 +29,14 @@ function AddReview(props) {
     }
   }, [dispatch, userInfo]);
   const { userId, email, username } = userInfo || [];
+
+  const toggleWatched = () => {
+    setWatched((prev) => !prev);
+  };
+
+  const toggleLiked = () => {
+    setIsLiked((prev) => !prev);
+  };
 
   /* 
    const addReview = async () => {
@@ -75,8 +88,25 @@ function AddReview(props) {
                 alignItems: "center",
               }}
             >
-              <i className="fa-solid fa-eye" style={{ fontSize: "3rem" }}></i>
-              <h4>Watched</h4>
+              {watched ? (
+                <>
+                  <i
+                    className="fa-solid fa-eye"
+                    style={{ fontSize: "3rem" }}
+                    onClick={toggleWatched}
+                  ></i>
+                  <h4>Watched</h4>
+                </>
+              ) : (
+                <>
+                  <i
+                    className="fa-solid fa-eye"
+                    style={{ fontSize: "3rem", color: "#47ff37ff" }}
+                    onClick={toggleWatched}
+                  ></i>
+                  <h4>Watched</h4>
+                </>
+              )}
             </div>
 
             {/* Liked */}
@@ -90,11 +120,25 @@ function AddReview(props) {
                 borderRadius: "0.5rem", // optional
               }}
             >
-              <i
-                className="fa-solid fa-heart"
-                style={{ color: "#ff8000", fontSize: "3rem" }}
-              ></i>
-              <h4>Liked</h4>
+              {isLiked ? (
+                <>
+                  <i
+                    className="fa-solid fa-heart"
+                    style={{ color: "#ff8000", fontSize: "3rem" }}
+                    onClick={toggleLiked}
+                  ></i>
+                  <h4>Liked</h4>
+                </>
+              ) : (
+                <>
+                  <i
+                    className="fa-solid fa-heart"
+                    style={{ fontSize: "3rem" }}
+                    onClick={toggleLiked}
+                  ></i>
+                  <h4>Remove</h4>
+                </>
+              )}
             </div>
 
             {/* Watchlist */}
