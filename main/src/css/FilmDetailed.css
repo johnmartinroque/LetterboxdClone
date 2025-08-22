@@ -1,0 +1,31 @@
+/* Hide the hover label by default */
+.watched-icon .hover-label,
+.liked-icon .hover-label {
+  display: none;
+}
+
+/* Parent h5 container should have relative positioning */
+.watched-icon .label,
+.liked-icon .label {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hover effect: make original label invisible */
+.watched-icon.active:hover .label,
+.liked-icon.active:hover .label {
+  color: transparent;
+}
+
+/* Hover label shown on hover, positioned exactly */
+.watched-icon.active:hover .hover-label,
+.liked-icon.active:hover .hover-label {
+  display: inline;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ffffff; /* Adjust to your UI color */
+  width: 100%;
+  text-align: center;
+  pointer-events: none; /* prevent interaction with overlay */
+}

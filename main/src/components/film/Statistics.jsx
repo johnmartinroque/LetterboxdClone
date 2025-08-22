@@ -17,19 +17,13 @@ function Statistics({ filmId }) {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const q = query(
-          collection(db, "statistics"),
-          where("filmId", "==", Number(filmId))
-        );
+        const statsRef = doc(db, "statistics", String(filmId));
+        const snapshot = await getDoc(statsRef);
 
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-          const doc = querySnapshot.docs[0].data();
-          console.log("✅ Found doc:", doc);
-
-          setLikes(doc.likes || 0);
-          setWatched(doc.watched || 0);
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          setLikes(data.likers?.length || 0);
+          setWatched(data.watchers?.length || 0);
         } else {
           console.warn("⚠️ No stats found for filmId:", filmId);
         }

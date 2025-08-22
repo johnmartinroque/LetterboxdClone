@@ -1,10 +1,11 @@
 import {
+  collection,
   doc,
+  getDoc,
   setDoc,
   updateDoc,
   arrayUnion,
   arrayRemove,
-  getDoc,
 } from "firebase/firestore";
 
 import React, { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ import "../../css/Reviews.css";
 import { fetchUserInfo } from "../../actions/authenticationActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import "../../css/FilmDetailed.css";
 
 function AddReview(props) {
   const { id, title, releaseDate, posterPath, filmId } = props;
@@ -29,6 +31,21 @@ function AddReview(props) {
   const dispatch = useDispatch();
   const { userInfo, loading, error } = useSelector((state) => state.userInfo);
 
+  const getOrCreateStatsDoc = async () => {
+    const statsRef = doc(db, "statistics", String(filmId));
+    const snapshot = await getDoc(statsRef);
+
+    if (!snapshot.exists()) {
+      await setDoc(statsRef, {
+        filmId: Number(filmId),
+        likers: [],
+        watchers: [],
+      });
+    }
+
+    return statsRef;
+  };
+
   useEffect(() => {
     if (!userInfo) {
       dispatch(fetchUserInfo());
@@ -36,13 +53,62 @@ function AddReview(props) {
   }, [dispatch, userInfo]);
   const { userId, email, username } = userInfo || [];
 
-  const toggleWatched = () => {
-    setWatched((prev) => !prev);
+  const toggleWatched = async () => {
+    try {
+      const statsRef = await getOrCreateStatsDoc();
+
+      if (watched) {
+        await updateDoc(statsRef, {
+          watchers: arrayRemove(userId),
+        });
+      } else {
+        await updateDoc(statsRef, {
+          watchers: arrayUnion(userId),
+        });
+      }
+
+      setWatched((prev) => !prev);
+    } catch (error) {
+      console.error("Error updating watched status:", error);
+    }
   };
 
-  const toggleLiked = () => {
-    setIsLiked((prev) => !prev);
+  const toggleLiked = async () => {
+    try {
+      const statsRef = await getOrCreateStatsDoc();
+
+      if (isLiked) {
+        await updateDoc(statsRef, {
+          likers: arrayRemove(userId),
+        });
+      } else {
+        await updateDoc(statsRef, {
+          likers: arrayUnion(userId),
+        });
+      }
+
+      setIsLiked((prev) => !prev);
+    } catch (error) {
+      console.error("Error updating liked status:", error);
+    }
   };
+
+  useEffect(() => {
+    const fetchUserStats = async () => {
+      if (!userId || !filmId) return;
+
+      const statsRef = doc(db, "statistics", String(filmId));
+      const snapshot = await getDoc(statsRef);
+
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        setIsLiked(data.likers?.includes(userId));
+        setWatched(data.watchers?.includes(userId));
+      }
+    };
+
+    fetchUserStats();
+  }, [userId, filmId]);
 
   /* 
    const addReview = async () => {
@@ -82,21 +148,32 @@ function AddReview(props) {
           <div className="container">
             <div className="row text-center">
               {/* Watched */}
-              <div className="col-4 d-flex flex-column align-items-center">
+              <div
+                className={`col-4 d-flex flex-column align-items-center watched-icon ${
+                  watched ? "active" : ""
+                }`}
+              >
                 <i
                   className="fa-solid fa-eye"
                   style={{
                     fontSize: "3rem",
-                    color: watched ? "" : "#47ff37ff",
+                    color: watched ? "#47ff37ff" : "",
                     cursor: "pointer",
                   }}
                   onClick={toggleWatched}
                 ></i>
-                <h5>{watched ? "Watched" : "Watched"}</h5>
+                <h5 className="label">
+                  {watched ? "Watched" : "Watched"}
+                  <span className="hover-label">Remove</span>
+                </h5>
               </div>
 
               {/* Liked */}
-              <div className="col-4 d-flex flex-column align-items-center">
+              <div
+                className={`col-4 d-flex flex-column align-items-center liked-icon ${
+                  isLiked ? "active" : ""
+                }`}
+              >
                 <i
                   className="fa-solid fa-heart"
                   style={{
@@ -106,7 +183,10 @@ function AddReview(props) {
                   }}
                   onClick={toggleLiked}
                 ></i>
-                <h5>{isLiked ? "Liked" : "Remove"}</h5>
+                <h5 className="label">
+                  {isLiked ? "Liked" : "Liked"}
+                  <span className="hover-label">Remove</span>
+                </h5>
               </div>
 
               {/* Watchlist */}
