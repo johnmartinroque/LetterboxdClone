@@ -19,6 +19,7 @@ import { fetchUserInfo } from "../../actions/authenticationActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import "../../css/FilmDetailed.css";
+import { fetchRecentReviews } from "../../actions/reviewActions";
 
 function AddReview(props) {
   const { id, title, releaseDate, posterPath, filmId } = props;
@@ -44,6 +45,10 @@ function AddReview(props) {
     }
 
     return statsRef;
+  };
+
+  const refreshReviews = () => {
+    dispatch(fetchRecentReviews(filmId));
   };
 
   useEffect(() => {
@@ -283,6 +288,7 @@ function AddReview(props) {
         id={id}
         username={username}
         userId={userId}
+        onReviewAdded={refreshReviews}
       />
     </div>
   );

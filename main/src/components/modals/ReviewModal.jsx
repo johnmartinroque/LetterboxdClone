@@ -18,6 +18,7 @@ function ReviewModal({
   id,
   username,
   userId,
+  onReviewAdded,
 }) {
   const [rating, setRating] = useState(initialRating || 0);
   const [text, setText] = useState("");
@@ -70,6 +71,10 @@ function ReviewModal({
         username: username,
         userId: userId,
       });
+
+      if (onReviewAdded) {
+        onReviewAdded(); // ✅ call refresh after add
+      }
       onHide(); // Close modal after saving
     } catch (err) {
       console.error(err);
