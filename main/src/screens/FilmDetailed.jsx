@@ -28,6 +28,7 @@ function FilmDetailed() {
 
   useEffect(() => {
     dispatch(fetchFilmDetail(id));
+    console.log(id);
   }, [dispatch, id]);
 
   if (loading) return <Spinner animation="border" />;

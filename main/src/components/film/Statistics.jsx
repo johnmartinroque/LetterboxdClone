@@ -12,7 +12,7 @@ import {
 function Statistics({ filmId }) {
   const [likes, setLikes] = useState(0);
   const [watched, setWatched] = useState(0);
-  const [hearts, setHearts] = useState(0);
+  const [listCount, setListCount] = useState(0);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -27,6 +27,21 @@ function Statistics({ filmId }) {
         } else {
           console.warn("⚠️ No stats found for filmId:", filmId);
         }
+
+        const listsRef = collection(db, "lists");
+        const allListsSnapshot = await getDocs(listsRef);
+
+        let count = 0;
+
+        allListsSnapshot.forEach((doc) => {
+          const films = doc.data().films || [];
+
+          if (films.some((film) => String(film.id) === String(filmId))) {
+            count++;
+          }
+        });
+
+        setListCount(count);
       } catch (error) {
         console.error("❌ Error fetching statistics:", error);
       }
@@ -42,7 +57,7 @@ function Statistics({ filmId }) {
       <i class="fa-solid fa-eye" style={{ color: "	#00e054" }}></i>
       <p className="mb-0 mx-2">{watched}</p>
       <i class="fa-solid fa-list" style={{ color: "#40bcf4" }}></i>
-      <p className="mb-0 mx-2">0</p>
+      <p className="mb-0 mx-2">{listCount}</p>
       <i class="fa-solid fa-heart" style={{ color: "	#ff8000" }}></i>
       <p className="mb-0 mx-2">{likes}</p>
     </div>
