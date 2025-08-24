@@ -65,10 +65,21 @@ function CreateAccount() {
   useEffect(() => {});
 
   return (
-    <Container>
-      <Form onSubmit={handleSubmit} style={{ width: "50rem" }}>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ height: "50rem" }}
+    >
+      <Form
+        onSubmit={handleSubmit}
+        style={{ width: "50rem", backgroundColor: "#556678", padding: "3rem" }}
+        className="rounded"
+      >
+        <Form.Text>
+          <h1 style={{ color: "white" }}>Create Account</h1>
+        </Form.Text>
+
+        <Form.Group controlId="formEmail" className="mt-3">
+          <Form.Label style={{ color: "white" }}>Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -76,8 +87,9 @@ function CreateAccount() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Username</Form.Label>
+
+        <Form.Group controlId="formUsername" className="mt-3">
+          <Form.Label style={{ color: "white" }}>Username</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter username"
@@ -87,7 +99,7 @@ function CreateAccount() {
         </Form.Group>
 
         <Form.Group controlId="formPassword" className="mt-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label style={{ color: "white" }}>Password</Form.Label>
           <InputGroup>
             <Form.Control
               type={showPassword ? "text" : "password"}
@@ -108,27 +120,35 @@ function CreateAccount() {
           </InputGroup>
         </Form.Group>
 
-        <Form.Group controlId="formCheck">
+        <Form.Group controlId="formCheck1" className="mt-3">
           <Form.Check
             type="checkbox"
             label="I'm at least 16 years old and accept the Terms of Use."
             checked={check1}
             onChange={(e) => setCheck1(e.target.checked)}
-          />
-        </Form.Group>
-        <Form.Group controlId="formCheck">
-          <Form.Check
-            type="checkbox"
-            label="
-I accept the Privacy Policy and consent to the processing of my personal information in accordance with it."
-            checked={check2}
-            onChange={(e) => setCheck2(e.target.checked)}
+            style={{ color: "white" }}
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" disabled={loading}>
-          {loading ? "Registering..." : "Submit"}
+        <Form.Group controlId="formCheck2" className="mt-2">
+          <Form.Check
+            type="checkbox"
+            label="I accept the Privacy Policy and consent to the processing of my personal information in accordance with it."
+            checked={check2}
+            onChange={(e) => setCheck2(e.target.checked)}
+            style={{ color: "white" }}
+          />
+        </Form.Group>
+
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={loading}
+          style={{ marginTop: "2rem" }}
+        >
+          {loading ? "Creating..." : "Create Account"}
         </Button>
+
         {error && (
           <Alert variant="danger" className="mt-3">
             {getFriendlyErrorMessage(error)}

@@ -63,10 +63,14 @@ function SignIn() {
     >
       <Form
         onSubmit={handleSubmit}
-        style={{ width: "50rem", backgroundColor: "#556678", padding: "2rem" }}
+        style={{ width: "50rem", backgroundColor: "#556678", padding: "3rem" }}
+        className="rounded"
       >
+        <Form.Text>
+          <h1 style={{ color: "white" }}>Sign In</h1>
+        </Form.Text>
         <Form.Group controlId="formEmail">
-          <Form.Label>Email</Form.Label>
+          <Form.Label style={{ color: "white" }}>Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -76,7 +80,7 @@ function SignIn() {
         </Form.Group>
 
         <Form.Group controlId="formPassword" className="mt-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label style={{ color: "white" }}>Password</Form.Label>
           <InputGroup>
             <Form.Control
               type={showPassword ? "text" : "password"}
@@ -97,7 +101,12 @@ function SignIn() {
           </InputGroup>
         </Form.Group>
 
-        <Button variant="primary" type="submit" disabled={loading}>
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={loading}
+          style={{ marginTop: "2rem" }}
+        >
           {loading ? "Signing In..." : "Sign In"}
         </Button>
 

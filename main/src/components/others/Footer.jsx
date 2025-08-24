@@ -13,28 +13,6 @@ function Footer() {
               reserved.
             </p>
           </Col>
-
-          {/* Right side - Social Links */}
-          <Col md={6} className="text-center text-md-end">
-            <a
-              href="https://github.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-light me-3"
-            ></a>
-            <a
-              href="https://linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-light me-3"
-            ></a>
-            <a
-              href="https://twitter.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-light"
-            ></a>
-          </Col>
         </Row>
       </Container>
     </footer>

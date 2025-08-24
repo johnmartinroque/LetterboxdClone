@@ -28,6 +28,7 @@ function Diary() {
             <th>RATING</th>
             <th>LIKE</th>
             <th>REWATCH</th>
+            <th>EDIT</th>
           </tr>
         </thead>
         <tbody>
@@ -101,6 +102,7 @@ function Diary() {
                       <i className="fa-solid fa-repeat"></i>
                     )}
                   </td>
+                  <td></td>
                 </tr>
               );
             })
