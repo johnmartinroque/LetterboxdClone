@@ -15,12 +15,6 @@ function PopularReviews({ filmId }) {
 
   useEffect(() => {
     if (filmId) {
-      dispatch(fetchPopularReviews(filmId));
-    }
-  }, [dispatch, filmId]);
-
-  useEffect(() => {
-    if (filmId) {
       console.log("Dispatching fetchPopularReviews for filmId:", filmId);
       dispatch(fetchPopularReviews(filmId));
     }
@@ -41,8 +35,8 @@ function PopularReviews({ filmId }) {
       ) : (
         <ul className="list-unstyled">
           {reviews
-            .sort((a, b) => b.likes - a.likes) // Sort by likes descending
-            .slice(0, 3) // Only show top 3
+            .sort((a, b) => b.likes - a.likes)
+            .slice(0, 3)
             .map((review) => (
               <li
                 key={review.id}

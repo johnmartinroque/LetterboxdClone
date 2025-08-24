@@ -76,7 +76,7 @@ function RecentReviews({ filmId }) {
         <p>No reviews yet for this film.</p>
       ) : (
         <ul className="list-unstyled">
-          {reviews.map((review) => (
+          {reviews.slice(0, 3).map((review) => (
             <li
               key={review.id}
               style={{

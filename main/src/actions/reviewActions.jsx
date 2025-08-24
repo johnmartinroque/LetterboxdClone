@@ -54,15 +54,23 @@ export const fetchPopularReviews = (filmId) => async (dispatch) => {
     const q = query(
       reviewsRef,
       where("filmId", "==", filmId),
-      orderBy("likes", "desc"),
-      limit(10)
+      limit(10) // Remove orderBy for now
     );
 
     const snapshot = await getDocs(q);
-    const reviewsData = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+
+    // Map docs and add likes count based on likers array length
+    const reviewsData = snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        likes: data.likers?.length || 0, // add likes property here
+      };
+    });
+
+    // Sort reviews descending by likes on client
+    reviewsData.sort((a, b) => b.likes - a.likes);
 
     dispatch({
       type: POPULAR_REVIEWS_SUCCESS,

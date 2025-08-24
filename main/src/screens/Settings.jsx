@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import ProfileAuth from "../components/authentication/ProfileAuth";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ProfileSettings from "../components/settings/ProfileSettings";
@@ -30,7 +29,6 @@ function Settings() {
           </Tabs>
         </Row>
       </Container>
-      <ProfileAuth />
     </div>
   );
 }
