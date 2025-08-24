@@ -33,8 +33,11 @@ function UserHome() {
       <Row className="text-center mt-5">
         <Col>
           <h2 style={{ color: "white" }}>
-            Welcome back, <Link to={`/user/${userId}`}>{username}</Link> Here’s
-            what we’ve been watching…
+            Welcome back,{" "}
+            <Link to={`/user/${userId}`} style={{ color: "white" }}>
+              {username}
+            </Link>{" "}
+            Here’s what we’ve been watching…
           </h2>
           <h5 style={{ color: "white" }}>
             This homepage will become customized as you follow active members on

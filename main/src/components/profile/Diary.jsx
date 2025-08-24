@@ -63,7 +63,7 @@ function Diary() {
                   </td>
                   <td>{day}</td>
                   <td>
-                    <Link to={`/user/${review.userId}/film/${review.filmId}`}>
+                    <Link to={`/film/${review.filmId}`}>
                       {review.filmPoster && (
                         <img
                           src={`https://image.tmdb.org/t/p/w92${review.filmPoster}`}
@@ -76,17 +76,24 @@ function Diary() {
                         />
                       )}
                     </Link>
-                    <Link to={`/user/${review.userId}/`}>
+                    <Link to={`/film/${review.filmId}/`}>
                       {review.filmTitle || review.filmId}
                     </Link>
                   </td>
                   <td>{review.released}</td>
                   <td>
                     {[...Array(Math.floor(review.rating || 0))].map((_, i) => (
-                      <i key={i} className="fa-solid fa-star"></i>
+                      <i
+                        key={i}
+                        className="fa-solid fa-star"
+                        style={{ color: "#ebff3b" }}
+                      ></i>
                     ))}
                     {review.rating % 1 !== 0 && (
-                      <i className="fa-solid fa-star-half-stroke"></i>
+                      <i
+                        className="fa-solid fa-star-half-stroke"
+                        style={{ color: "#ebff3b" }}
+                      ></i>
                     )}
                   </td>
                   <td>

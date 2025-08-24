@@ -90,17 +90,6 @@ function HeaderUser() {
             )}
           </Nav>
 
-          {/* Search and logout */}
-          <Form className="d-flex me-2">
-            <FormControl
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-
           <Button variant="outline-light" onClick={handleLogout}>
             Log Out
           </Button>
