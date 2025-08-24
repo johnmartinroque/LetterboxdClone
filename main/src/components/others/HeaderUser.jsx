@@ -32,9 +32,20 @@ function HeaderUser() {
       <Container>
         {/* Brand */}
         <Navbar.Brand as={Link} to="/">
-          MyApp
+          <img
+            src="/image/watchlog.png"
+            className="d-inline-block"
+            alt="React Bootstrap logo"
+            style={{
+              maxHeight: "40px", // controls max height relative to navbar
+              height: "auto",
+              width: "auto",
+            }}
+          />
         </Navbar.Brand>
-
+        <Navbar.Brand as={Link} to="/">
+          Watchlog
+        </Navbar.Brand>
         {/* Toggle for mobile */}
         <Navbar.Toggle aria-controls="user-navbar-nav" />
 

@@ -13,9 +13,20 @@ function Header() {
     <Navbar bg="transparent" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          MyApp
+          <img
+            src="/image/watchlog.png"
+            className="d-inline-block"
+            alt="React Bootstrap logo"
+            style={{
+              maxHeight: "40px", // controls max height relative to navbar
+              height: "auto",
+              width: "auto",
+            }}
+          />
         </Navbar.Brand>
-
+        <Navbar.Brand as={Link} to="/">
+          Watchlog
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
 
         <Navbar.Collapse id="navbar-nav">

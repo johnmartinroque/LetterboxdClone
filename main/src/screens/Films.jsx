@@ -21,7 +21,6 @@ function Films() {
   return (
     <Container className="mt-4">
       <Row>
-        <Col>Browse By</Col>
         <Col>
           <SearchFilm />
         </Col>
