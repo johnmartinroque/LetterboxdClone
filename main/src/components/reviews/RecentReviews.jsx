@@ -87,8 +87,8 @@ function RecentReviews({ filmId, refreshTrigger, onLikeToggle }) {
               }}
             >
               <Row>
-                <Col className="d-flex text-start gap-2">
-                  <span>Review by</span>
+                <Col className="text-start">
+                  <span>Review by </span>
                   <strong>
                     <Link
                       to={`/user/${review.userId}`}
@@ -102,8 +102,9 @@ function RecentReviews({ filmId, refreshTrigger, onLikeToggle }) {
                     allowFraction
                     initialValue={review.rating}
                     size={20}
-                    fillColor="#ffe601ff"
+                    fillColor="	#00e054"
                     emptyColor="#ccc"
+                    style={{ paddingBottom: "5px" }}
                   />
                 </Col>
               </Row>
@@ -134,6 +135,7 @@ function RecentReviews({ filmId, refreshTrigger, onLikeToggle }) {
                       whiteSpace: "normal",
                       maxWidth: "100%",
                       display: "inline-block",
+                      color: "#aaaaaa",
                     }}
                   >
                     {review.reviewText}

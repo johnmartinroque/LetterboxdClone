@@ -63,7 +63,7 @@ function RatingsBarChart({ filmId }) {
       {
         label: "Number of Ratings",
         data: ratingCounts,
-        backgroundColor: "#3399ff",
+        backgroundColor: "#556678",
       },
     ],
   };
@@ -127,7 +127,12 @@ function RatingsBarChart({ filmId }) {
         {/* Left star */}
         <i
           className="fa-solid fa-star"
-          style={{ fontSize: "10px", color: "#ffe601", marginRight: "10px" }}
+          style={{
+            fontSize: "10px",
+            color: "	#00e054",
+            marginRight: "10px",
+            paddingBottom: "0.3rem",
+          }}
         ></i>
 
         {/* Chart */}
@@ -136,26 +141,28 @@ function RatingsBarChart({ filmId }) {
         </div>
 
         {/* Right star */}
-        <i
-          className="fa-solid fa-star"
-          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
-        ></i>
-        <i
-          className="fa-solid fa-star"
-          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
-        ></i>
-        <i
-          className="fa-solid fa-star"
-          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
-        ></i>
-        <i
-          className="fa-solid fa-star"
-          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
-        ></i>
-        <i
-          className="fa-solid fa-star"
-          style={{ fontSize: "10px", color: "#ffe601", marginRight: "3px" }}
-        ></i>
+        <div style={{ paddingBottom: "0.3rem" }}>
+          <i
+            className="fa-solid fa-star"
+            style={{ fontSize: "10px", color: "	#00e054", marginRight: "3px" }}
+          ></i>
+          <i
+            className="fa-solid fa-star"
+            style={{ fontSize: "10px", color: "	#00e054", marginRight: "3px" }}
+          ></i>
+          <i
+            className="fa-solid fa-star"
+            style={{ fontSize: "10px", color: "	#00e054", marginRight: "3px" }}
+          ></i>
+          <i
+            className="fa-solid fa-star"
+            style={{ fontSize: "10px", color: "	#00e054", marginRight: "3px" }}
+          ></i>
+          <i
+            className="fa-solid fa-star"
+            style={{ fontSize: "10px", color: "	#00e054", marginRight: "3px" }}
+          ></i>
+        </div>
       </div>
     </div>
   );

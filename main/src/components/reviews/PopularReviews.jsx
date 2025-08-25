@@ -86,22 +86,34 @@ function PopularReviews({ filmId, refreshTrigger, onLikeToggle }) {
                 }}
               >
                 <Row>
-                  <Col className="d-flex text-start gap-2">
-                    <span>Review by</span>
-                    <Link
-                      to={`/user/${review.userId}`}
-                      style={{ color: "white", textDecoration: "none" }}
+                  <Col className="text-start">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        flexWrap: "wrap",
+                      }}
                     >
-                      {review.username}
-                    </Link>
-                    <Rating
-                      readonly
-                      allowFraction
-                      initialValue={review.rating}
-                      size={20}
-                      fillColor="#ffe601ff"
-                      emptyColor="#ccc"
-                    />
+                      <span>Review by</span>
+                      <strong>
+                        <Link
+                          to={`/user/${review.userId}`}
+                          style={{ color: "white", textDecoration: "none" }}
+                        >
+                          {review.username}
+                        </Link>
+                      </strong>
+                      <Rating
+                        readonly
+                        allowFraction
+                        initialValue={review.rating}
+                        size={20}
+                        fillColor="	#00e054"
+                        emptyColor="#ccc"
+                        style={{ paddingBottom: "5px" }}
+                      />
+                    </div>
                   </Col>
                 </Row>
 
@@ -139,6 +151,7 @@ function PopularReviews({ filmId, refreshTrigger, onLikeToggle }) {
                         whiteSpace: "normal",
                         maxWidth: "100%",
                         display: "inline-block",
+                        color: "#aaaaaa",
                       }}
                     >
                       {review.reviewText}
