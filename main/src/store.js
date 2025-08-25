@@ -22,7 +22,7 @@ import {
   featuredListsReducer,
   listDetailsReducer,
 } from "./reducers/listReducers";
-import { diaryReducer } from "./reducers/profileReducers";
+import { diaryReducer, watchlistReducer } from "./reducers/profileReducers";
 
 const rootReducer = combineReducers({
   filmTrending: filmTrendingReducer,
@@ -39,6 +39,7 @@ const rootReducer = combineReducers({
   popularReviews: popularReviewsReducer,
   favoriteFilms: favoriteFilmsReducer,
   diary: diaryReducer,
+  watchlist: watchlistReducer,
 });
 
 const middleware = [thunk];
