@@ -26,6 +26,7 @@ function AddReview(props) {
   const [rating, setRating] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [watched, setWatched] = useState(false);
+  const [watchlist, setWatchlist] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -41,6 +42,7 @@ function AddReview(props) {
         filmId: Number(filmId),
         likers: [],
         watchers: [],
+        watchlist: [],
       });
     }
 
@@ -98,6 +100,26 @@ function AddReview(props) {
     }
   };
 
+  const toggleWatchlist = async () => {
+    try {
+      const statsRef = await getOrCreateStatsDoc();
+
+      if (watchlist) {
+        await updateDoc(statsRef, {
+          watchlist: arrayRemove(userId),
+        });
+      } else {
+        await updateDoc(statsRef, {
+          watchlist: arrayUnion(userId),
+        });
+      }
+
+      setWatchlist((prev) => !prev);
+    } catch (error) {
+      console.error("Error updating watchlist status:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchUserStats = async () => {
       if (!userId || !filmId) return;
@@ -109,6 +131,7 @@ function AddReview(props) {
         const data = snapshot.data();
         setIsLiked(data.likers?.includes(userId));
         setWatched(data.watchers?.includes(userId));
+        setWatchlist(data.watchlist?.includes(userId));
       }
     };
 
@@ -195,12 +218,24 @@ function AddReview(props) {
               </div>
 
               {/* Watchlist */}
-              <div className="col-4 d-flex flex-column align-items-center">
+              <div
+                className={`col-4 d-flex flex-column align-items-center watchlist-icon ${
+                  watchlist ? "active" : ""
+                }`}
+              >
                 <i
                   className="fa-solid fa-plus"
-                  style={{ fontSize: "3rem", cursor: "pointer" }}
+                  style={{
+                    fontSize: "3rem",
+                    color: watchlist ? "#00bfff" : "",
+                    cursor: "pointer",
+                  }}
+                  onClick={toggleWatchlist}
                 ></i>
-                <h5>Watchlist</h5>
+                <h5 className="label">
+                  {watchlist ? "In Watchlist" : "Watchlist"}
+                  <span className="hover-label">Remove</span>
+                </h5>
               </div>
             </div>
           </div>
