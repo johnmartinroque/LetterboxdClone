@@ -49,7 +49,12 @@ function PopularReviews({ filmId }) {
                 <Row>
                   <Col className="d-flex text-start gap-2">
                     <span>Review by</span>
-                    <strong>{review.username}</strong>
+                    <Link
+                      to={`/user/${review.userId}`}
+                      style={{ color: "white" }}
+                    >
+                      {review.username}
+                    </Link>
                     <Rating
                       readonly
                       allowFraction

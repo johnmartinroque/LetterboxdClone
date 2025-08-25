@@ -1,14 +1,15 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 function ProfilePublic({ user }) {
   return (
     <div>
       <Container>
-        <h1>{user.username}'s Profile</h1>
-        <p>Email: {user.email}</p>
-        <p>This is a public view of the user.</p>
-        {/* Add lists, reviews, follow button, etc. */}
+        <Row className="pt-5 pb-5">
+          <Col>
+            <h1>{user.username}</h1>
+          </Col>
+        </Row>
       </Container>
     </div>
   );

@@ -102,13 +102,24 @@ function FilmDetailed() {
           <Statistics filmId={id} />
         </Col>
         <Col md={4} style={{ color: "#aaaaaa" }}>
-          <h2>
-            {detail.title} ({new Date(detail.release_date).getFullYear()}){" "}
-            {director ? (
-              <Link to={`/director/${director.id}`}>{director.name}</Link>
-            ) : (
-              "Director unknown"
-            )}
+          <h2 style={{ color: "white", fontWeight: "bold" }}>
+            {detail.title}
+            <h3 style={{ color: "#aaaaaa" }}>
+              ({new Date(detail.release_date).getFullYear()})
+            </h3>
+            <h3 style={{ color: "#aaaaaa" }}>
+              Directed by{" "}
+              {director ? (
+                <Link
+                  to={`/director/${director.id}`}
+                  style={{ color: "#ffffff" }}
+                >
+                  {director.name}
+                </Link>
+              ) : (
+                "Director unknown"
+              )}
+            </h3>
           </h2>
 
           <p>
@@ -198,16 +209,14 @@ function FilmDetailed() {
           <RatingsBarChart filmId={id} />
         </Col>
       </Row>
-      <Row className="text-center">
-        <Col md={4}></Col>
-        <Col md={8}>
+      <Row className="pt-5">
+        <Col className="d-flex justify-content-center">
           <PopularReviews filmId={id} />
         </Col>
       </Row>
 
-      <Row className="text-center">
-        <Col md={4}></Col>
-        <Col md={8}>
+      <Row className="pt-3">
+        <Col className="d-flex justify-content-center">
           <RecentReviews filmId={id} />
         </Col>
       </Row>
