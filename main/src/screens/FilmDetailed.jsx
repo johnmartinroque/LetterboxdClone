@@ -18,6 +18,7 @@ import RatingsBarChart from "../components/reviews/RatingsBarChart";
 function FilmDetailed() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [refreshReviews, setRefreshReviews] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState("");

@@ -89,7 +89,12 @@ function RecentReviews({ filmId }) {
                 <Col className="d-flex text-start gap-2">
                   <span>Review by</span>
                   <strong>
-                    <Link to={`/user/${review.userId}`}>{review.username}</Link>
+                    <Link
+                      to={`/user/${review.userId}`}
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      {review.username}
+                    </Link>
                   </strong>
                   <Rating
                     readonly
