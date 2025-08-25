@@ -43,10 +43,6 @@ function Header() {
             <Nav.Link as={Link} to="/lists">
               Lists
             </Nav.Link>
-            <Nav.Link as={Link} to="/journal">
-              Journal
-            </Nav.Link>
-
             <NavDropdown title="More" id="nav-dropdown">
               <NavDropdown.Item as={Link} to="/about">
                 About

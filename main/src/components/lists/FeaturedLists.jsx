@@ -26,7 +26,8 @@ function FeaturedLists() {
 
   return (
     <Container>
-      <h3 style={{ color: "white" }}>Featured Lists</h3>
+      <h5 style={{ color: "white" }}>FEATURED LISTS</h5>
+      <hr style={{ borderTop: "2px solid white", marginTop: "0.5rem" }} />
       <Row>
         {lists.slice(0, 3).map((list, index) => (
           <Col key={list.id} md={4} style={{ marginBottom: "2rem" }}>

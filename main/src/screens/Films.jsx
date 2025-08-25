@@ -25,8 +25,8 @@ function Films() {
           <SearchFilm />
         </Col>
       </Row>
-      <h2 className="mb-4">Popular Films This Week</h2>
-
+      <h5 style={{ color: "white" }}>POPULAR FILMS THIS WEEK</h5>
+      <hr style={{ borderTop: "2px solid white", marginTop: "0.5rem" }} />
       {loading ? (
         <Spinner animation="border" />
       ) : error ? (

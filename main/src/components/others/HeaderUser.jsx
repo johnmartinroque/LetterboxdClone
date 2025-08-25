@@ -80,9 +80,6 @@ function HeaderUser() {
             <Nav.Link as={Link} to="/lists">
               Lists
             </Nav.Link>
-            <Nav.Link as={Link} to="/journal">
-              Journal
-            </Nav.Link>
             {userInfo && (
               <Nav.Link as={Link} to={`/user/${userInfo.userId}`}>
                 Profile

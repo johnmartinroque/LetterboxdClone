@@ -33,7 +33,10 @@ function Lists() {
         </Col>
       </Row>
       <Row className="justify-content-center mt-3">
-        <Button style={{ width: "10rem" }} onClick={startList}>
+        <Button
+          style={{ width: "10rem", backgroundColor: "#556678" }}
+          onClick={startList}
+        >
           Stat your own list
         </Button>
       </Row>

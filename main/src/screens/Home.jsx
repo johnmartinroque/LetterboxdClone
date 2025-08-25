@@ -1,12 +1,13 @@
 import React from "react";
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import landingPagePic from "../images/bg.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate("");
   return (
     <div>
       <Container>
-        <h1>TEST BRANCH</h1>
         <Row>
           <Col className="position-relative p-0">
             <Image
@@ -46,7 +47,9 @@ function Home() {
         </Row>
         <Row>
           <Col className="d-flex justify-content-center">
-            <Button>Get started - it's free</Button>
+            <Button onClick={() => navigate(`/createaccount`)}>
+              Get started - it's free
+            </Button>
           </Col>
         </Row>
       </Container>

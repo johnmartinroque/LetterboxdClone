@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../actions/authenticationActions"; // Updated import
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -101,14 +101,22 @@ function SignIn() {
           </InputGroup>
         </Form.Group>
 
-        <Button
-          variant="primary"
-          type="submit"
-          disabled={loading}
-          style={{ marginTop: "2rem" }}
-        >
-          {loading ? "Signing In..." : "Sign In"}
-        </Button>
+        <div className="d-flex justify-content-between align-items-center mt-4">
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={loading}
+            style={{ marginRight: "1rem" }}
+          >
+            {loading ? "Signing In..." : "Sign In"}
+          </Button>
+          <Link
+            to="/createaccount"
+            style={{ color: "white", textDecoration: "underline" }}
+          >
+            Don't have an account? Create Now
+          </Link>
+        </div>
 
         {/* Error handling */}
         {error && (

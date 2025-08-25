@@ -42,10 +42,10 @@ function SearchFilm() {
     <div style={{ position: "relative", maxWidth: "400px" }} ref={dropdownRef}>
       <Form>
         <Form.Group className="mb-3" style={{ position: "relative" }}>
-          <Form.Label>FIND A FILM</Form.Label>
+          <Form.Label style={{ color: "white" }}>FIND A FILM</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Search for a movie..."
+            placeholder="Search for a film..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => query && setShowDropdown(true)}

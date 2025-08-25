@@ -17,7 +17,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import "../../css/Reviews.css";
 import { fetchUserInfo } from "../../actions/authenticationActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../css/FilmDetailed.css";
 import { fetchRecentReviews } from "../../actions/reviewActions";
 
@@ -29,7 +29,7 @@ function AddReview(props) {
   const [watchlist, setWatchlist] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
-
+  const navigate = useNavigate("");
   const dispatch = useDispatch();
   const { userInfo, loading, error } = useSelector((state) => state.userInfo);
 
@@ -168,6 +168,16 @@ function AddReview(props) {
   const toggleModal = () => {
     setShowModal((prev) => !prev);
   };
+
+  if (!userInfo) {
+    return (
+      <div style={{ textAlign: "center", padding: "2rem" }}>
+        <Button variant="primary" onClick={() => navigate(`/signin`)}>
+          Sign in to log, rate or review
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div>

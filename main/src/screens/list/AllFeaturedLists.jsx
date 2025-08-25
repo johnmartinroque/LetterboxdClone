@@ -26,7 +26,11 @@ function AllFeaturedLists() {
 
   return (
     <Container>
-      <h3 style={{ color: "white" }}>Featured Lists</h3>
+      <h3 style={{ color: "white", padding: "3rem", textAlign: "center" }}>
+        Featured Lists — a starter pack from the community and beyond.
+      </h3>
+      <h5 style={{ color: "white" }}>WATCHLOG COMMUNITY</h5>
+      <hr style={{ borderTop: "2px solid white", marginTop: "0.5rem" }} />
       <Row>
         {lists.map((list, index) => (
           <Col key={list.id} md={4} style={{ marginBottom: "2rem" }}>
