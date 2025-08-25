@@ -58,7 +58,7 @@ function FilmDetailed() {
     }
     return acc;
   }, {});
-
+  const toggleRefresh = () => setRefreshReviews((prev) => !prev);
   return (
     <Container className="mt-4">
       <Row>
@@ -212,13 +212,21 @@ function FilmDetailed() {
       </Row>
       <Row className="pt-5">
         <Col className="d-flex justify-content-center">
-          <PopularReviews filmId={id} />
+          <PopularReviews
+            filmId={id}
+            refreshTrigger={refreshReviews}
+            onLikeToggle={toggleRefresh}
+          />
         </Col>
       </Row>
 
       <Row className="pt-3">
         <Col className="d-flex justify-content-center">
-          <RecentReviews filmId={id} />
+          <RecentReviews
+            filmId={id}
+            refreshTrigger={refreshReviews}
+            onLikeToggle={toggleRefresh}
+          />
         </Col>
       </Row>
       <PosterModal

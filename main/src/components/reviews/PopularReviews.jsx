@@ -7,7 +7,7 @@ import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { fetchPopularReviews } from "../../actions/reviewActions";
 
-function PopularReviews({ filmId }) {
+function PopularReviews({ filmId, refreshTrigger, onLikeToggle }) {
   const dispatch = useDispatch();
   const { loading, reviews, error } = useSelector(
     (state) => state.popularReviews
@@ -22,7 +22,7 @@ function PopularReviews({ filmId }) {
     if (filmId) {
       dispatch(fetchPopularReviews(filmId));
     }
-  }, [dispatch, filmId]);
+  }, [dispatch, filmId, refreshTrigger]);
 
   useEffect(() => {
     if (reviews.length > 0 && userId) {
@@ -53,6 +53,7 @@ function PopularReviews({ filmId }) {
       }
 
       setLikesState((prev) => ({ ...prev, [reviewId]: !isLiked }));
+      onLikeToggle();
     } catch (err) {
       console.error("Error updating review like:", err);
     }

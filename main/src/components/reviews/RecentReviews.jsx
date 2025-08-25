@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 
-function RecentReviews({ filmId }) {
+function RecentReviews({ filmId, refreshTrigger, onLikeToggle }) {
   const dispatch = useDispatch();
   const { loading, reviews, error } = useSelector(
     (state) => state.recentReviews
@@ -26,7 +26,7 @@ function RecentReviews({ filmId }) {
 
   useEffect(() => {
     if (filmId) dispatch(fetchRecentReviews(filmId));
-  }, [dispatch, filmId]);
+  }, [dispatch, filmId, refreshTrigger]);
 
   useEffect(() => {
     if (reviews.length > 0 && userId) {
@@ -57,6 +57,7 @@ function RecentReviews({ filmId }) {
       }
 
       setLikesState((prev) => ({ ...prev, [reviewId]: !isLiked }));
+      onLikeToggle();
     } catch (err) {
       console.error("Error updating review like:", err);
     }
