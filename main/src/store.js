@@ -17,6 +17,7 @@ import {
 import {
   popularReviewsReducer,
   recentReviewsReducer,
+  userReviewsReducer,
 } from "./reducers/reviewReducers";
 import {
   featuredListsReducer,
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   favoriteFilms: favoriteFilmsReducer,
   diary: diaryReducer,
   watchlist: watchlistReducer,
+  userReviews: userReviewsReducer,
 });
 
 const middleware = [thunk];

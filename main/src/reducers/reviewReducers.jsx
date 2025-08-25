@@ -5,6 +5,9 @@ import {
   POPULAR_REVIEWS_REQUEST,
   POPULAR_REVIEWS_SUCCESS,
   POPULAR_REVIEWS_FAIL,
+  USER_REVIEWS_REQUEST,
+  USER_REVIEWS_SUCCESS,
+  USER_REVIEWS_FAIL,
 } from "../constants/reviewConstans";
 
 export const recentReviewsReducer = (state = { reviews: [] }, action) => {
@@ -34,6 +37,19 @@ export const popularReviewsReducer = (state = { reviews: [] }, action) => {
     case POPULAR_REVIEWS_FAIL:
       return { loading: false, error: action.payload, reviews: [] };
 
+    default:
+      return state;
+  }
+};
+
+export const userReviewsReducer = (state = { reviews: [] }, action) => {
+  switch (action.type) {
+    case USER_REVIEWS_REQUEST:
+      return { loading: true, reviews: [] };
+    case USER_REVIEWS_SUCCESS:
+      return { loading: false, reviews: action.payload };
+    case USER_REVIEWS_FAIL:
+      return { loading: false, error: action.payload, reviews: [] };
     default:
       return state;
   }
